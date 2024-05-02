@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: FadeInUp(duration: Duration(seconds: 1), child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/LoginImage.png'),
+                          image: AssetImage('assets/images/LoginPage.png'),
                           fit: BoxFit.fill
                         )
                       ),
@@ -36,7 +36,8 @@ class _LoginPageState extends State<LoginPage> {
                   Positioned(
                     height: 400,
                     width: width+20,
-                    child: FadeInUp(duration: Duration(milliseconds: 1000), child: Container(
+                    child: FadeInUp(duration: Duration(milliseconds: 1000), 
+                    child: Container(
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/background-2.png'), //da togliere
