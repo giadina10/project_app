@@ -1,19 +1,27 @@
- import 'package:flutter/material.dart';
- import 'package:blood/screens/LoginPage.dart';
+
+
 import 'package:blood/screens/HomePage.dart';
- void main() {
+import 'package:blood/screens/Splash.dart';
+import 'package:flutter/material.dart';
+
+import 'package:blood/screens/LoginPage.dart';
+
+void main() {
   runApp(const MyApp());
- } //main
- class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home:Splash(),
       routes: {
-      '/Homepage': (context) => HomePage(),
-      '/LoginPage':(context) => LoginPage(),
-      }
+        '/login': (context) => LoginPage(),
+        '/home': (context)=> HomePage(),
+      },
     );
-  } //build
- }//MyApp
+  }
+}
+
