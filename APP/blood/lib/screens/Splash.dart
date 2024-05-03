@@ -35,7 +35,7 @@ class _SplashState extends State<Splash>{
             height: 150,
             width: 400,
             alignment: Alignment.center),
-            Text('Blood'),
+            Text('Sangue'),
           ]
         ),
       )
