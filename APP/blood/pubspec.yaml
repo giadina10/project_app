@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.1
+  shared_preferences: ^2.2.3
    
 
 
@@ -69,7 +71,7 @@ flutter:
   - assets/images/welcome1.jpg
   - assets/images/welcome2.png
   - assets/images/welcome3.jpg
-  - assets/images/login2.jpeg
+  - assets/images/Login2.jpeg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

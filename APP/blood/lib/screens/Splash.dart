@@ -20,7 +20,7 @@ class _SplashState extends State<Splash>{
   }
 
   void _navigatetoHome(context)async{
-    await Future.delayed(Duration(seconds: 3),(){});
+    await Future.delayed(Duration(seconds: 5),(){});
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
   }
 
@@ -31,7 +31,7 @@ class _SplashState extends State<Splash>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:<Widget>[
-            Image(image: AssetImage('assets/images/welcome.png'),
+            Image(image: AssetImage('assets/images/Login2.jpeg'),
             height: 150,
             width: 400,
             alignment: Alignment.center),
