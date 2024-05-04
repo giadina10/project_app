@@ -26,32 +26,16 @@ class _LoginPageState extends State<LoginPage> {
   
   //funzione validate per controllo campi email e password
   bool _validateFields() {
-  if (userController.text.isEmpty) {
+  if (userController.text.isEmpty ||passwordController.text.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.red,
-        content: Text('Username is required'),
+        content: Text('Username and password are required'),
       ),
     );
     return false;
   }
-  if (passwordController.text.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red,
-        content: Text('Password is required'),
-      ),
-    );
-    return false;
-  }
-  if (passwordController.text.isEmpty ||userController.text.isEmpty){
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.red,
-        content: Text('Username and Password are required'),
-      )
-    );
-  }
+ 
   return true;
 }
 
@@ -195,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                           await sp.setString('username', userController.text);
                           await sp.setString(
                               'password', passwordController.text);
-                          Navigator.pushNamed(context, '/home');
+                          Navigator.pushNamed(context, '/form');
                         }
                        
                         else {
