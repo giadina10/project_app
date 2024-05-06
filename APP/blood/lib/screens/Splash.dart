@@ -1,5 +1,5 @@
 
-import 'package:blood/screens/LoginPage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
 import 'dart:async';
@@ -20,25 +20,37 @@ class _SplashState extends State<Splash>{
   }
 
   void _navigatetoHome(context)async{
-    await Future.delayed(Duration(seconds: 5),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    await Future.delayed(Duration(seconds: 3),(){});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
   }
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:<Widget>[
-            Image(image: AssetImage('assets/images/Login2.jpeg'),
-            height: 150,
-            width: 400,
-            alignment: Alignment.center),
-            Text('Blood'),
-          ]
-        ),
-      )
+      backgroundColor:Colors.white,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 240,
+                  decoration: BoxDecoration(color: Color.fromARGB(255, 31, 78, 107),
+                  borderRadius: 
+                  BorderRadius.only(
+                    bottomLeft: Radius.circular(20), 
+                    bottomRight: Radius.circular(20),
+                     )
+                  ),
+                ),
+                
+              ]
+            )
+
+        ],)
+      ,),
+      
     );
   }
 }
