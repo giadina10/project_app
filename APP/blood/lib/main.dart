@@ -2,8 +2,8 @@
 
 import 'package:blood/screens/HomePage.dart';
 import 'package:blood/screens/MultiFormPage.dart';
-import 'package:blood/screens/QuestionPage.dart';
 import 'package:blood/screens/Splash.dart';
+import 'package:blood/screens/login2.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blood/screens/LoginPage.dart';
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/home': (context)=> HomePage(),
         '/form':(context) => MultiFormPage(),
+        '/login2': (context) => LoginPage2(),
       },
     );
   }
