@@ -1,8 +1,11 @@
 
 
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
 import 'dart:async';
+
+import 'package:lottie/lottie.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget{

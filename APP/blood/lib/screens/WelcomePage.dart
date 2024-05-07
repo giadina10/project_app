@@ -84,7 +84,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
  Widget build(BuildContext context) {
   return Scaffold(
       body: Container(
-        color: const Color.fromARGB(255, 251, 132, 123),
+      
         child: Stack(
           children: <Widget>[
             PageView.builder(
