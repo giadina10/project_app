@@ -7,18 +7,29 @@ super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(QuestionPage.routename),
-      ),
-
- body: Center(
-        child: ElevatedButton(
-          child: Text('To the HomePage'),
-          onPressed: () {
-            Navigator.pop(context,MaterialPageRoute<void>(builder: (context)=>LoginPage()));
-          },
-        ),
- ),
- );
+      backgroundColor: Colors.red[300],
+      body:SafeArea(
+        child:Stack(
+          children:[
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height:240,
+                  decoration: BoxDecoration(
+                    color:Color.fromARGB(45,200 , 106, 120),
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25),
+                      bottomRight: Radius.circular(25),
+                    ),
+                ),
+                ),
+              ],
+            ),
+          ]
+        )
+      )
+    );
   }
  }
+
