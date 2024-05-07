@@ -75,8 +75,7 @@ class _MultiFormPage extends State <MultiFormPage> {
     Step(
       state: currentStep > 0 ? StepState.complete : StepState.indexed,
       isActive: currentStep >=0,
-      title: Text('Personal',
-      style: TextStyle(color: Colors.blue)),
+      title: Text('Personal'),
       content: Column(
         children: [
           TextFormField(

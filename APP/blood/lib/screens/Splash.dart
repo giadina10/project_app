@@ -1,8 +1,11 @@
 
-import 'package:blood/screens/LoginPage.dart';
+
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
 import 'dart:async';
+
+import 'package:lottie/lottie.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget{
@@ -20,8 +23,8 @@ class _SplashState extends State<Splash>{
   }
 
   void _navigatetoHome(context)async{
-    await Future.delayed(Duration(seconds: 5),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    await Future.delayed(Duration(seconds: 3),(){});
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
   }
 
   @override

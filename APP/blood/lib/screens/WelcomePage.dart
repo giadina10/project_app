@@ -1,6 +1,7 @@
-import 'package:blood/screens/LoginPage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:blood/screens/items.dart';
+import 'package:blood/screens/login2.dart';
 
 
 
@@ -83,6 +84,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
  Widget build(BuildContext context) {
   return Scaffold(
       body: Container(
+      
         child: Stack(
           children: <Widget>[
             PageView.builder(
@@ -104,9 +106,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
              
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/login2');
                     },
-                    color: Color.fromRGBO(49, 39, 79, 1),
+                    color: const Color.fromARGB(255, 241, 96, 85),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                     ),
@@ -114,7 +116,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     
                    
                     child: Center(
-                      child: Text("Let's start!", style: TextStyle(color: Colors.white, fontSize: 30),),
+                      child: Text("Getting started", style: TextStyle(color: Colors.white, fontSize: 25),),
                     ),
                   ),
                     
