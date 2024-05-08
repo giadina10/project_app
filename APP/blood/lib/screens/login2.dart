@@ -165,7 +165,7 @@ class _LoginPageState extends State<LoginPage2> {
                               await sp.setString('username', userController.text);
                               await sp.setString(
                                 'password', passwordController.text);
-                              Navigator.pushNamed(context, '/form');
+                              Navigator.pushNamed(context, '/signup');
                             } else {
                               ScaffoldMessenger.of(context)
                                 ..removeCurrentSnackBar()
