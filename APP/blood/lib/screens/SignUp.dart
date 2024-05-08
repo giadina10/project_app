@@ -21,7 +21,17 @@ class SignupPage extends StatelessWidget {
 
         ),
       ),
-      body: SingleChildScrollView(
+      body: 
+      Stack(
+        children: [
+          ClipPath(
+            clipper: MyClipper(),
+            child: Container(
+              height: 200,
+              color: const Color.fromARGB(255, 241, 96, 85),
+            ),
+          ),
+      SingleChildScrollView(
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height - 50,
@@ -31,70 +41,45 @@ class SignupPage extends StatelessWidget {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text("Sign up",
+                  Text("Before starting..",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
 
                   ),),
                   SizedBox(height: 20,),
-                  Text("Create an account, It's free ",
+                  Text("Tell us something more about you!",
                     style: TextStyle(
                         fontSize: 15,
-                        color:Colors.grey[700]),)
-
+                        color:const Color.fromARGB(255, 0, 0, 0)),)
+                
 
                 ],
               ),
               Column(
                 children: <Widget>[
-                  inputFile(label: "Username"),
-                  inputFile(label: "Email"),
-                  inputFile(label: "Password", obscureText: true),
-                  inputFile(label: "Confirm Password ", obscureText: true),
+                  inputFile(label: "Full name"),
+                  inputFile(label: "Age"),
+                  inputFile(label: "Weight"),
+                  inputFile(label: "Gender"),
                 ],
               ),
-              Container(
-                padding: EdgeInsets.only(top: 3, left: 3),
-                decoration:
-                BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border(
-                      bottom: BorderSide(color: Colors.black),
-                      top: BorderSide(color: Colors.black),
-                      left: BorderSide(color: Colors.black),
-                      right: BorderSide(color: Colors.black),
-
-
-
-                    )
-
-                ),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  height: 60,
-                  onPressed: () {},
-                  color: Color(0xff0095FF),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-
+             
+                MaterialButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home');
+                    },
+                    color: Color.fromARGB(255, 208, 59, 49),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    height: 50,
+                    child: Center(
+                      child: Text("Confirm", style: TextStyle(color: Colors.white, fontSize: 25),),
+                    ),
                   ),
-                  child: Text(
-                    "Sign up", style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Colors.white,
-
-                  ),
-                  ),
-
-                ),
-
-
-
-              ),
-              Row(
+                
+                Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("Already have an account?"),
@@ -104,20 +89,19 @@ class SignupPage extends StatelessWidget {
                   ),
                   )
                 ],
-              )
-
-
+              ),
 
             ],
+           ),
 
-          ),
+      )
 
-
-        ),
-
-      ),
-
-    );
+    
+      )
+        ]
+        )
+      );
+    
   }
 }
 
@@ -141,8 +125,9 @@ Widget inputFile({label, obscureText = false})
       SizedBox(
         height: 5,
       ),
-      TextField(
+      TextFormField(
         obscureText: obscureText,
+        
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0,
                 horizontal: 10),
@@ -160,4 +145,23 @@ Widget inputFile({label, obscureText = false})
       SizedBox(height: 10,)
     ],
   );
+}
+
+// Custom Clipper for the curved shape
+class MyClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    path.lineTo(0, size.height-30);
+    path.quadraticBezierTo(
+        size.width / 2, size.height, size.width, size.height - 30);
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
 }

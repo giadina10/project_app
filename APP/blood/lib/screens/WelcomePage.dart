@@ -35,7 +35,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           style: TextStyle(
                               fontSize: 50.0,
                               fontWeight: FontWeight.w300,
-                              color: Color(0XFF3F3D56),
+                              color: Color.fromARGB(241, 245, 139, 112),
                               height: 2.0)),
                       Text(
                         item['description'],
@@ -94,7 +94,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 return slides[index];
               },
             ), 
-            //NUOVA PARTE DA QUI
+            
             if (currentPage == slides.length - 1) // Mostra il bottone solo quando si è sull'ultima pagina
               Positioned(
                 bottom: 80.0,
