@@ -39,7 +39,7 @@ class SignupPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Column(
+              const Column(
                 children: <Widget>[
                   Text("Before starting..",
                   style: TextStyle(
@@ -51,7 +51,7 @@ class SignupPage extends StatelessWidget {
                   Text("Tell us something more about you!",
                     style: TextStyle(
                         fontSize: 15,
-                        color:const Color.fromARGB(255, 0, 0, 0)),)
+                        color:Color.fromARGB(255, 0, 0, 0)),)
                 
 
                 ],
@@ -121,6 +121,7 @@ Widget inputFile({label, obscureText = false})
             color:Colors.black87
         ),
 
+
       ),
       SizedBox(
         height: 5,
@@ -139,7 +140,8 @@ Widget inputFile({label, obscureText = false})
             ),
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey)
-            )
+            ),
+          
         ),
       ),
       SizedBox(height: 10,)
