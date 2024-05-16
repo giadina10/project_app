@@ -1,5 +1,11 @@
 
 
+import 'dart:convert';
+//import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Impact {
   static String baseUrl = 'https://impact.dei.unipd.it/bwthw/';
   static String pingEndpoint = 'gate/v1/ping/';
@@ -11,3 +17,4 @@ class Impact {
   static String patientUsername = 'Jpefaq6m58';
 
 }
+
