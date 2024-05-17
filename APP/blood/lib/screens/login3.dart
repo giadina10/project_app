@@ -1,15 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:blood/services/impact.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
-class LoginPage2 extends StatefulWidget {
-  const LoginPage2({super.key});
+import 'package:flutter/material.dart';
+import 'package:blood/services/impact2.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+//import 'package:jwt_decoder/jwt_decoder.dart';
+
+class LoginPage3 extends StatefulWidget {
+  const LoginPage3({super.key});
 
   @override
-  State<LoginPage2> createState() => _LoginPageState();
+  State<LoginPage3> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage2> {
+class _LoginPageState extends State<LoginPage3> {
   late Color myColor;
   late Size mediaSize;
   static bool _passwordVisible = false;
@@ -158,15 +162,16 @@ class _LoginPageState extends State<LoginPage2> {
     return MaterialButton(
                         onPressed: () async {
                           if (_validateFields()) {
-                            final result = await impact.getAndStoreTokens(
-                              userController.text, passwordController.text);
-                            if (result == 200) {
-                              final sp = await SharedPreferences.getInstance();
-                              await sp.setString('username', userController.text);
-                              await sp.setString(
-                                'password', passwordController.text);
-                              Navigator.pushNamed(context, '/form');
-                            } else {
+                            final result = await _authorize();
+                             final message =
+                             result == 200 ? 'Request successful' : 'Request failed';
+                           ScaffoldMessenger.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(SnackBar(content: Text(message)));
+                            Navigator.pushNamed(context, '/signup');
+                               }
+                             
+                              else {
                               ScaffoldMessenger.of(context)
                                 ..removeCurrentSnackBar()
                                 ..showSnackBar(const SnackBar(
@@ -177,8 +182,8 @@ class _LoginPageState extends State<LoginPage2> {
                                     content:
                                         Text("username or password incorrect")));
                             }
-                          }
-                        },
+                          },
+                        
                         color:  const Color.fromARGB(255, 241, 96, 85),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
@@ -209,3 +214,25 @@ class _LoginPageState extends State<LoginPage2> {
     );
   }
 }
+
+ Future<int?> _authorize() async {
+
+    //Create the request
+    final url = Impact.baseUrl + Impact.tokenEndpoint;
+    final body = {'username': Impact.username, 'password': Impact.password};
+
+    //Get the response
+    print('Calling: $url');
+    final response = await http.post(Uri.parse(url), body: body);
+
+    //If 200, set the token
+    if (response.statusCode == 200) {
+      final decodedResponse = jsonDecode(response.body);
+      final sp = await SharedPreferences.getInstance();
+      sp.setString('access', decodedResponse['access']);
+      sp.setString('refresh', decodedResponse['refresh']);
+    } //if
+
+    //Just return the status code 
+    return response.statusCode;
+  } //_authorize

@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +11,14 @@ class Impact {
   static String pingEndpoint = 'gate/v1/ping/';
   static String tokenEndpoint = 'gate/v1/token/';
   static String refreshEndpoint = 'gate/v1/refresh/';
+  static String stepsEndpoint = 'data/v1/steps/patients/';
+  static String heartrateEndpoint = '​/data​/v1​/heart_rate​/patients/';
+  static String username = 'x9Cr5EWXIY';
+  static String password = '12345678!';
+  static String patientUsername = 'Jpefaq6m58';
+
+
+  //PARTE DA CONTROLLARE, INSERITA ORA (17.05.24)
 
   //This method allows to check if the IMPACT backend is up
   Future<bool> isImpactUp() async {
@@ -38,8 +49,6 @@ class Impact {
       final sp = await SharedPreferences.getInstance();
       await sp.setString('access', decodedResponse['access']);
       await sp.setString('refresh', decodedResponse['refresh']);
-     
-
     } //if
 
     //Just return the status code
@@ -65,7 +74,6 @@ class Impact {
         final sp = await SharedPreferences.getInstance();
         await sp.setString('access', decodedResponse['access']);
         await sp.setString('refresh', decodedResponse['refresh']);
-        
       } //if
 
       //Just return the status code
@@ -73,4 +81,53 @@ class Impact {
     }
     return 401;
   } //_refreshTokens
+
+  //This method checks if the saved token is still valid
+  Future<bool> checkSavedToken({bool refresh = false}) async {
+    final sp = await SharedPreferences.getInstance();
+    final token = sp.getString(refresh ? 'refresh' : 'access');
+
+    //Check if there is a token
+    if (token == null) {
+      return false;
+    }
+    try {
+      return Impact.checkToken(token);
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static bool checkToken(String token) {
+    //Check if the token is expired
+    if (JwtDecoder.isExpired(token)) {
+      return false;
+    }
+    return true;
+  } //checkToken
+
+  //This method prepares the Bearer header for the calls
+  Future<Map<String, String>> getBearer() async {
+    if (!await checkSavedToken()) {
+      await refreshTokens();
+    }
+    final sp = await SharedPreferences.getInstance();
+    final token = sp.getString('access');
+
+    return {'Authorization': 'Bearer $token'};
+  }
+
+  Future<void> getPatient() async {
+    var header = await getBearer();
+    final r = await http.get(
+        Uri.parse('${Impact.baseUrl}study/v1/patients/active'),
+        headers: header);
+
+    final decodedResponse = jsonDecode(r.body);
+    final sp = await SharedPreferences.getInstance();
+
+    sp.setString('impactPatient', decodedResponse['data'][0]['username']);
+  }
+
+  
 } //Impact
