@@ -1,15 +1,18 @@
 
 
-import 'package:animated_splash_screen/animated_splash_screen.dart';
+//import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:blood/screens/HomePage.dart';
+import 'package:blood/screens/login3.dart';
+import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
 import 'dart:async';
 
-import 'package:lottie/lottie.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomWaveDecoration extends CustomPainter {
   @override
+
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = Colors.redAccent // Colore dell'ondulazione
@@ -34,6 +37,7 @@ class CustomWaveDecoration extends CustomPainter {
 
 class Splash extends StatefulWidget{
  const Splash({Key? key}) : super(key:key);
+
   @override
   _SplashState createState()=>_SplashState();
 }
@@ -46,7 +50,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   void initState(){
     super.initState();
     _startFadeInAnimation(); //t
-    _navigatetoHome(context);
+   // _navigatetoHome(context);
   }
 
 //t funzione
@@ -57,14 +61,37 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
       });
     });
   }
+   //3 funzioni inserite ora (17.05)
+void _toHomePage(BuildContext context) {
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+  } //_toHomePage
 
-  void _navigatetoHome(context)async{
-    await Future.delayed(Duration(seconds: 3),(){});
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
-  }
+  // Method for navigation SplashPage -> LoginPage
+  void _toLoginPage(BuildContext context) {
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: ((context) => WelcomeScreen())));//TODO: cambiare a loginpage3!!!!
+  } //_toLoginPage
+
+void _checkLogin(BuildContext context) async {
+    //final result = await Impact().refreshTokens();
+    final result = 400; // DA RIMUOVERE: utile SOLO in fase di check codice per vedere anche login e welcome. SCOMMMENTA RIGA SOPRA PER RISOLVERE +
+    if (result == 200) {
+      _toHomePage(context);
+    } else {
+      _toLoginPage(context);
+    }
+  } //_checkLogin
+//questa funzione è nostra
+  //void _navigatetoHome(context)async{
+   // await Future.delayed(Duration(seconds: 3),(){});
+    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
+  //}
 
   @override
   Widget build(BuildContext context){
+    //aggiunta ora la prossima riga
+    Future.delayed(const Duration(seconds: 3), () => _checkLogin(context));
     return Scaffold(
       body: Stack(
         children: [
