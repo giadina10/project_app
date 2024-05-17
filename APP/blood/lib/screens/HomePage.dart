@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:blood/models/steps.dart';
-import 'package:blood/services/impact.dart';
+import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,21 +22,32 @@ super(key: key);
       ),
 
  body: Center(
-        child: ElevatedButton(
-           onPressed: () async {
-          final result = await _requestData();
-                  print(result);
-                  final message =
-                      result == null ? 'Request failed' : 'Request successful';
-                  ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text(message)));
-  
-         
-          }, child: Text('REQUEST THE DATA'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () async {
+                final result = await _requestData();
+                print(result);
+                final message = result == null ? 'Request failed' : 'Request successful';
+                ScaffoldMessenger.of(context)
+                  ..removeCurrentSnackBar()
+                  ..showSnackBar(SnackBar(content: Text(message)));
+              },
+              child: Text('REQUEST THE DATA'),
+            ),
+            SizedBox(height: 20), // Spacing between the buttons
+            ElevatedButton(
+              onPressed: () {
+                // Logic for logout
+                Navigator.pushReplacementNamed(context, '/login'); // Assuming you have a login route
+              },
+              child: Text('LOGOUT'),
+            ),
+          ],
         ),
- ),
- );
+      ),
+    );
   }
  }
 
