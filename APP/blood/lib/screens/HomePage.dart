@@ -122,7 +122,7 @@ super(key: key);
   // Create the request URL (replace with your actual endpoint)
   final startDate = '2023-05-04';
   final endDate = '2023-05-07';
-  final url = '${Impact.baseUrl}${Impact.caloriesEndpoint} // Replace with actual calorie endpoint ${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
+  final url = '${Impact.baseUrl}${Impact.caloriesEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
 
   final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
@@ -188,13 +188,12 @@ super(key: key);
   // Create the request URL
   final startDate = '2023-03-04';
   final endDate = '2023-03-07';
-  final url = '${Impact.baseUrl}${Impact.heartrateEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
-
+  var url = '${Impact.baseUrl}${Impact.heartrateEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
+  url = 'https://impact.dei.unipd.it/bwthw/data/v1/heart_rate/patients/Jpefaq6m58/daterange/start_date/$startDate/end_date/$endDate/';
   final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
   // Print request URL for debugging
   print('Calling: $url');
-
   // Make the GET request
   final response = await http.get(Uri.parse(url), headers: headers);
 
