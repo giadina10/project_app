@@ -12,7 +12,9 @@ class Impact {
   static String tokenEndpoint = 'gate/v1/token/';
   static String refreshEndpoint = 'gate/v1/refresh/';
   static String stepsEndpoint = 'data/v1/steps/patients/';
-  static String heartrateEndpoint = '​/data​/v1​/heart_rate​/patients/';
+  static String heartrateEndpoint = 'data​/v1​/heart_rate​/patients/';
+  
+  static String caloriesEndpoint = 'data/v1/calories/patients/';
   static String username = 'x9Cr5EWXIY';
   static String password = '12345678!';
   static String patientUsername = 'Jpefaq6m58';
