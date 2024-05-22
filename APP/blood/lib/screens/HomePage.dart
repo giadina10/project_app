@@ -105,39 +105,44 @@ super(key: key);
 
   }//_requestData
 Future<List<HeartRate>?> _requestDataHeartRate() async {
-    //Initialize the result
-    List<HeartRate>? result;
-   
+  // Initialize the result
+  List<HeartRate>? result;
 
-    //Get the stored access token (Note that this code does not work if the tokens are null)
-    final sp = await SharedPreferences.getInstance();
-    var access = sp.getString('access');
+  // Get the stored access token (Note that this code does not work if the tokens are null)
+  final sp = await SharedPreferences.getInstance();
+  var access = sp.getString('access');
 
-    //If access token is expired, refresh it
-    if(JwtDecoder.isExpired(access!)){
-      await _refreshTokens();
-      access = sp.getString('access');
-    }//if
+  // If access token is expired, refresh it
+  if (JwtDecoder.isExpired(access!)) {
+    await _refreshTokens();
+    access = sp.getString('access');
+  }
 
-    //Create the (representative) request
-    final startDate = '2023-03-04';
-    final endDate = '2023-03-07'; // prendo i dati di tre giorni
-    final url = '${Impact.baseUrl}${Impact.heartrateEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
-    
-    final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
+  // Create the (representative) request
+  final startDate = '2023-03-04';
+  final endDate = '2023-03-07'; // prendo i dati di tre giorni
+  final url = '${Impact.baseUrl}${Impact.heartrateEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
 
-    //Get the response
-    print('Calling: $url');
-    final response = await http.get(Uri.parse(url), headers: headers);//steps
+  final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
 
-    //if OK parse the response, otherwise return null
-    if (response.statusCode  == 200) {
-      final decodedResponse = jsonDecode(response.body);//steps
-    
-      result = [];
-     List<dynamic> daysData = decodedResponse['data'];//steps
-    
-     
+  // Print URL and headers for debugging
+  print('Calling: $url');
+  print('Headers: $headers');
+
+  // Get the response
+  final response = await http.get(Uri.parse(url), headers: headers);
+
+  // Print status code and response body for debugging
+  print('Response status: ${response.statusCode}');
+  print('Response body: ${response.body}');
+
+  // if OK parse the response, otherwise return null
+  if (response.statusCode == 200) {
+    final decodedResponse = jsonDecode(response.body);
+
+    result = [];
+    List<dynamic> daysData = decodedResponse['data'];
+
     for (var dayData in daysData) {
       String date = dayData['date'];
       List<dynamic> HRData = dayData['data'];
@@ -145,15 +150,15 @@ Future<List<HeartRate>?> _requestDataHeartRate() async {
         result.add(HeartRate.fromJson(date, hrData));
       }
     }
-     print('CUOREEEEEEEEEEEEEEEE');
-     print(result.last);
-    }
-    else{
-      result = null;
-    }//else
-   return result;
-
-  }//_requestDataHeartRate
+    print('CUOREEEEEEEEEEEEEEEE');
+    print(result.last);
+  } else {
+    // Print error message
+    print('Failed to load heart rate data: ${response.reasonPhrase}');
+    result = null;
+  }
+  return result;
+}
 
 
 
