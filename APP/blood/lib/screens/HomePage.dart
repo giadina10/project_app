@@ -38,8 +38,6 @@ super(key: key);
               child: Text('REQUEST THE DATA'),
             );
                 }
- 
-            
             
             )
           ],
