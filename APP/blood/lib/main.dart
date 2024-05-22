@@ -1,5 +1,4 @@
 
-
 import 'package:blood/screens/HomePage.dart';
 
 import 'package:blood/screens/SignUp.dart';
@@ -23,13 +22,9 @@ class MyApp extends StatelessWidget {
       home:Splash(),
       routes: {
         '/home': (context)=> HomePage(),
-      
         '/signup' : (context) => SignupPage(),
         '/login3': (context) => LoginPage3()
-
-       
       },
     );
   }
 }
-

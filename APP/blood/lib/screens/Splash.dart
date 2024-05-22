@@ -2,7 +2,7 @@
 
 //import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:blood/screens/HomePage.dart';
-import 'package:blood/screens/login3.dart';
+
 import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
@@ -49,17 +49,18 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
   @override
   void initState(){
     super.initState();
-    _startFadeInAnimation(); //t
+    Future.delayed(const Duration(seconds: 5), () => _checkLogin(context));
+    WidgetsBinding.instance.addPostFrameCallback((_)=>_startFadeInAnimation()); //t/
    // _navigatetoHome(context);
   }
 
 //t funzione
   void _startFadeInAnimation() {
-    Future.delayed(Duration(milliseconds: 500), () {
+ // Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         _opacity = 1.0;
       });
-    });
+ //  });
   }
    //3 funzioni inserite ora (17.05)
 void _toHomePage(BuildContext context) {
@@ -74,8 +75,8 @@ void _toHomePage(BuildContext context) {
   } //_toLoginPage
 
 void _checkLogin(BuildContext context) async {
-    //final result = await Impact().refreshTokens();
-    final result = 400; // DA RIMUOVERE: utile SOLO in fase di check codice per vedere anche login e welcome. SCOMMMENTA RIGA SOPRA PER RISOLVERE +
+    final result = await Impact().refreshTokens();
+    //final result = 400; // DA RIMUOVERE: utile SOLO in fase di check codice per vedere anche login e welcome. SCOMMMENTA RIGA SOPRA PER RISOLVERE +
     if (result == 200) {
       _toHomePage(context);
     } else {
@@ -91,7 +92,6 @@ void _checkLogin(BuildContext context) async {
   @override
   Widget build(BuildContext context){
     //aggiunta ora la prossima riga
-    Future.delayed(const Duration(seconds: 3), () => _checkLogin(context));
     return Scaffold(
       body: Stack(
         children: [
@@ -101,7 +101,7 @@ void _checkLogin(BuildContext context) async {
           ),
           AnimatedOpacity(
             opacity: _opacity,
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 1),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
