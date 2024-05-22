@@ -1,5 +1,4 @@
 
-
 import 'package:blood/screens/HomePage.dart';
 
 import 'package:blood/screens/SignUp.dart';
@@ -32,4 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
