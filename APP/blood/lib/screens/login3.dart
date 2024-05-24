@@ -58,10 +58,12 @@ class _LoginPageState extends State<LoginPage3> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(children: [
-         
-          Positioned(bottom: 0, child: _buildBottom()),
-        ]),
+        body: SafeArea(
+          child: Stack(children: [
+           
+            Positioned(bottom: 0, child: _buildBottom()),
+          ]),
+        ),
       ),
     );
   }

@@ -22,84 +22,86 @@ class SignupPage extends StatelessWidget {
         ),
       ),
       body: 
-      Stack(
-        children: [
-          ClipPath(
-            clipper: MyClipper(),
-            child: Container(
-              height: 200,
-              color: const Color.fromARGB(255, 241, 96, 85),
+      SafeArea(
+        child: Stack(
+          children: [
+            ClipPath(
+              clipper: MyClipper(),
+              child: Container(
+                height: 200,
+                color: const Color.fromARGB(255, 241, 96, 85),
+              ),
             ),
-          ),
-      SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          height: MediaQuery.of(context).size.height - 50,
-          width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              const Column(
-                children: <Widget>[
-                  Text("Before starting..",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-
-                  ),),
-                  SizedBox(height: 20,),
-                  Text("Tell us something more about you!",
+        SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            height: MediaQuery.of(context).size.height - 50,
+            width: double.infinity,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                const Column(
+                  children: <Widget>[
+                    Text("Before starting..",
                     style: TextStyle(
-                        fontSize: 15,
-                        color:Color.fromARGB(255, 0, 0, 0)),)
-                
-
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  inputFile(label: "Full name"),
-                  inputFile(label: "Age"),
-                  inputFile(label: "Weight"),
-                  inputFile(label: "Gender"),
-                ],
-              ),
-             
-                MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/home');
-                    },
-                    color: Color.fromARGB(255, 208, 59, 49),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+        
+                    ),),
+                    SizedBox(height: 20,),
+                    Text("Tell us something more about you!",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color:Color.fromARGB(255, 0, 0, 0)),)
+                  
+        
+                  ],
+                ),
+                Column(
+                  children: <Widget>[
+                    inputFile(label: "Full name"),
+                    inputFile(label: "Age"),
+                    inputFile(label: "Weight"),
+                    inputFile(label: "Gender"),
+                  ],
+                ),
+               
+                  MaterialButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/home');
+                      },
+                      color: Color.fromARGB(255, 208, 59, 49),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      height: 50,
+                      child: Center(
+                        child: Text("Confirm", style: TextStyle(color: Colors.white, fontSize: 25),),
+                      ),
                     ),
-                    height: 50,
-                    child: Center(
-                      child: Text("Confirm", style: TextStyle(color: Colors.white, fontSize: 25),),
+                  
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Already have an account?"),
+                    Text(" Login", style:TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18
                     ),
-                  ),
-                
-                Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text("Already have an account?"),
-                  Text(" Login", style:TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18
-                  ),
-                  )
-                ],
-              ),
-
-            ],
-           ),
-
-      )
-
-    
-      )
-        ]
+                    )
+                  ],
+                ),
+        
+              ],
+             ),
+        
         )
+        
+            
+        )
+          ]
+          ),
+      )
       );
     
   }

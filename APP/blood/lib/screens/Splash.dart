@@ -71,7 +71,7 @@ void _toHomePage(BuildContext context) {
   // Method for navigation SplashPage -> LoginPage
   void _toLoginPage(BuildContext context) {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: ((context) => WelcomeScreen())));//TODO: cambiare a loginpage3!!!!
+        .pushReplacement(MaterialPageRoute(builder: ((context) => LoginPage3())));//TODO: cambiare a loginpage3!!!!
   } //_toLoginPage
 
 void _checkLogin(BuildContext context) async {
@@ -93,45 +93,47 @@ void _checkLogin(BuildContext context) async {
   Widget build(BuildContext context){
     //aggiunta ora la prossima riga
     return Scaffold(
-      body: Stack(
-        children: [
-          CustomPaint(
-            size: Size(MediaQuery.of(context).size.width, 150),
-            painter: CustomWaveDecoration(),
-          ),
-          AnimatedOpacity(
-            opacity: _opacity,
-            duration: Duration(seconds: 1),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Spacer(flex: 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        'assets/images/splashIcon.png',
-                        scale: 8,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Donify',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'CustomFont',
+      body: SafeArea(
+        child: Stack(
+          children: [
+            CustomPaint(
+              size: Size(MediaQuery.of(context).size.width, 150),
+              painter: CustomWaveDecoration(),
+            ),
+            AnimatedOpacity(
+              opacity: _opacity,
+              duration: Duration(seconds: 1),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Spacer(flex: 2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset(
+                          'assets/images/splashIcon.png',
+                          scale: 8,
                         ),
-                      ),
-                    ],
-                  ),
-                  Spacer(flex: 3),
-                ],
+                        SizedBox(width: 10),
+                        Text(
+                          'Donify',
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'CustomFont',
+                          ),
+                        ),
+                      ],
+                    ),
+                    Spacer(flex: 3),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

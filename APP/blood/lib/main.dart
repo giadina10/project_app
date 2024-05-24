@@ -1,4 +1,5 @@
 
+import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/screens/HomePage.dart';
 
 import 'package:blood/screens/SignUp.dart';
@@ -6,7 +7,9 @@ import 'package:blood/screens/Splash.dart';
 
 
 import 'package:blood/screens/login3.dart';
+import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
@@ -18,16 +21,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:Splash(),
-      routes: {
-        '/home': (context)=> HomePage(),
-      
-        '/signup' : (context) => SignupPage(),
-        '/login3': (context) => LoginPage3()
-
-       
-      },
+    return MultiProvider(
+      providers: [ChangeNotifierProvider<HomeProvider>(
+      create: (_) => HomeProvider())],
+      child: MaterialApp(
+        home:Splash(),
+        routes: {
+          '/home': (context)=> HomePage(),
+          '/signup' : (context) => SignupPage(),
+          '/login3': (context) => LoginPage3(),
+          '/profile':(context)=> ProfilePage(),
+        },
+      ),
     );
   }
 }

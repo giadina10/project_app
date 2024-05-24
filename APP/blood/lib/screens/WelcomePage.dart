@@ -82,61 +82,63 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
  @override
  Widget build(BuildContext context) {
   return Scaffold(
-      body: Container(
-      
-        child: Stack(
-          children: <Widget>[
-            PageView.builder(
-              controller: _pageViewController,
-              itemCount: slides.length,
-              itemBuilder: (BuildContext context, int index) {
-                return slides[index];
-              },
-            ), 
-            
-            if (currentPage == slides.length - 1) // Mostra il bottone solo quando si è sull'ultima pagina
-              Positioned(
-                bottom: 80.0,
-                left: 40,
-                right: 40,
+      body: SafeArea(
+        child: Container(
+        
+          child: Stack(
+            children: <Widget>[
+              PageView.builder(
+                controller: _pageViewController,
+                itemCount: slides.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return slides[index];
+                },
+              ), 
+              
+              if (currentPage == slides.length - 1) // Mostra il bottone solo quando si è sull'ultima pagina
+                Positioned(
+                  bottom: 80.0,
+                  left: 40,
+                  right: 40,
+                 
+                  child: Center(
+                    
                
-                child: Center(
-                  
-             
-                  child: MaterialButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login3');
-                    },
-                    color: const Color.fromARGB(255, 241, 96, 85),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                    child: MaterialButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login3');
+                      },
+                      color: const Color.fromARGB(255, 241, 96, 85),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      height: 50,
+                      
+                     
+                      child: Center(
+                        child: Text("Getting started", style: TextStyle(color: Colors.white, fontSize: 25),),
+                      ),
                     ),
-                    height: 50,
-                    
-                   
-                    child: Center(
-                      child: Text("Getting started", style: TextStyle(color: Colors.white, fontSize: 25),),
-                    ),
+                      
                   ),
-                    
                 ),
-              ),
-              //FINO A QUI
-
-            Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  margin: EdgeInsets.only(top: 70.0),
-                  padding: EdgeInsets.symmetric(vertical: 40.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: indicator(),
-                  ),
-                )
-                //  ),
-                )
-            // )
-          ],
+                //FINO A QUI
+        
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    margin: EdgeInsets.only(top: 70.0),
+                    padding: EdgeInsets.symmetric(vertical: 40.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: indicator(),
+                    ),
+                  )
+                  //  ),
+                  )
+              // )
+            ],
+          ),
         ),
       ),
     );
