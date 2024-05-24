@@ -1,21 +1,27 @@
-
 import 'package:intl/intl.dart';
 
 class HeartRate {
   final DateTime time;
   final int value;
-  final int confidence; // Added field for confidence
+  final int confidence; // Aggiunto campo per confidence
 
   HeartRate({
     required this.time,
     required this.value,
-    this.confidence = 0, // Set default confidence to 0
+    this.confidence = 0, // Imposta confidence predefinita a 0
   });
 
-  HeartRate.fromJson(String date, Map<String, dynamic> json)
-      : time = DateFormat('HH:mm:ss').parse('$date ${json["time"]}'), // Parse time in hh:mm:ss format
-        value = int.parse(json["value"]),
-        confidence = int.parse(json["value"]); // Parse confidence with default 0
+  // Metodo per il parsing da JSON
+  HeartRate.fromJson(String date, Map<String, dynamic>? json)
+      : time = json != null && json.containsKey("time")
+          ? DateFormat('yyyy-MM-dd HH:mm:ss').parse('$date ${json["time"]}')
+          : DateTime.now(), // Usa la data corrente come fallback se la data è null
+        value = json != null && json.containsKey("value")
+          ? int.parse(json["value"].toString())
+          : 0, // Usa 0 come fallback se il valore è null
+        confidence = json != null && json.containsKey("confidence")
+          ? int.parse(json["confidence"].toString())
+          : 0; // Usa 0 come fallback se la confidence è null
 
   @override
   String toString() {

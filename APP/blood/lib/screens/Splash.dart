@@ -2,7 +2,7 @@
 
 //import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:blood/screens/HomePage.dart';
-
+import 'package:blood/screens/login3.dart';
 import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
@@ -71,7 +71,7 @@ void _toHomePage(BuildContext context) {
   // Method for navigation SplashPage -> LoginPage
   void _toLoginPage(BuildContext context) {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: ((context) => WelcomeScreen())));//TODO: cambiare a loginpage3!!!!
+        .pushReplacement(MaterialPageRoute(builder: ((context) => LoginPage3())));//TODO: cambiare a loginpage3!!!!
   } //_toLoginPage
 
 void _checkLogin(BuildContext context) async {

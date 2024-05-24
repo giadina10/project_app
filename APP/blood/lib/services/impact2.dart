@@ -24,7 +24,7 @@ class Impact {
   static String patientUsername = 'Jpefaq6m58';
 
 
-
+  //PARTE DA CONTROLLARE, INSERITA ORA (17.05.24)
 
   //This method allows to check if the IMPACT backend is up
   Future<bool> isImpactUp() async {
@@ -139,19 +139,17 @@ class Impact {
 //funzione che ritorna i dati
 //ritorna una variabile di tipo Map con al suo interno chiavi sottoforma di stringhe e valore sottoforma di lista
 Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTime endTime) async {
-  // Get the stored access token
+  //Get the stored access token
   final sp = await SharedPreferences.getInstance();
   var access = sp.getString('access');
+  print('$access');
 
   // Check and refresh access token if expired
   if (JwtDecoder.isExpired(access!)) {
-    final refreshTokenResult = await refreshTokens();
-    if (refreshTokenResult != 200) {
-      // Handle token refresh failure
-      return null;
-    }
-    access = sp.getString('access');
-  }
+   print('scaduto');
+   await refreshTokens();
+   access = sp.getString('access');
+ }
 
   // Define URLs and endpoints
   final startDate = DateFormat('yyyy-MM-dd').format(startTime);
@@ -159,16 +157,16 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   final heartRateUrl = 'https://impact.dei.unipd.it/bwthw/data/v1/heart_rate/patients/Jpefaq6m58/daterange/start_date/$startDate/end_date/$endDate/';
   final stepsUrl = '${Impact.baseUrl}${Impact.stepsEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
   final caloriesUrl = '${Impact.baseUrl}${Impact.caloriesEndpoint}${Impact.patientUsername}/daterange/start_date/$startDate/end_date/$endDate/';
-
+  
   // Make requests for heart rate, steps, and calories
-  final heartRateFuture = _requestDataHeartRate(access, heartRateUrl);
-  final stepsFuture = _requestDataSteps(access, stepsUrl);
-  final caloriesFuture = _requestDataCalories(access, caloriesUrl);
+  final heartRateFuture = await _requestDataHeartRate(access, heartRateUrl);
+  final stepsFuture = await _requestDataSteps(access, stepsUrl);
+  final caloriesFuture = await _requestDataCalories(access, caloriesUrl);
 
   // Await results
-  final heartRateResult = await heartRateFuture;
-  final stepsResult = await stepsFuture;
-  final caloriesResult = await caloriesFuture;
+  final heartRateResult =  heartRateFuture;
+  final stepsResult =  stepsFuture;
+  final caloriesResult =  caloriesFuture;
 
   // Check for any failed requests
   if (heartRateResult == null || stepsResult == null || caloriesResult == null) {
@@ -191,6 +189,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
     //Create the (representative) request
     
     final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
+    
 
     //Get the response
     final response = await http.get(Uri.parse(stepsUrl), headers: headers);//steps
@@ -227,46 +226,36 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
 
   // Make the GET request
   final response = await http.get(Uri.parse(caloriesUrl), headers: headers);
+  
 
   // Check for successful response (200)
   if (response.statusCode == 200) {
-    try {
-      final decodedResponse = jsonDecode(response.body);
-      result = [];
-      List<dynamic> daysData = decodedResponse['data'];
+    final decodedResponse = jsonDecode(response.body);
+    result = [];
+    List<dynamic> daysData = decodedResponse['data'];
 
-      for (var dayData in daysData) {
-        String date = dayData['date'];
-        List<dynamic> caloriesData = dayData['data']; // Replace 'stepsData' with 'caloriesData' if the key is different
+    for (var dayData in daysData) {
+      String date = dayData['date'];
+      List<dynamic> caloriesData = dayData['data']; // Replace 'stepsData' with 'caloriesData' if the key is different
 
-        for (var calorieData in caloriesData) {
+      for (var calorieData in caloriesData) {
           // Parse time in hh:mm:ss format
-          final timeString = '$date ${calorieData["time"]}';
-          final time = DateFormat('yyyy-MM-dd HH:mm:ss').parse(timeString);
+        final timeString = '$date ${calorieData["time"]}';
+        final time = DateFormat('yyyy-MM-dd HH:mm:ss').parse(timeString);
 
           // Parse calorie value (consider potential missing value)
-          final value = double.parse(calorieData["value"] ?? 0.0); // Use double.parse for decimals, handle missing value
-
-          // Create Calories object
-          result.add(Calories(time: time, value: value));
-        }
+        final value = double.parse(calorieData["value"] ?? 0.0);
+         // Use double.parse for decimals, handle missing value
+        result.add(Calories(time: time, value: value));
       }
-    } on FormatException catch (e) {
-      // Handle potential date parsing error
-      print("Error parsing date: $e");
-      result = null;
-    } catch (e) {
-      // Handle other unexpected errors
-      print("Error fetching calorie data: $e");
-      result = null;
     }
-  } else {
-    print("Request failed with status: ${response.statusCode}");
-    result = null;
+  }
+  else{
+    result= null;
+  }
+  return result;
   }
 
-  return result;
-}
   Future<List<HeartRate>?> _requestDataHeartRate(access, heartRateUrl) async {
   // Initialize the result
   List<HeartRate>? result;
@@ -274,6 +263,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
   // Make the GET request
   final response = await http.get(Uri.parse(heartRateUrl), headers: headers);
+  
 
   // Check for successful response (200)
   if (response.statusCode == 200) {
@@ -302,7 +292,8 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
     else{
       result = null;
     }//else
-     return result;
+    return result;
   }
+  
 
-} //Impact
+} //Impact. 

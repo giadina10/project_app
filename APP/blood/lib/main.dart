@@ -6,6 +6,7 @@ import 'package:blood/screens/Splash.dart';
 
 
 import 'package:blood/screens/login3.dart';
+import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
 
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context)=> HomePage(),
         '/signup' : (context) => SignupPage(),
-        '/login3': (context) => LoginPage3()
+        '/login3': (context) => LoginPage3(),
+        '/profile':(context)=> ProfilePage(),
       },
     );
   }

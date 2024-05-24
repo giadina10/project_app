@@ -1,51 +1,47 @@
-
-
-
-import 'package:blood/provider/HomeProvider.dart';
+import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
+import 'package:blood/provider/HomeProvider.dart';
 
- 
- class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : 
-super(key: key);
-  static const routename = 'Homepage';
+
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  static const String routeName = 'Homepage';
+
   @override
- Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => HomeProvider(),
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<HomeProvider>(
+      create: (_) => HomeProvider(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(HomePage.routename),),
-
- body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Consumer<HomeProvider>(
-                builder: (context, homeProvider, child) {
-                  return ElevatedButton(
-                    onPressed: () async {
-                      homeProvider.getDataOf3Days(homeProvider.showDate1, homeProvider.showDate2);// come si passano le date?
-                      print(homeProvider.dati);
-              
-                final message = homeProvider.dati == null ? 'Request failed' : 'Request successful';
-                ScaffoldMessenger.of(context)
-                  ..removeCurrentSnackBar()
-                  ..showSnackBar(SnackBar(content: Text(message)));
-              },
-              child: Text('REQUEST THE DATA'),
-            );
-                }
-            
-            )
-          ],
+          title: const Text('Impact Data'),
+        ),
+        body: Consumer<HomeProvider>(
+          builder: (context, provider, child) {
+            if (provider.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text('Ho preso i dati!'),
+                   ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/profile');
+                      },
+                      child: const Text('Go to Profile Page'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
         ),
       ),
-    )
     );
   }
- }
-
- 
+}
