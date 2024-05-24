@@ -11,36 +11,37 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeProvider>(
-      create: (_) => HomeProvider(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Impact Data'),
-        ),
-        body: Consumer<HomeProvider>(
-          builder: (context, provider, child) {
-            if (provider.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Ho preso i dati!'),
-                   ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/profile');
-                      },
-                      child: const Text('Go to Profile Page'),
-                    ),
-                  ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Impact Data'),
+      ),
+      body: Consumer<HomeProvider>(
+        builder: (context, provider, child) {
+          if (provider.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Ho preso i dati!'),
+                     ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                        child: const Text('Go to Profile Page'),
+                      ),
+                    ],
+                  ),
                 ),
-              );
-            }
-          },
-        ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

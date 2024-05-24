@@ -1,4 +1,6 @@
+import 'package:blood/provider/HomeProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : 
@@ -10,14 +12,22 @@ class ProfilePage extends StatelessWidget {
     appBar: AppBar(
       title: Text(ProfilePage.routename),
       ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('To the home'),
-          onPressed: () {
-            Navigator.pop(context, '/home');
-            },
- ),
- ),
+      body: SafeArea(
+        child: Center(
+          child: Consumer<HomeProvider>(
+          builder: (context, provider, child){
+            return ElevatedButton(
+              child: Text('To the home'),
+              onPressed: () {
+                //Navigator.pop(context, '/home')
+        
+                print(provider.dati.keys.last);
+                },
+             );
+          }
+          ),
+         ),
+      ),
  );
  } //build
 } //ProfilePage
