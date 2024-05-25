@@ -175,6 +175,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   }
 
   // Return combined results
+  
   return {
     'heartRates': heartRateResult,
     'steps': stepsResult,
