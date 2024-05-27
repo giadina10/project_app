@@ -25,8 +25,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
     _loadPrefs();
   }
 
- 
-
   void _loadPrefs() async {
     final sp = await SharedPreferences.getInstance();
     // Use a default value if the key doesn't exist
@@ -47,6 +45,27 @@ class _PersonalInfoState extends State<PersonalInfo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFFFFFFF),
+        elevation: 0,
+        toolbarHeight: 80,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/splashIcon.png',
+              scale: 8,
+            ),
+            const SizedBox(width: 10),
+            const Text(
+              'Donify',
+              style: TextStyle(
+                fontSize: 34,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'CustomFont',
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 8.0, top: 4),
@@ -57,7 +76,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             children: [
               const Text(
                 'Personal Info',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25,  color: Colors.red,),
               ),
               const SizedBox(
                 height: 5,
@@ -80,6 +99,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.red, width: 2.0),
                     ),
                     border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -90,31 +110,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   ),
                 ),
               ),
-            Padding(
-  padding: const EdgeInsets.only(top: 10, right: 8.0),
-  child: TextFormField(
-    validator: (String? value) {
-      if (value == null || value.isEmpty) {
-        return 'Age is required';
-      }
-      // Aggiungi eventuali altre condizioni di validazione qui, ad esempio, per controllare che l'età sia compresa in un intervallo specifico
-      return null;
-    },
-    controller: ageController,
-    keyboardType: TextInputType.number,
-    decoration: InputDecoration(
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      border: const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      prefixIcon: const Icon(
-        Icons.person_outline,
-      ),
-      hintText: 'Age',
-    ),
-  ),
-),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 8.0),
+                child: TextFormField(
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Age is required';
+                    }
+                    // Aggiungi eventuali altre condizioni di validazione qui, ad esempio, per controllare che l'età sia compresa in un intervallo specifico
+                    return null;
+                  },
+                  controller: ageController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.red, width: 2.0),
+                    ),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    prefixIcon: const Icon(
+                      Icons.person_outline,
+                    ),
+                    hintText: 'Age',
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 10, right: 8.0),
                 child: TextFormField(
@@ -128,6 +149,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Colors.red, width: 2.0),
                     ),
                     border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
@@ -152,6 +174,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Colors.red, width: 2.0),
                     ),
                   ),
                   hint: Row(children: [
@@ -192,8 +215,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       await sp.setString(
                           'weight', weightController.text.toString());
                       Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage()));
                     }
                   },
                   style: ButtonStyle(
@@ -203,7 +227,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       foregroundColor:
                           MaterialStateProperty.all<Color>(Colors.white),
                       backgroundColor: MaterialStateProperty.all<Color>(
-                          const Color(0xFF384242))),
+                          Colors.redAccent)),
                   child: const Text('Save'),
                 ),
               ),
