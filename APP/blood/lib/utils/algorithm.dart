@@ -1,41 +1,75 @@
+import 'package:blood/models/heartrate.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:decision_tree/decision_tree.dart';
+class Algorithm {
+  late SharedPreferences _sp; // Dichiarazione della variabile di istanza _sp
 
+  Algorithm() {
+    {
+    getPreferences(); // Inizializza le shared preferences
+  }}
+  
 
-// Definisci la funzione per calcolare la media
-double calculateMean(List<int> values) {
-  if (values.isEmpty) return 0.0;
-  return values.reduce((a, b) => a + b) / values.length;
-}
+  List<DateTime> heartRateTimes = [];
+  List<int> heartRateValues = [];
+  String age = '';
 
-// Implementa il decision tree
-bool decisionTree(List<int> heartRates, List<double> calories, List<int> steps) {
-  // Calcola la media dei battiti cardiaci
-  double heartRateMean = calculateMean(heartRates);
-
-  // Calcola la somma delle calorie
-  double caloriesSum = calories.reduce((a, b) => a + b);
-
-  // Calcola la somma dei passi
-  int stepsSum = steps.reduce((a, b) => a + b);
-
-  // Esegui le condizioni del decision tree
-  if (heartRateMean >= 70 && heartRateMean <= 120 && caloriesSum == 50 && stepsSum == 10000) {
-    return true; // Tutte le condizioni sono soddisfatte
-  } else {
-    return false; // Almeno una delle condizioni non è soddisfatta
+  // Metodo per inizializzare SharedPreferences
+  Future<void> getPreferences() async {
+    _sp = await SharedPreferences.getInstance();
   }
-}
 
-void main() {
-  // Dati di esempio
-  List<int> heartRates = [69, 70, 71, 70, 70, 70, 71, 70, 70, 71, 72, 71]; // Esempio di battiti cardiaci
-  List<double> calories = [1.28, 1.28, 1.28, 1.28, 1.28, 1.28, 1.28, 1.28]; // Esempio di calorie
-  List<int> steps = [0, 0, 0, 0, 16, 28, 0, 0]; // Esempio di passi
+  // Definisci la funzione per calcolare la media
+  double calculateMean(List<int> values) {
+    if (values.isEmpty) return 0.0;
+    return values.reduce((a, b) => a + b) / values.length;
+  }
 
-  // Esegui il decision tree sui dati di esempio
-  bool result = decisionTree(heartRates, calories, steps);
+  double sum(List<double> numbers) {
+    double total = 0;
+    for (var number in numbers) {
+      total += number;
+    }
+    return total;
+  }
 
-  // Stampa il risultato
-  print('Il risultato del decision tree è: $result');
+  int sumt(List<int> numbers) {
+    int total = 0;
+    for (var num in numbers) {
+      total += num;
+    }
+    return total;
+  }
+
+  // Implementa il decision tree
+  String decisionTree(List<HeartRate> heartrates, List<double> calories, List<int> steps) {
+    getPreferences(); // Chiamata al metodo getPreferences per inizializzare _sp
+
+    age = _sp.getString('age')!; // Ottenere l'età dalle SharedPreferences
+    print('AGEEEEEE');
+    print(age);
+
+    for (var heartRate in heartrates) {
+      heartRateTimes.add(heartRate.time);
+      heartRateValues.add(heartRate.value);
+    }
+
+    // Calcola la media dei battiti cardiaci
+    double heartRateMean = calculateMean(heartRateValues);
+
+    // Calcola la somma delle calorie
+    double caloriesSum = sum(calories);
+
+    // Calcola la somma dei passi
+    int stepsSum = sumt(steps);
+
+    print(age);
+
+    // Esegui le condizioni del decision tree
+    if (heartRateMean >= 7 ) {
+      return "si"; // Tutte le condizioni sono soddisfatte
+    } else {
+      return "no"; // Almeno una delle condizioni non è soddisfatta
+    }
+  }
 }

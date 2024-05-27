@@ -2,6 +2,7 @@ import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:blood/provider/HomeProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text('Ho preso i dati!'),
+                      Text(provider.risultatoalgoritmo),
                      ElevatedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/profile');
@@ -45,4 +47,8 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+
+    // Metodo per inizializzare SharedPreferences
+
+
 }

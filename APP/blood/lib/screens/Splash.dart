@@ -2,6 +2,7 @@
 
 //import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:blood/screens/HomePage.dart';
+import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
@@ -65,7 +66,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin{
    //3 funzioni inserite ora (17.05)
 void _toHomePage(BuildContext context) {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => const PersonalInfo()));
   } //_toHomePage
 
   // Method for navigation SplashPage -> LoginPage

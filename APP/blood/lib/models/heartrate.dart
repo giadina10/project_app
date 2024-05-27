@@ -1,30 +1,31 @@
+
 import 'package:intl/intl.dart';
 
 class HeartRate {
   final DateTime time;
   final int value;
-  final int confidence; // Aggiunto campo per confidence
+  final int confidence; // Added field for confidence
 
   HeartRate({
     required this.time,
     required this.value,
-    required this.confidence,
+    this.confidence = 0, // Set default confidence to 0
   });
 
-  // Metodo per il parsing da JSON
-  HeartRate.fromJson(String date, Map<String, dynamic>? json)
-      : time = json != null && json.containsKey("time")
-            ? DateFormat('yyyy-MM-dd HH:mm:ss').parse('$date ${json["time"]}')
-            : DateTime.now(), // Usa la data corrente come fallback se la data è null
-        value = json != null && json.containsKey("value")
-            ? int.parse(json["value"].toString())
-            : throw ArgumentError("Value cannot be null in HeartRate"), // Solleva un'eccezione se il valore è null
-        confidence = json != null && json.containsKey("confidence")
-            ? int.parse(json["confidence"].toString())
-            : throw ArgumentError("Confidence cannot be null in HeartRate"); // Solleva un'eccezione se la confidence è null
+  HeartRate.fromJson(String date, Map<String, dynamic> json)
+      : time = DateFormat('HH:mm:ss').parse('$date ${json["time"]}'), // Parse time in hh:mm:ss format
+        value = int.parse(json["value"]),
+        confidence = int.parse(json["value"]); // Parse confidence with default 0
 
   @override
   String toString() {
     return 'HeartRate(time: $time, value: $value, confidence: $confidence)';
   }
+   static List<DateTime> extractTimes(List<HeartRate> heartRates) {
+    return heartRates.map((heartRate) => heartRate.time).toList();
+  }
+
+  static List<int> extractValues(List<HeartRate> heartRates) {
+    return heartRates.map((heartRate) => heartRate.value).toList();
+}
 }
