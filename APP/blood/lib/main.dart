@@ -4,6 +4,7 @@ import 'package:blood/screens/HomePage.dart';
 
 import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/Splash.dart';
+import 'package:blood/screens/StatisticPage.dart';
 
 
 import 'package:blood/screens/login3.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
           '/signup' : (context) => PersonalInfo(),
           '/login3': (context) => LoginPage3(),
           '/profile':(context)=> ProfilePage(),
+          '/stats':(context)=>Stats(),
         },
       ),
     );

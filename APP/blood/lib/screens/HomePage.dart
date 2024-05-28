@@ -58,12 +58,12 @@ class _HomePageState extends State<HomePage> {
                       const Text('Ho preso i dati!'),
                       Text(provider.risultatoalgoritmo),
                       ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selIdx = 1;
-                          });
-                        },
-                        child: const Text('Go to Profile Page'),
+                        onPressed: () {Navigator.pushNamed(context, '/stats');
+                          //setState(() {
+                           // _selIdx = 1;
+                         // });
+                       },
+                        child: const Text('Go to statistics'),
                       ),
                     ],
                   );
