@@ -7,7 +7,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:blood/screens/horizontal_week_calendar.dart'; // Importa il widget del calendario
+import 'package:blood/screens/horizontal_week_calendar.dart';
+import 'package:table_calendar/table_calendar.dart'; // Importa il widget del calendario
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -74,16 +75,11 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
             // Aggiungi il calendario qui
-            HorizontalWeekCalendar(
-              onDateChange: (DateTime date) {
-                // Puoi gestire la selezione della data qui se necessario
-              },
-              onWeekChange: (List<DateTime> list) {
-                // Puoi gestire il cambio della settimana qui se necessario
-              },
-              minDate: DateTime.now().subtract(const Duration(days: 365)),
-              maxDate: DateTime.now().add(const Duration(days: 365)),
-              initialDate: DateTime.now(),
+            TableCalendar(
+              firstDay: DateTime.utc(2020, 1, 1),
+              lastDay: DateTime.utc(2030, 12, 31),
+              focusedDay: DateTime.now(),
+              calendarFormat: CalendarFormat.week,
             ),
           ],
         ),
