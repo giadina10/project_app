@@ -14,4 +14,12 @@ class Calories {
   String toString() {
     return 'Calories(time: $time, value: $value)';
   }
+   static List<DateTime> getTimeList(List<Calories> caloriesList) {
+    return caloriesList.map((calories) => calories.time).toList();
+  }
+
+  // Metodo per dividere i valori delle calorie in una lista di double
+  static List<double> getValueList(List<Calories> caloriesList) {
+    return caloriesList.map((calories) => calories.value).toList();
+  }
 }
