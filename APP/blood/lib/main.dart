@@ -22,19 +22,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [ChangeNotifierProvider<HomeProvider>(
-      create: (_) => HomeProvider())],
-      child: MaterialApp(
+    return MaterialApp(
         home:Splash(),
         routes: {
           '/home': (context)=> HomePage(),
           '/signup' : (context) => PersonalInfo(),
           '/login3': (context) => LoginPage3(),
           '/profile':(context)=> ProfilePage(),
-          '/stats':(context)=>Stats(),
+         
         },
-      ),
-    );
+      );
+    
   }
 }

@@ -1,7 +1,6 @@
 import 'dart:ffi';
 
 import 'package:blood/services/impact2.dart';
-import 'package:blood/utils/plot.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/models/heartrate.dart';
 import 'package:blood/models/calories.dart';
@@ -24,13 +23,22 @@ class HomeProvider extends ChangeNotifier {
   
   String risultatoalgoritmo = "" ;
 
-
+  late SharedPreferences sp;
   final Impact impact = Impact();
-  final Algorithm algoritmo = Algorithm();
+  late Algorithm algoritmo;
   //final CustomPlot plot ;
 
   HomeProvider() {
+    init(); //l'inizializzazione è asincrona e getdata non prende le prefernze
     getData(showDate1, showDate2);
+  }
+
+void init() async {
+ await getPreferences();
+ algoritmo = Algorithm(sp); 
+}
+   Future<void> getPreferences() async {
+    sp = await SharedPreferences.getInstance();
   }
 
   void getData(DateTime showDate1, DateTime showDate2) async {
@@ -50,7 +58,7 @@ class HomeProvider extends ChangeNotifier {
       
 
       risultatoalgoritmo=algoritmo.decisionTree(heartrates,calories,steps);
-      
+      print(calories);
      
     } else {
       print('Error fetching data.');

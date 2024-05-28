@@ -4,12 +4,11 @@ import 'package:blood/models/steps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Algorithm {
-  late SharedPreferences _sp; // Dichiarazione della variabile di istanza _sp
+  final SharedPreferences sp; // Dichiarazione della variabile di istanza _sp
 
-  Algorithm() {
-    {
-    getPreferences(); // Inizializza le shared preferences
-  }}
+  Algorithm(this.sp);
+     // Inizializza le shared preferences
+  
   
 
   List<DateTime> heartRateTimes = [];
@@ -20,10 +19,7 @@ class Algorithm {
   List<int> stepsValues = [];
   String age = '';
 
-  // Metodo per inizializzare SharedPreferences
-  Future<void> getPreferences() async {
-    _sp = await SharedPreferences.getInstance();
-  }
+
 
   // Definisci la funzione per calcolare la media
   double calculateMean(List<int> values) {
@@ -49,9 +45,9 @@ class Algorithm {
 
   // Implementa il decision tree
   String decisionTree(List<HeartRate> heartrates, List<Calories> calories, List<Steps> steps) {
-    getPreferences(); // Chiamata al metodo getPreferences per inizializzare _sp
+   // Chiamata al metodo getPreferences per inizializzare _sp
 
-    age = _sp.getString('age')!; // Ottenere l'età dalle SharedPreferences
+    age = sp.getString('age')!; // Ottenere l'età dalle SharedPreferences
     print('AGEEEEEE');
     print(age);
 

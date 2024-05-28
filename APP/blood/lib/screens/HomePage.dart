@@ -1,3 +1,5 @@
+import 'package:blood/screens/StatisticPage.dart';
+import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/provider/HomeProvider.dart';
@@ -58,7 +60,7 @@ class _HomePageState extends State<HomePage> {
                       const Text('Ho preso i dati!'),
                       Text(provider.risultatoalgoritmo),
                       ElevatedButton(
-                        onPressed: () {Navigator.pushNamed(context, '/stats');
+                        onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context) => Stats(provider),) );
                           //setState(() {
                            // _selIdx = 1;
                          // });
@@ -104,23 +106,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+     return ChangeNotifierProvider(create: (context) => HomeProvider(), builder: (context,_)=> Scaffold(
+      appBar:
+      _selIdx == 0? AppBar(
         title: const Text('Impact Data'),
-      ),
-      body: IndexedStack(
-        index: _selIdx,
-        children: [
-          _homeContent(),
-          const ProfilePage(),
+      ): AppBar(title: const Text('Profile page'), 
+      actions: [
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () async {
+              _toLogin(context);
+               },
+          ),
         ],
       ),
+      body: _selIdx ==0 ? _homeContent(): ProfilePage(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: const Color(0xFFf5f7f7),
         items: navBarItems,
         currentIndex: _selIdx,
         onTap: _onItemTapped,
       ),
+    )
     );
+  }
+   _toLogin(BuildContext context) async {
+    final sp = await SharedPreferences.getInstance();
+    await sp.clear();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: ((context) => const LoginPage3())));
   }
 }

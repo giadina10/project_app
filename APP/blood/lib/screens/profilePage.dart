@@ -10,20 +10,8 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile Page'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () async {
-              _toLogin(context);
-            },
-          ),
-        ],
-      ),
-      body: SafeArea(
-        child: Center(
+    return SafeArea(
+         child : Center(
           child: Consumer<HomeProvider>(
             builder: (context, provider, child) {
               return ElevatedButton(
@@ -35,8 +23,8 @@ class ProfilePage extends StatelessWidget {
             },
           ),
         ),
-      ),
-    );
+      );
+    
   }
 
   _toLogin(BuildContext context) async {
