@@ -22,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String? name;
   int _selIdx = 0;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -42,12 +44,16 @@ class _HomePageState extends State<HomePage> {
 
   Widget _homeContent() {
     return SingleChildScrollView(
-      child: Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (name != null)
-              Text('Hello, $name!', style: TextStyle(fontSize: 24)),
+              Text(
+                'Hello, $name!',
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500),
+              ),
             const SizedBox(height: 20),
             Consumer<HomeProvider>(
               builder: (context, provider, child) {
@@ -58,28 +64,74 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   return Column(
                     children: [
+                      // Aggiungi il calendario dentro al Consumer
+                      TableCalendar(
+                        firstDay: DateTime.now().subtract(Duration(days: 2)),
+                        lastDay: DateTime.now().add(Duration(days: 2)),
+                        focusedDay: _focusedDay,
+                        selectedDayPredicate: (day) {
+                          return isSameDay(_selectedDay, day);
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                          setState(() {
+                            _selectedDay = selectedDay;
+                            _focusedDay = focusedDay;
+                          });
+                        },
+                        calendarFormat: CalendarFormat.week,
+                        onFormatChanged: (format) {},
+                        onPageChanged: (focusedDay) {
+                          setState(() {
+                            _focusedDay = focusedDay;
+                          });
+                        },
+                        calendarStyle: CalendarStyle(
+                          todayDecoration: BoxDecoration(
+                            color: _selectedDay == _focusedDay
+                                ? Colors.red
+                                : Colors.blue,
+                            shape: BoxShape.circle,
+                          ),
+                          selectedDecoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          selectedTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                          todayTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        headerStyle: HeaderStyle(
+                          formatButtonVisible: false,
+                          titleCentered: true,
+                        ),
+                        daysOfWeekStyle: DaysOfWeekStyle(
+                          weekendStyle: TextStyle(color: Colors.red),
+                        ),
+                        availableCalendarFormats: const {
+                          CalendarFormat.week: 'Week',
+                        },
+                      ),
+                      const SizedBox(height: 20),
                       const Text('Ho preso i dati!'),
                       Text(provider.risultatoalgoritmo),
                       ElevatedButton(
-                        onPressed: () {Navigator.push(context,MaterialPageRoute(builder: (context) => Stats(provider),) );
-                          //setState(() {
-                           // _selIdx = 1;
-                         // });
-                       },
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Stats(provider),
+                            ),
+                          );
+                        },
                         child: const Text('Go to statistics'),
                       ),
                     ],
                   );
                 }
               },
-            ),
-            const SizedBox(height: 20),
-            // Aggiungi il calendario qui
-            TableCalendar(
-              firstDay: DateTime.utc(2020, 1, 1),
-              lastDay: DateTime.utc(2030, 12, 31),
-              focusedDay: DateTime.now(),
-              calendarFormat: CalendarFormat.week,
             ),
           ],
         ),
@@ -102,34 +154,60 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-     return ChangeNotifierProvider(create: (context) => HomeProvider(), builder: (context,_)=> Scaffold(
-      appBar:
-      _selIdx == 0? AppBar(
-        title: const Text('Impact Data'),
-      ): AppBar(title: const Text('Profile page'), 
-      actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () async {
-              _toLogin(context);
-               },
-          ),
-        ],
+    return ChangeNotifierProvider(
+      create: (context) => HomeProvider(),
+      builder: (context, _) => Scaffold(
+        appBar: _selIdx == 0
+            ? AppBar(
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/splashIcon.png',
+                      scale: 8,
+                    ),
+                    const SizedBox(width: 10),
+                    const Text(
+                      'Donify',
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'CustomFont',
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+                backgroundColor:
+                    Colors.red, // Imposta il colore di sfondo in rosso
+              )
+            : AppBar(
+                title: const Text('Profile page'),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.logout),
+                    onPressed: () async {
+                      _toLogin(context);
+                    },
+                  ),
+                ],
+              ),
+        body: _selIdx == 0 ? _homeContent() : ProfilePage(),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color(0xFFf5f7f7),
+          items: navBarItems,
+          currentIndex: _selIdx,
+          onTap: _onItemTapped,
+        ),
       ),
-      body: _selIdx ==0 ? _homeContent(): ProfilePage(),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFf5f7f7),
-        items: navBarItems,
-        currentIndex: _selIdx,
-        onTap: _onItemTapped,
-      ),
-    )
     );
   }
-   _toLogin(BuildContext context) async {
+
+  _toLogin(BuildContext context) async {
     final sp = await SharedPreferences.getInstance();
     await sp.clear();
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: ((context) => const LoginPage3())));
+      MaterialPageRoute(builder: (context) => const LoginPage3()),
+    );
   }
 }

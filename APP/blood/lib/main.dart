@@ -1,16 +1,12 @@
 
-import 'package:blood/provider/HomeProvider.dart';
-import 'package:blood/screens/HomePage.dart';
 
+import 'package:blood/screens/HomePage.dart';
 import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/Splash.dart';
-import 'package:blood/screens/StatisticPage.dart';
-
-
 import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 
 void main() {

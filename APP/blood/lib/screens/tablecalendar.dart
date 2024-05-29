@@ -28,12 +28,10 @@ class _HorizontalWeekCalendarState extends State<HorizontalWeekCalendar> {
             return isSameDay(_selectedDay, day);
           },
           onDaySelected: (selectedDay, focusedDay) {
-            if (!isSameDay(_selectedDay, selectedDay)) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            }
+            setState(() {
+              _selectedDay = selectedDay;
+              _focusedDay = focusedDay;
+            });
           },
           onFormatChanged: (format) {
             if (_calendarFormat != format) {
@@ -43,7 +41,9 @@ class _HorizontalWeekCalendarState extends State<HorizontalWeekCalendar> {
             }
           },
           onPageChanged: (focusedDay) {
-            _focusedDay = focusedDay;
+            setState(() {
+              _focusedDay = focusedDay;
+            });
           },
           calendarStyle: CalendarStyle(
             todayDecoration: BoxDecoration(
@@ -51,8 +51,14 @@ class _HorizontalWeekCalendarState extends State<HorizontalWeekCalendar> {
               shape: BoxShape.circle,
             ),
             selectedDecoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.blue,
               shape: BoxShape.circle,
+            ),
+            selectedTextStyle: TextStyle(
+              color: Colors.white,
+            ),
+            todayTextStyle: TextStyle(
+              color: Colors.white,
             ),
           ),
           headerStyle: HeaderStyle(
@@ -70,6 +76,3 @@ class _HorizontalWeekCalendarState extends State<HorizontalWeekCalendar> {
     );
   }
 }
-
-
-
