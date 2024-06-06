@@ -91,6 +91,10 @@ flutter:
   - assets/images/prova2.png
   - assets/images/Lottie/Animation - 1715069611277.json
   - assets/images/splashIcon.png
+  - assets/images/splash.png
+  - assets/images/hero1.jpg
+  - assets/images/hero2.jpg
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -104,10 +108,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: PlayfairDisplay
+       fonts:
+        - asset: fonts/PlayfairDisplay-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

@@ -154,7 +154,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           borderRadius:
                               BorderRadius.all(Radius.circular(10.0))),
                       prefixIcon: const Icon(
-                        Icons.person_outline,
+                        Icons.accessibility,
                       ),
                       hintText: 'Age',
                     ),

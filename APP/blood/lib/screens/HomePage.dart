@@ -1,6 +1,8 @@
 import 'package:blood/screens/StatisticPage.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
+import 'package:blood/screens/what_air_pollution.dart';
+import 'package:blood/screens/what_exposure.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/provider/HomeProvider.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -31,6 +33,7 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
+      
       icon: Icon(Icons.home),
       label: 'Home',
     ),
@@ -99,6 +102,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
                 todayTextStyle: TextStyle(
+                  fontWeight:FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
@@ -118,7 +122,7 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: Text(
                   'Scegli il giorno in cui vorresti donare',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                 ),
               )
             else if (provider.isLoading)
@@ -141,11 +145,129 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-          ],
-        ),
+
+              
+     const SizedBox(
+            height: 200, // inserito per mettere le due immagini hero in fondo: sarà da modificare sicuramente!
+          ),
+          const Text(
+            "Learn Something More",
+            style: TextStyle(fontSize: 16),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          SizedBox(
+            height: 250,
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                InkWell(
+                  onTap: () {
+                    // handle button press
+                  },
+                  child: SizedBox(
+                    width: 300,
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (_) => WhatExposure())),
+                          child: Hero(
+                            tag: 'exposure',
+                            child: Container(
+                              width: 300,
+                              height: 200,
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15.0),
+                                  bottomLeft: Radius.circular(15.0),
+                                  bottomRight: Radius.circular(15.0),
+                                  topRight: Radius.circular(15.0),
+                                ),
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    'assets/images/hero1.jpg',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "What's Exposure?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                InkWell(
+                  onTap: () {
+                    // handle button press
+                  },
+                  child: SizedBox(
+                    width: 300,
+                    height: 200,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        InkWell(
+                          onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (_) => WhatAirPollution())),
+                          child: Container(
+                            width: 300,
+                            height: 200,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                bottomLeft: Radius.circular(15.0),
+                                bottomRight: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  'assets/images/hero2.jpg',
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: Text(
+                            "What's Air Pollution?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
     DateTime tomorrow = DateTime.now().add(Duration(days: 1));
@@ -175,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       Image.asset(
                         'assets/images/splashIcon.png',
-                        scale: 8,
+                        scale: 10,
                       ),
                       const SizedBox(width: 10),
                       const Text(
@@ -190,6 +312,9 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                   backgroundColor: Colors.red, // Imposta il colore di sfondo in rosso
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0), // Adjust radius as needed
+                  ),
                 )
               : AppBar(
                   title: const Text('Profile page'),
@@ -206,6 +331,7 @@ class _HomePageState extends State<HomePage> {
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFFf5f7f7),
             items: navBarItems,
+            selectedItemColor: Colors.redAccent,
             currentIndex: _selIdx,
             onTap: _onItemTapped,
           ),
