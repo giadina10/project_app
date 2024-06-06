@@ -7,7 +7,7 @@ import 'package:blood/models/calories.dart';
 import 'package:blood/models/steps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:blood/utils/algorithm.dart';
-import 'package:blood/utils/plot.dart';
+import 'package:blood/utils/plotSteps.dart';
 
 
 

@@ -92,13 +92,12 @@ class _LoginPageState extends State<LoginPage3> {
         ),
         _buildGreyText("Please login with your information"),
         const SizedBox(height: 60),
-        _buildGreyText("Email address"),
+        _buildGreyText("Username"),
         _buildInputField(userController),
         const SizedBox(height: 40),
         _buildGreyText("Password"),
         _buildInputField(passwordController, isPassword: true),
-        const SizedBox(height: 20),
-        _buildRememberForgot(),
+       
         const SizedBox(height: 20),
         _buildLoginButton(),
         const SizedBox(height: 20),
@@ -114,7 +113,7 @@ class _LoginPageState extends State<LoginPage3> {
     );
   }
 
-  Widget _buildInputField(TextEditingController controller,
+Widget _buildInputField(TextEditingController controller,
       {isPassword = false}) {
     return TextFormField(
       controller: controller,
@@ -125,33 +124,24 @@ class _LoginPageState extends State<LoginPage3> {
         return null;
       },
       decoration: InputDecoration(
-        suffixIcon: isPassword ? Icon(Icons.remove_red_eye) : Icon(Icons.done),
-      ),
-      obscureText: isPassword,
-    );
-  }
-
-  Widget _buildRememberForgot() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Checkbox(
-                value: rememberUser,
-                onChanged: (value) {
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
                   setState(() {
-                    rememberUser = value!;
+                    _passwordVisible = !_passwordVisible;
                   });
-                }),
-            _buildGreyText("Remember me"),
-          ],
-        ),
-        TextButton(
-            onPressed: () {}, child: _buildGreyText("I forgot my password"))
-      ],
+                },
+              )
+            : Icon(Icons.done),
+      ),
+      obscureText: isPassword && !_passwordVisible,
     );
-  }
+}
+
+  
 
   Widget _buildLoginButton() {
     return MaterialButton(
