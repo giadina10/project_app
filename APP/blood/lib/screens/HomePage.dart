@@ -130,57 +130,115 @@ class _HomePageState extends State<HomePage> {
             else
               Column(
                 children: [
-                  if (_selectedDay != null) Text('Ho preso i dati per $_selectedDay!'),
-                  if (_selectedDay != null) Text(provider.risultatoalgoritmo),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Stats(provider),
+                  Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 200,
+                        height: 200,
+                        decoration: BoxDecoration(
+                          color: Colors.red.withOpacity(0.8),
+                          shape: BoxShape.circle,
                         ),
-                      );
-                    },
-                    child: const Text('Go to statistics'),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                               
+                              if (_selectedDay != null) Text(provider.risultatoalgoritmo, style: TextStyle(fontSize: 14, color: Colors.white)),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Stats(provider),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Go to statistics'),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-
-              
-     const SizedBox(
-            height: 200, // inserito per mettere le due immagini hero in fondo: sarà da modificare sicuramente!
-          ),
-          const Text(
-            "Learn Something More",
-            style: TextStyle(fontSize: 16),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          SizedBox(
-            height: 250,
-            child: ListView(
-              physics: const ClampingScrollPhysics(),
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                InkWell(
-                  onTap: () {
-                    // handle button press
-                  },
-                  child: SizedBox(
-                    width: 300,
-                    height: 200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (_) => WhatExposure())),
-                          child: Hero(
-                            tag: 'exposure',
+            const SizedBox(height: 200),
+            const Text(
+              "Learn Something More",
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              height: 250,
+              child: ListView(
+                physics: const ClampingScrollPhysics(),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      // handle button press
+                    },
+                    child: SizedBox(
+                      width: 300,
+                      height: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => WhatExposure())),
+                            child: Hero(
+                              tag: 'exposure',
+                              child: Container(
+                                width: 300,
+                                height: 200,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15.0),
+                                    bottomLeft: Radius.circular(15.0),
+                                    bottomRight: Radius.circular(15.0),
+                                    topRight: Radius.circular(15.0),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage('assets/images/hero1.jpg'),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              "What's Exposure?",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  InkWell(
+                    onTap: () {
+                      // handle button press
+                    },
+                    child: SizedBox(
+                      width: 300,
+                      height: 200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(builder: (_) => WhatAirPollution())),
                             child: Container(
                               width: 300,
                               height: 200,
@@ -193,94 +251,57 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    'assets/images/hero1.jpg',
-                                  ),
+                                  image: AssetImage('assets/images/hero2.jpg'),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "What's Exposure?",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                InkWell(
-                  onTap: () {
-                    // handle button press
-                  },
-                  child: SizedBox(
-                    width: 300,
-                    height: 200,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        InkWell(
-                          onTap: () => Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                          builder: (_) => WhatAirPollution())),
-                          child: Container(
-                            width: 300,
-                            height: 200,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15.0),
-                                bottomLeft: Radius.circular(15.0),
-                                bottomRight: Radius.circular(15.0),
-                                topRight: Radius.circular(15.0),
-                              ),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage(
-                                  'assets/images/hero2.jpg',
-                                ),
-                              ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Text(
+                              "What's Air Pollution?",
+                              style: TextStyle(fontSize: 14),
                             ),
                           ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "What's Air Pollution?",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
+//se il giorno che schiaccio è domani, prende i dati  dei tre giorni prima di oggi 
   void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
     DateTime tomorrow = DateTime.now().add(Duration(days: 1));
+    
     DateTime today = DateTime.now();
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
     if (selectedDay.isAfter(tomorrow)) {//è tra due giorni
       provider.getData(selectedDay.subtract(Duration(days: 5)), selectedDay.subtract(Duration(days: 3)));
+      print('SE CLICCO dopodomani');
+       print(selectedDay.subtract(Duration(days: 5)));
+      print(selectedDay.subtract(Duration(days: 3)));
+    
     } else if (selectedDay.isAfter(today) && selectedDay.isBefore(dayAfterTomorrow)) {
       provider.getData(selectedDay.subtract(Duration(days: 4)), selectedDay.subtract(Duration(days: 2)));
+      print('SE CLICCLO DOmani');
+       print(selectedDay.subtract(Duration(days: 4)));
+      print(selectedDay.subtract(Duration(days: 2)));
+    
     } else {
       provider.getData(selectedDay.subtract(Duration(days: 3)), selectedDay.subtract(Duration(days: 1)));
+      print('clicco OGGI');
+      print(selectedDay.subtract(Duration(days: 3)));
+      print(selectedDay.subtract(Duration(days: 1)));
     }
+
   }
 
   @override
