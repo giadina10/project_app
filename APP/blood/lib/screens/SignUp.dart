@@ -97,7 +97,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                   height: 5,
                 ),
                 const Text(
-                  "Info about you for a tailored experience",
+                  "Tell us something more about you",
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.black45,
@@ -275,9 +275,10 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text("Attention"),
+                                title: Text("Attention",style: TextStyle(fontWeight: FontWeight.bold),),
                                 content: Text(
-                                    "Your generosity in considering blood donation is appreciated. However, due to your current condition, we advise waiting until after the birth to donate."),
+                                    "Your generosity in considering blood donation is appreciated. However, due to your current condition, we advise waiting until after the birth to donate.", 
+                                    style:TextStyle(fontWeight: FontWeight.w500)),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

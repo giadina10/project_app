@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:blood/services/impact2.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,7 @@ import 'package:blood/models/calories.dart';
 import 'package:blood/models/steps.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:blood/utils/algorithm.dart';
-import 'package:blood/utils/plotSteps.dart';
+
 
 
 
@@ -26,7 +26,7 @@ class HomeProvider extends ChangeNotifier {
   late SharedPreferences sp;
   final Impact impact = Impact();
   late Algorithm algoritmo;
-  //final CustomPlot plot ;
+  
 
   HomeProvider() {
     init(); //l'inizializzazione è asincrona e getdata non prende le prefernze
@@ -39,6 +39,8 @@ void init() async {
 }
    Future<void> getPreferences() async {
     sp = await SharedPreferences.getInstance();
+     risultatoalgoritmo = sp.getString('algoritmo_result') ?? "";  // Carica il risultato salvato //da CONTROLLARE (inserita il 10-06-24)
+     notifyListeners();
   }
 
   void getData(DateTime showDate1, DateTime showDate2) async {
@@ -57,7 +59,7 @@ void init() async {
       // Extract time and values from heartRates
       
 
-      risultatoalgoritmo=algoritmo.decisionTree(heartrates,calories,steps);
+      risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps); //DA CONTROLLARE (inserita il 10.06.24)
       print(calories);
      
     } else {
