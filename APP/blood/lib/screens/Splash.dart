@@ -13,7 +13,7 @@ class CustomWaveDecoration extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Color.fromARGB(255, 241, 173, 152) // Colore dell'ondulazione
+      ..color = Color.fromARGB(255, 253, 189, 169) // Colore dell'ondulazione
       ..style = PaintingStyle.fill;
     final Path path = Path()
       ..moveTo(0, size.height * 0.25) // Inizia in basso a sinistra
@@ -38,7 +38,7 @@ class CustomBottomWaveDecoration extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Color.fromARGB(255, 241, 173, 152) // Colore dell'ondulazione
+      ..color = Color.fromARGB(255, 253, 189, 169) // Colore dell'ondulazione
       ..style = PaintingStyle.fill;
 
     final Path path = Path()
@@ -122,7 +122,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: const Color.fromARGB(255, 241, 96, 85),
+          color: Color.fromARGB(255, 239, 120, 111),
           child: Stack(
             children: [
               CustomPaint(
@@ -143,7 +143,11 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                           Text(
                             'Welcome to',
                             style: TextStyle(
+                                 color: Color.fromARGB(255, 121, 8, 0),
+                                fontWeight: FontWeight.w100,
+                                
                                 fontSize: 46,
+                
                                 fontFamily: 'PlayfairDisplay'),
                           ),
                           SizedBox(height: 5), // Aggiungi spazio tra la scritta "Welcome to" e l'icona
@@ -158,8 +162,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                               Text(
                                 'Donify',
                                 style: TextStyle(
+                                  color: Color.fromARGB(255, 121, 8, 0),
                                   fontSize: 34,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w800,
                                   fontFamily: 'CustomFont',
                                 ),
                               ),

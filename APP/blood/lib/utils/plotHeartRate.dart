@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphic/graphic.dart';
 import 'package:blood/models/heartRate.dart';
-import 'package:intl/intl.dart';
 
 class HeartRatePlot extends StatelessWidget {
   const HeartRatePlot({
@@ -13,9 +12,9 @@ class HeartRatePlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> data = heartRateData.map((hr) => {
-      'time': hr.time,
-      'heartRate': hr.value,
+    List<Map<String, dynamic>> data = heartRateData.map((heartRate) => {
+      'time': heartRate.time.toIso8601String(),
+      'heartRate': heartRate.value,
     }).toList();
 
     return Chart(
@@ -23,11 +22,8 @@ class HeartRatePlot extends StatelessWidget {
       data: data,
       variables: {
         'time': Variable(
-          accessor: (Map map) => map['time'] as DateTime,
-          scale: TimeScale(
-            formatter: (time) => DateFormat('HH:mm').format(time),
-            tickCount: 5,
-          ),
+          accessor: (Map map) => DateTime.parse(map['time']),
+          scale: TimeScale(tickCount: 5),
         ),
         'heartRate': Variable(
           accessor: (Map map) => map['heartRate'] as num,
@@ -38,7 +34,11 @@ class HeartRatePlot extends StatelessWidget {
           position: Varset('time') * Varset('heartRate'),
           shape: ShapeEncode(value: BasicLineShape(smooth: true)),
           size: SizeEncode(value: 2),
-          color: ColorEncode(value: Color.fromARGB(255, 0, 122, 255)),
+          color: ColorEncode(value: Colors.greenAccent),
+        ),
+        PointMark(
+          size: SizeEncode(value: 5),
+          color: ColorEncode(value: Colors.greenAccent),
         ),
       ],
       axes: [
