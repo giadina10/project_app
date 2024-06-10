@@ -330,60 +330,72 @@ class _HomePageState extends State<HomePage> {
         return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
     }
   }
-
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeProvider(),
-      builder: (context, child) {
+      builder: (context, _) {
         final provider = Provider.of<HomeProvider>(context);
         return Scaffold(
-          bottomNavigationBar: BottomNavigationBar(
-            items: navBarItems,
-            currentIndex: _selIdx,
-            selectedItemColor: Colors.red,
-            onTap: _onItemTapped,
-          ),
-          body: Stack(
-            children: [
-              Column(
-                children: [
-                  ClipPath(
-                    clipper: WaveClipper(),
-                    child: Container(
-                      height: 200.0,
-                      color: Colors.red,
-                      child: Center(
-                        child: Text(
-                          'Home Page',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+          appBar: _selIdx == 0
+              ? AppBar(
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/splashIcon.png',
+                        scale: 8,
+                      ),
+                      const SizedBox(width: 10),
+                      const Text(
+                        'Donify',
+                        style: TextStyle(
+                          fontSize: 34,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'CustomFont',
+                          color: Colors.black,
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  Expanded(
-                    child: IndexedStack(
-                      index: _selIdx,
-                      children: [
-                        _homeContent(provider),
-                        ProfilePage(),
-                      ],
+                  backgroundColor: Colors.red, // Imposta il colore di sfondo in rosso
+                )
+              : AppBar(
+                  title: const Text('Profile page'),
+                  actions: [
+                    IconButton(
+                      icon: Icon(Icons.logout),
+                      onPressed: () async {
+                        _toLogin(context);
+                      },
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+          body: _selIdx == 0 ? _homeContent(provider) : ProfilePage(),
+          bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color(0xFFf5f7f7),
+            items: navBarItems,
+            currentIndex: _selIdx,
+            onTap: _onItemTapped,
           ),
         );
       },
     );
   }
+
+
+  
+
+
+
 }
+ _toLogin(BuildContext context) async {
+    final sp = await SharedPreferences.getInstance();
+    await sp.clear();
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => const LoginPage3()),
+    );
+  }
 
 class WaveClipper extends CustomClipper<Path> {
   @override
