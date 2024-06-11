@@ -10,6 +10,77 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+//definisco custom appbar
+AppBar customAppBar(String fullName, String email) {
+  return AppBar(
+    backgroundColor: Colors.redAccent,
+    centerTitle: true,
+    title: const Text(
+      'Homepage',
+      style: TextStyle(fontSize: 35, color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Roboto Serif'),
+    ),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        bottom: Radius.circular(30),
+      ),
+    ),
+    
+    
+    bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(110.0),
+        child: Container(
+          padding: const EdgeInsets.only(left: 30, bottom: 20),
+          child: Row(
+            children: [
+              Stack(
+                children: [
+                  const CircleAvatar(
+                    radius: 32,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.person_outline_rounded, color: Colors.redAccent,),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 30,
+                    decoration: const BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: const Icon(
+                      Icons.edit,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(fullName,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                    ),
+                    Text(email,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.white,
+                      ),
+                    ),
+                    
+                  ],
+                ),
+              )
+            ],
+          ),
+        )),
+  );
+}
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -21,6 +92,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? name;
+  String? fullName;
+  String? email;
   int _selIdx = 0;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -32,13 +105,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<BottomNavigationBarItem> navBarItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home),
+     const BottomNavigationBarItem(
+      icon: Icon(Icons.home,color: Colors.redAccent),
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(MdiIcons.account),
+      icon: Icon(MdiIcons.account,color: Colors.redAccent),
       label: 'Profile',
+      
+      
     ),
   ];
 
@@ -52,6 +127,8 @@ class _HomePageState extends State<HomePage> {
     final sp = await SharedPreferences.getInstance();
     setState(() {
       name = sp.getString('name') ?? 'User';
+      fullName = sp.getString('fullName') ?? 'User';
+      email = sp.getString('email') ?? "";
     });
   }
 
@@ -110,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                   shape: BoxShape.circle,
                 ),
                 selectedDecoration: BoxDecoration(
-                  color: Colors.red,
+                  color: Colors.redAccent,
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: TextStyle(
@@ -126,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                 titleCentered: true,
               ),
               daysOfWeekStyle: DaysOfWeekStyle(
-                weekendStyle: TextStyle(color: Colors.red),
+                weekendStyle: TextStyle(color: Colors.redAccent),
               ),
               availableCalendarFormats: const {
                 CalendarFormat.week: 'Week',
@@ -149,11 +226,11 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 200,
-                        height: 200,
+                        width: 300,
+                        height: 250,
                         decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.8),
-                          shape: BoxShape.circle,
+                          color: Colors.redAccent,
+                          shape: BoxShape.rectangle,
                         ),
                         child: Center(
                           child: Column(
@@ -192,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            const SizedBox(height: 200),
+            const SizedBox(height: 80),
             const Text(
               "Learn Something More",
               style: TextStyle(fontSize: 16,fontFamily: 'Roboto Serif'),
@@ -338,29 +415,8 @@ class _HomePageState extends State<HomePage> {
         final provider = Provider.of<HomeProvider>(context);
         return Scaffold(
           appBar: _selIdx == 0
-              ? AppBar(
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/splashIcon.png',
-                        scale: 8,
-                      ),
-                      const SizedBox(width: 10),
-                      const Text(
-                        'Donify',
-                        style: TextStyle(
-                          fontSize: 34,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'CustomFont',
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  backgroundColor: Colors.red, // Imposta il colore di sfondo in rosso
-                )
-              : AppBar(
+              ? customAppBar(fullName ?? 'User', email ?? '')
+                  : AppBar(
                   title: const Text('Profile page'),
                   actions: [
                     IconButton(
@@ -377,6 +433,8 @@ class _HomePageState extends State<HomePage> {
             items: navBarItems,
             currentIndex: _selIdx,
             onTap: _onItemTapped,
+            selectedItemColor: Colors.redAccent, // Colore del testo per l'etichetta selezionata
+            unselectedItemColor: Colors.black, // Colore del testo per le etichette non selezionate
           ),
         );
       },
@@ -397,30 +455,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-class WaveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 50); // Posiziona l'onda in basso
 
-    // Crea l'ondulazione
-    path.quadraticBezierTo(
-      size.width / 4, size.height, 
-      size.width / 2, size.height - 50
-    );
-    path.quadraticBezierTo(
-      3 / 4 * size.width, size.height - 100, 
-      size.width, size.height - 50
-    );
-
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
 
 
   

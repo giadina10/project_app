@@ -12,9 +12,11 @@ class PersonalInfo extends StatefulWidget {
 
 class _PersonalInfoState extends State<PersonalInfo> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController fullnameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
   int? bs;
@@ -32,6 +34,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
     final sp = await SharedPreferences.getInstance();
     int? bioS = sp.getInt('bs');
     String age = sp.getString('age') ?? "";
+    String fullName = sp.getString('fullName')?? '';
+    String email = sp.getString('email') ?? "";
     String name = sp.getString('name') ?? "";
     String weight = sp.getString('weight') ?? "";
     bool? pregnant = sp.getBool('isPregnant');
@@ -41,7 +45,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
     setState(() {
       bs = bioS;
       ageController.text = age;
+      fullnameController.text = fullName;
       nameController.text = name;
+      emailController.text = email;
       weightController.text = weight;
       isPregnant = pregnant;
       isSporty = sporty;
@@ -103,12 +109,37 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     color: Colors.black45,
                   ),
                 ),
+                 Padding(
+                    padding: const EdgeInsets.only(top: 10, right: 8.0),
+                    child: TextFormField(
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Full name is required';
+                        }
+                        return null;
+                      },
+                      controller: fullnameController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(color: Colors.red, width: 2.0),
+                        ),
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.person,
+                        ),
+                        hintText: 'Full Name',
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, right: 8.0),
                   child: TextFormField(
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
-                        return 'Name is required';
+                        return 'The username is required';
                       }
                       return null;
                     },
@@ -125,7 +156,33 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       prefixIcon: const Icon(
                         Icons.person,
                       ),
-                      hintText: 'Name',
+                      hintText: 'Pick a username',
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, right: 8.0),
+                  child: TextFormField(
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'The email is required';
+                      }
+                      return null;
+                    },
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      border: const OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      prefixIcon: const Icon(
+                        Icons.email,
+                      ),
+                      hintText: 'mariorossi@gmail.com',
                     ),
                   ),
                 ),
@@ -302,7 +359,9 @@ class _PersonalInfoState extends State<PersonalInfo> {
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
                           final sp = await SharedPreferences.getInstance();
+                          sp.setString('fullName', fullnameController.text);
                           sp.setString('name', nameController.text);
+                          sp.setString('email', emailController.text);
                           sp.setString('age', ageController.text);
                           sp.setString('weight', weightController.text);
                           sp.setInt('bs', bs ?? 0);
