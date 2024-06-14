@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
               ),
             const SizedBox(height: 20),
             TableCalendar(
-              firstDay: DateTime.now().subtract(Duration(days: 2)),
+              firstDay: DateTime.now(),//.subtract(Duration(days: 2)),
               lastDay: DateTime.now().add(Duration(days: 2)),
               focusedDay: _focusedDay,
               selectedDayPredicate: (day) {
