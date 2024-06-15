@@ -91,7 +91,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   //3 funzioni inserite ora (17.05)
   void _toHomePage(BuildContext context) {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const PersonalInfo()));
+        MaterialPageRoute(builder: (context) => const HomePage())); //quando i refresh tokens non sono scaduti, vado diretta alla homepage
   } //_toHomePage
 
   // Method for navigation SplashPage -> LoginPage
@@ -118,7 +118,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    //aggiunta ora la prossima riga
+   
     return Scaffold(
       body: SafeArea(
         child: Container(

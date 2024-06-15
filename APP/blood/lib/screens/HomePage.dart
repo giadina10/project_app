@@ -385,11 +385,11 @@ class _HomePageState extends State<HomePage> {
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
     if (selectedDay.isAfter(tomorrow)) {
-      provider.getData(selectedDay.subtract(Duration(days: 5)), selectedDay.subtract(Duration(days: 3)));
+      provider.getData(selectedDay.subtract(Duration(days: 9)), selectedDay.subtract(Duration(days: 3)),7); //prende 7 giorni se clicco dopodomani
     } else if (selectedDay.isAfter(today) && selectedDay.isBefore(dayAfterTomorrow)) {
-      provider.getData(selectedDay.subtract(Duration(days: 4)), selectedDay.subtract(Duration(days: 2)));
+      provider.getData(selectedDay.subtract(Duration(days: 6)), selectedDay.subtract(Duration(days: 2)),5); //prende 5 giorni indietro rispetto al giorno cliccato
     } else {
-      provider.getData(selectedDay.subtract(Duration(days: 3)), selectedDay.subtract(Duration(days: 1)));
+      provider.getData(selectedDay.subtract(Duration(days: 3)), selectedDay.subtract(Duration(days: 1)),3); //prende 3 giorni
     }
   }
 
@@ -417,17 +417,8 @@ class _HomePageState extends State<HomePage> {
           appBar: _selIdx == 0
               ? customAppBar(fullName ?? 'User', email ?? '')
                   : AppBar(
-                  title: const Text('Profile page'),
-                  actions: [
-                    IconButton(
-                      icon: Icon(Icons.logout),
-                      onPressed: () async {
-                        _toLogin(context);
-                      },
-                    ),
-                  ],
                 ),
-          body: _selIdx == 0 ? _homeContent(provider) : ProfilePage(),
+          body: _selIdx == 0 ? _homeContent(provider) : Profile(),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFFf5f7f7),
             items: navBarItems,

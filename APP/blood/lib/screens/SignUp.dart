@@ -369,10 +369,16 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setBool('isSporty', isSporty ?? false);
                         
                   
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                             if (ModalRoute.of(context)!.settings.arguments == null) {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                          } else {
+                            Navigator.of(context).pop();
+                          }
                         }
                       },
+                        
+                      
                       color: const Color.fromARGB(255, 241, 96, 85),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
