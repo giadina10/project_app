@@ -2,6 +2,7 @@
 
 import 'package:blood/screens/HomePage.dart';
 import 'package:blood/screens/SignUp.dart';
+import 'package:blood/screens/SignUp_onboarding.dart';
 import 'package:blood/screens/Splash.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         home:Splash(),
         routes: {
           '/home': (context)=> HomePage(),
-          '/signup' : (context) => PersonalInfo(),
+          '/signup_onboarding' : (context) => PersonalInfoOnboarding(),
+          '/signup' :(context) => PersonalInfo(),
           '/login3': (context) => LoginPage3(),
           '/profile':(context)=> Profile(),
          
