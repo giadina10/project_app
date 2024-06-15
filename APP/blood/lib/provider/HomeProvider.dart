@@ -20,6 +20,7 @@ class HomeProvider extends ChangeNotifier {
   DateTime showDate1 = DateTime.now().subtract(const Duration(days: 3));
   DateTime showDate2 = DateTime.now().subtract(const Duration(days: 1));
   bool isLoading = true; // New variable to track loading state
+  int num = 3; //per algoritmo
   
   String risultatoalgoritmo = "" ;
 
@@ -30,7 +31,7 @@ class HomeProvider extends ChangeNotifier {
 
   HomeProvider() {
     init(); //l'inizializzazione è asincrona e getdata non prende le prefernze
-    getData(showDate1, showDate2);
+    getData(showDate1, showDate2,num);
   }
 
 void init() async {
@@ -43,7 +44,7 @@ void init() async {
      notifyListeners();
   }
 
-  void getData(DateTime showDate1, DateTime showDate2) async {
+  void getData(DateTime showDate1, DateTime showDate2,num) async {
     isLoading = true;
     notifyListeners(); // Notify listeners that loading is starting
 
@@ -59,8 +60,11 @@ void init() async {
       // Extract time and values from heartRates
       
 
-      risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps); //DA CONTROLLARE (inserita il 10.06.24)
-      print(calories);
+      risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps,num); //DA CONTROLLARE (inserita il 10.06.24)
+     
+      print('QUESTE SONO LE DATEEEEEE');
+      print(showDate1);
+      print(showDate2);
      
     } else {
       print('Error fetching data.');

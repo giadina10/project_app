@@ -45,7 +45,7 @@ class Algorithm {
   }
 
   // Implementa il decision tree
-  Future<String> decisionTree(List<HeartRate> heartrates, List<Calories> calories, List<Steps> steps) async {
+  Future<String> decisionTree(List<HeartRate> heartrates, List<Calories> calories, List<Steps> steps,num) async {
     // Chiamata al metodo getPreferences per inizializzare _sp
 
     age = sp.getString('age')!; // Ottenere l'età dalle SharedPreferences
@@ -55,6 +55,7 @@ class Algorithm {
     //a quelli dei tap precedenti (ottenendo valori non reali)
     stepsValues.clear();
     caloriesValues.clear();
+    heartRateValues.clear();
 
     for (var heartRate in heartrates) {
       heartRateTimes.add(heartRate.time);
@@ -89,6 +90,9 @@ class Algorithm {
     print('QUESTI SONO I PASSI');
     print(stepsSum);
 
+    print('ETA UTENTEEEEEE');
+    print(age);
+
     String result = '';
 
     // Esegui le condizioni del decision tree
@@ -97,8 +101,8 @@ class Algorithm {
         if (heartRateMean > 95) {
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 5700) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < 1900*num) { //calorie giornaliere moltiplicate per numero di giorni
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -106,7 +110,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 5700) {
+            if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -121,8 +125,8 @@ class Algorithm {
         if (heartRateMean > 90) { //dai 26 ai 35 ci si aspetta un battito non maggiore di 90 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 5700) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*1900) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -130,7 +134,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 5700) {
+            if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -143,8 +147,8 @@ class Algorithm {
         if (heartRateMean > 85) { //dai 36 ai 45 ci si aspetta un battito non maggiore di 85 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 5700) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*1900) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -152,7 +156,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 5700) {
+            if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -165,8 +169,8 @@ class Algorithm {
         if (heartRateMean > 80) { //dai 46 ai 60 ci si aspetta un battito non maggiore di 80 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 5700) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*1800) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -174,7 +178,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 5700) {
+            if (caloriesSum < num*1800) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -187,8 +191,8 @@ class Algorithm {
         if (heartRateMean > 75) { //oltre i 60 ci si aspetta un battito non maggiore di 75 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 5700) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*1600) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -196,7 +200,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 5700) {
+            if (caloriesSum < num*1600) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -211,8 +215,8 @@ class Algorithm {
         if (heartRateMean > 100) {
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 7500) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < 2500*num) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -220,7 +224,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 7500) {
+            if (caloriesSum < num*2500) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -235,8 +239,8 @@ class Algorithm {
         if (heartRateMean > 95) { //dai 26 ai 35 ci si aspetta un battito non maggiore di 95 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 7500) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*2400) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -244,7 +248,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 7500) {
+            if (caloriesSum < num*2400) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -257,8 +261,8 @@ class Algorithm {
         if (heartRateMean > 90) { //dai 36 ai 45 ci si aspetta un battito non maggiore di 90 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 7500) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*2400) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -266,7 +270,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 7500) {
+            if (caloriesSum < num*2400) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -279,8 +283,8 @@ class Algorithm {
         if (heartRateMean > 85) { //dai 46 ai 60 ci si aspetta un battito non maggiore di 85 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 7500) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*2200) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -288,7 +292,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 7500) {
+            if (caloriesSum < num*2200) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
@@ -301,8 +305,8 @@ class Algorithm {
         if (heartRateMean > 80) { //oltre i 60 ci si aspetta un battito non maggiore di 80 bpm in media
           result = "1"; //1 sta per = battito cardiaco troppo alto, non donare
         } else { //se battito è minore facciamo il controllo sui passi + calorie
-          if (stepsSum > 15000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
-            if (caloriesSum < 7500) {
+          if (stepsSum > num*5000) { //passi compresi nel range giusto (attività fisica minima ossia 5000 passi al giorno)
+            if (caloriesSum < num*2200) {
               result = "2"; //2 significa che ha battiti cardiaci giusti+ passi giusti + non ha bruciato troppe calorie
               //quindi è PERFETTO PER DONARE
             } else {
@@ -310,7 +314,7 @@ class Algorithm {
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
           } else { //se i passi sono inferiori al minimo (15000)
-            if (caloriesSum < 7500) {
+            if (caloriesSum < num*2200) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)

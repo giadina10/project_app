@@ -1,21 +1,24 @@
+import 'package:blood/models/heartrate.dart';
 import 'package:blood/models/calories.dart';
 import 'package:blood/models/steps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:blood/provider/HomeProvider.dart';
-import 'package:blood/utils/plotSteps.dart'; // Adjust the import according to your folder structure
-import 'package:blood/utils/plotCalories.dart'; // Import del nuovo widget PlotCalories
+import 'package:blood/utils/plotSteps.dart';
+import 'package:blood/utils/plotCalories.dart';
+import 'package:blood/utils/plotHeartRate.dart'; // Import del nuovo widget PlotHeartRate
 
 class Stats extends StatelessWidget {
-  const Stats(this.provider,{ Key? key}) : super(key: key);
-  
+  const Stats(this.provider, {Key? key}) : super(key: key);
+
   static const routename = 'Stats';
   final HomeProvider provider;
 
   @override
   Widget build(BuildContext context) {
     List<Steps> steps = provider.steps;
-    List<Calories> calories = provider.calories; // Aggiunto recupero dei dati delle calorie
+    List<Calories> calories = provider.calories;
+    List<HeartRate> heartRates = provider.heartrates; // Recupero dei dati del battito cardiaco
 
     return Scaffold(
       appBar: AppBar(
@@ -36,7 +39,7 @@ class Stats extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: SizedBox(
-                height: 200, // Set the desired height for the plot
+                height: 200,
                 child: StepDataPlot(stepData: steps),
               ),
             ),
@@ -49,8 +52,21 @@ class Stats extends StatelessWidget {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: SizedBox(
-                height: 200, // Set the desired height for the plot
+                height: 200,
                 child: CaloriesPlot(caloriesData: calories),
+              ),
+            ),
+            // Container per il plot dei battiti cardiaci
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.greenAccent, width: 3),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: SizedBox(
+                height: 200,
+                child: HeartRatePlot(heartRateData: heartRates),
               ),
             ),
             // Aggiungere contenuto aggiuntivo sotto il plot
