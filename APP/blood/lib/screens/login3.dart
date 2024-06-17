@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:blood/screens/SignUp_onboarding.dart';
 import 'package:blood/services/impact2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -149,7 +150,7 @@ Widget _buildInputField(TextEditingController controller,
         if (_validateFields()) {
           final result = await _authorize();
           if (result == 200) {
-            Navigator.pushNamed(context, '/signup');
+            Navigator.pushNamed(context, '/signup_onboarding');
           }
         } else {
           ScaffoldMessenger.of(context)

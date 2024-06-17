@@ -24,8 +24,6 @@ AppBar customAppBar(String fullName, String email) {
         bottom: Radius.circular(30),
       ),
     ),
-    
-    
     bottom: PreferredSize(
         preferredSize: const Size.fromHeight(110.0),
         child: Container(
@@ -450,4 +448,3 @@ class _HomePageState extends State<HomePage> {
 
 
   
-

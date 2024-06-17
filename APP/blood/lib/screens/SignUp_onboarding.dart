@@ -1,18 +1,16 @@
 import 'package:blood/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:blood/provider/HomeProvider.dart';
 
-class PersonalInfo extends StatefulWidget {
-  const PersonalInfo({Key? key}) : super(key: key);
+class PersonalInfoOnboarding extends StatefulWidget {
+  const PersonalInfoOnboarding({Key? key}) : super(key: key);
 
   @override
-  State<PersonalInfo> createState() => _PersonalInfoState();
+  State<PersonalInfoOnboarding> createState() => _PersonalInfoState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+class _PersonalInfoState extends State<PersonalInfoOnboarding> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -29,32 +27,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   void initState() {
     super.initState();
-    _loadPrefs();
-  }
-
-  void _loadPrefs() async {
-    final sp = await SharedPreferences.getInstance();
-    int? bioS = sp.getInt('bs');
-    String age = sp.getString('age') ?? "";
-    String fullName = sp.getString('fullName') ?? '';
-    String email = sp.getString('email') ?? "";
-    String name = sp.getString('name') ?? "";
-    String weight = sp.getString('weight') ?? "";
-    bool? pregnant = sp.getBool('isPregnant');
-    bool? sporty = sp.getBool('isSporty');
-    double? activity =
-        sp.getDouble('activityLevel') ?? 5; // Default to 5 if not found
-    setState(() {
-      bs = bioS;
-      ageController.text = age;
-      fullnameController.text = fullName;
-      nameController.text = name;
-      emailController.text = email;
-      weightController.text = weight;
-      isPregnant = pregnant;
-      isSporty = sporty;
-      activityLevel = activity;
-    });
   }
 
   @override
@@ -374,11 +346,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setBool('isPregnant', isPregnant ?? false);
                           sp.setBool('isSporty', isSporty ?? false);
 
-                        
-                          Navigator.of(context).pop();
-                          
-                          ;
-                        }
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                            (route) => false,
+                          );
+                        } //_toHomePage
+
+                        ;
                       },
 
                       color: const Color.fromARGB(255, 241, 96, 85),
