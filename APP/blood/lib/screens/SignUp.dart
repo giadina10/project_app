@@ -375,9 +375,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setBool('isSporty', isSporty ?? false);
 
                         
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),)
+                          Navigator.of(context).pop();
                           
                           ;
                         }
