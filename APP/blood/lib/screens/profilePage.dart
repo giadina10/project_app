@@ -1,6 +1,7 @@
 import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:flutter/material.dart';
+import 'package:nps_survey/nps_survey.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
@@ -10,8 +11,11 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
-        automaticallyImplyLeading: false, // Rimuovi il pulsante di ritorno alla homepage
+        title: const Text(
+          'Profile',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        //automaticallyImplyLeading: false, // Rimuovi il pulsante di ritorno alla homepage
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 12.0, right: 12.0),
@@ -27,16 +31,17 @@ class Profile extends StatelessWidget {
                   color: Colors.black45,
                 )),
             const SizedBox(
-              height: 20,
+              height: 30,
             ),
             const Text(
               "Account",
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(height: 10), // Aggiungi spazio sopra alla Tile
                 ListTile(
                   leading: const Text(
                     "Edit Profile",
@@ -53,14 +58,26 @@ class Profile extends StatelessWidget {
                   thickness: 3,
                 ),
                 ListTile(
-                  leading: Text("Send a Feedback", style: TextStyle(fontSize: 14)),
-                  trailing: Icon(Icons.navigate_next),
-                  onTap: () {}
-                )
+                    leading:
+                        Text("Send a Feedback", style: TextStyle(fontSize: 14)),
+                    trailing: Icon(Icons.navigate_next),
+                    onTap: () {
+                      NPSSurvey().showNPSDialog(
+                          context: context,
+                          generalColor: Colors.red,
+                          callback: (feedback, score) {
+                            print(feedback);
+                            print(score);
+                          }
+                      
+                            
+                          );
+                    }
+                    )
               ],
             ),
             const SizedBox(
-              height: 20,
+              height: 5,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

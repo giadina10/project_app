@@ -264,6 +264,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  nps_survey:
+    dependency: "direct main"
+    description:
+      name: nps_survey
+      sha256: "66047ff83027e077a47a71d0d139365281bc45c36ad1dcf276438c1891f39027"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   page_transition:
     dependency: transitive
     description:
@@ -344,14 +352,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.2"
-  settings_ui:
-    dependency: "direct main"
-    description:
-      name: settings_ui
-      sha256: d9838037cb554b24b4218b2d07666fbada3478882edefae375ee892b6c820ef3
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   shared_preferences:
     dependency: "direct main"
     description:
