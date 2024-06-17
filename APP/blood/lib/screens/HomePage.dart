@@ -9,75 +9,98 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:blood/provider/FeaturesProvider.dart';
+
+
 
 //definisco custom appbar
-AppBar customAppBar(String fullName, String email) {
+PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider, Function onAvatarTap, String? selectedAvatar) {
   return AppBar(
-    backgroundColor: Colors.redAccent,
+    backgroundColor: Colors.red,
     centerTitle: true,
     title: const Text(
       'Homepage',
-      style: TextStyle(fontSize: 35, color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Roboto Serif'),
+      style: TextStyle(
+          fontSize: 35,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Roboto Serif'),
     ),
-    shape: const RoundedRectangleBorder(
+     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
       ),
     ),
     bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(110.0),
-        child: Container(
-          padding: const EdgeInsets.only(left: 30, bottom: 20),
-          child: Row(
-            children: [
-              Stack(
-                children: [
-                  const CircleAvatar(
-                    radius: 32,
+      preferredSize: const Size.fromHeight(110.0),
+      child: Container(
+        padding: const EdgeInsets.only(left: 30, bottom: 20),
+        child: Row(
+          children: [
+            Stack(
+              children: [
+                InkWell(
+                  onTap: () {
+                    onAvatarTap();
+                  },
+                  child: CircleAvatar(
+                    radius: 42,
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.person_outline_rounded, color: Colors.redAccent,),
+                    child: selectedAvatar != null
+                        ? Image.asset(
+                            selectedAvatar,
+                            width: 60,
+                            height: 60,
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(
+                            Icons.person_outline_rounded,
+                            color: Colors.redAccent,
+                          ),
                   ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: const BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: const Icon(
-                      Icons.edit,
+                ),
+                Container(
+                  height: 30,
+                  width: 30,
+                  decoration: const BoxDecoration(
+                      color: Colors.redAccent,
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    featuresProvider.fullName,
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                  ),
+                  Text(
+                    featuresProvider.email,
+                    style: TextStyle(
+                      fontSize: 13,
                       color: Colors.white,
-                      size: 20,
                     ),
-                  )
+                  ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(fullName,
-                      style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                    ),
-                    Text(email,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.white,
-                      ),
-                    ),
-                    
-                  ],
-                ),
-              )
-            ],
-          ),
-        )),
+            )
+          ],
+        ),
+      ),
+    ),
   );
 }
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -95,6 +118,12 @@ class _HomePageState extends State<HomePage> {
   int _selIdx = 0;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  String? selectedAvatar; // Variabile per memorizzare l'avatar selezionato
+    bool isAvatarSelected = false; // Variabile per tracciare la selezione dell'avatar
+  // Lista di avatar predefiniti
+  List<String> avatars = ['assets/images/a1.jpg', 'assets/images/a2.jpg','assets/images/a3.jpg',
+  'assets/images/a4.jpg', 'assets/images/a5.jpg','assets/images/a6.jpg'];
+
 
   void _onItemTapped(int index) {
     setState(() {
@@ -103,32 +132,86 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<BottomNavigationBarItem> navBarItems = [
-     const BottomNavigationBarItem(
-      icon: Icon(Icons.home,color: Colors.redAccent),
+    const BottomNavigationBarItem(
+      icon: Icon(Icons.home, color: Colors.redAccent),
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(MdiIcons.account,color: Colors.redAccent),
+      icon: Icon(MdiIcons.account, color: Colors.redAccent),
       label: 'Profile',
-      
-      
     ),
   ];
 
   @override
   void initState() {
     super.initState();
-    _loadName();
+     _loadPreferences();
   }
 
-  Future<void> _loadName() async {
+  Future<void> _loadPreferences() async {
     final sp = await SharedPreferences.getInstance();
     setState(() {
       name = sp.getString('name') ?? 'User';
       fullName = sp.getString('fullName') ?? 'User';
       email = sp.getString('email') ?? "";
+      selectedAvatar = sp.getString('selectedAvatar') ?? 'assets/images/a1.jpg';
+      isAvatarSelected = sp.getBool('isAvatarSelected') ?? false; // Carica lo stato della selezione avatar
     });
   }
+  
+Future<void> _saveAvatar(String avatar) async {
+    final sp = await SharedPreferences.getInstance();
+    setState(() {
+      selectedAvatar = avatar;
+      isAvatarSelected = true; // Imposta lo stato della selezione avatar a true
+    });
+    await sp.setString('avatar', avatar);
+    await sp.setBool('isAvatarSelected', true); // Salva lo stato della selezione avatar
+  }
+
+
+ void _showAvatarSelectionDialog() {
+  if (isAvatarSelected) {
+      // Mostra un messaggio se l'avatar è già stato selezionato
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Avatar already selected. Go to setting in order to change it!')),
+      );
+      return;
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Select an Avatar'),
+          content: Container(
+            width: double.maxFinite,
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Due colonne
+                mainAxisSpacing: 10.0,
+                crossAxisSpacing: 10.0,
+                childAspectRatio: 1.0,
+              ),
+              shrinkWrap: true,
+              itemCount: avatars.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    _saveAvatar(avatars[index]);
+                    Navigator.of(context).pop();
+                  },
+                  child: Image.asset(avatars[index]),
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+
+
 
   Widget _homeContent(HomeProvider provider) {
     String advice = getAdvice(provider.risultatoalgoritmo);
@@ -138,26 +221,26 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-           Row(
-    children: [
-      Text(
-        'Hello, ',
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.normal,
-          fontFamily: 'Roboto Serif',
-        ),
-      ),
-      Text(
-        '$name',
-        style: TextStyle(
-          fontSize: 30,
-          fontFamily: 'Roboto Serif',
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ],
-  ),
+            Row(
+              children: [
+                Text(
+                  'Hello, ',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: 'Roboto Serif',
+                  ),
+                ),
+                Text(
+                  '$name',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontFamily: 'Roboto Serif',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 20),
             TableCalendar(
               firstDay: DateTime.now(),
@@ -212,7 +295,10 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: Text(
                   'Scegli il giorno in cui vorresti donare',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300, fontFamily: 'Roboto Serif'),
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: 'Roboto Serif'),
                 ),
               )
             else if (provider.isLoading)
@@ -234,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               if (_selectedDay != null)
+                              if (_selectedDay != null)
                                 Text(
                                   provider.risultatoalgoritmo,
                                   style: TextStyle(
@@ -270,7 +356,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 80),
             const Text(
               "Learn Something More",
-              style: TextStyle(fontSize: 16,fontFamily: 'Roboto Serif'),
+              style: TextStyle(fontSize: 16, fontFamily: 'Roboto Serif'),
             ),
             const SizedBox(height: 15),
             SizedBox(
@@ -293,7 +379,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           InkWell(
                             onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => WhatExposure())),
+                                MaterialPageRoute(
+                                    builder: (_) => WhatExposure())),
                             child: Hero(
                               tag: 'exposure',
                               child: Container(
@@ -308,7 +395,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage('assets/images/hero1.jpg'),
+                                    image:
+                                        AssetImage('assets/images/hero1.jpg'),
                                   ),
                                 ),
                               ),
@@ -339,7 +427,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           InkWell(
                             onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(builder: (_) => WhatAirPollution())),
+                                MaterialPageRoute(
+                                    builder: (_) => WhatAirPollution())),
                             child: Container(
                               width: 300,
                               height: 200,
@@ -383,11 +472,19 @@ class _HomePageState extends State<HomePage> {
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
     if (selectedDay.isAfter(tomorrow)) {
-      provider.getData(selectedDay.subtract(Duration(days: 9)), selectedDay.subtract(Duration(days: 3)),7); //prende 7 giorni se clicco dopodomani
-    } else if (selectedDay.isAfter(today) && selectedDay.isBefore(dayAfterTomorrow)) {
-      provider.getData(selectedDay.subtract(Duration(days: 6)), selectedDay.subtract(Duration(days: 2)),5); //prende 5 giorni indietro rispetto al giorno cliccato
+      provider.getData(
+          selectedDay.subtract(Duration(days: 9)),
+          selectedDay.subtract(Duration(days: 3)),
+          7); //prende 7 giorni se clicco dopodomani
+    } else if (selectedDay.isAfter(today) &&
+        selectedDay.isBefore(dayAfterTomorrow)) {
+      provider.getData(
+          selectedDay.subtract(Duration(days: 6)),
+          selectedDay.subtract(Duration(days: 2)),
+          5); //prende 5 giorni indietro rispetto al giorno cliccato
     } else {
-      provider.getData(selectedDay.subtract(Duration(days: 3)), selectedDay.subtract(Duration(days: 1)),3); //prende 3 giorni
+      provider.getData(selectedDay.subtract(Duration(days: 3)),
+          selectedDay.subtract(Duration(days: 1)), 3); //prende 3 giorni
     }
   }
 
@@ -405,46 +502,36 @@ class _HomePageState extends State<HomePage> {
         return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
     }
   }
- @override
+
+   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeProvider(),
       builder: (context, _) {
         final provider = Provider.of<HomeProvider>(context);
+        final featuresProvider = Provider.of<FeaturesProvider>(context);
         return Scaffold(
-          appBar: _selIdx == 0
-              ? customAppBar(fullName ?? 'User', email ?? '')
-                  : AppBar(
-                ),
+         appBar: _selIdx == 0
+              ? customAppBar(featuresProvider, _showAvatarSelectionDialog, selectedAvatar)
+              : AppBar(),
           body: _selIdx == 0 ? _homeContent(provider) : Profile(),
           bottomNavigationBar: BottomNavigationBar(
             backgroundColor: const Color(0xFFf5f7f7),
             items: navBarItems,
             currentIndex: _selIdx,
             onTap: _onItemTapped,
-            selectedItemColor: Colors.redAccent, // Colore del testo per l'etichetta selezionata
-            unselectedItemColor: Colors.black, // Colore del testo per le etichette non selezionate
+            selectedItemColor: Colors.redAccent,
+            unselectedItemColor: Colors.black,
           ),
         );
       },
     );
   }
-
-
-  
-
-
-
 }
- _toLogin(BuildContext context) async {
-    final sp = await SharedPreferences.getInstance();
-    await sp.clear();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const LoginPage3()),
-    );
-  }
-
-
-
-
-  
+_toLogin(BuildContext context) async {
+  final sp = await SharedPreferences.getInstance();
+  await sp.clear();
+  Navigator.of(context).pushReplacement(
+    MaterialPageRoute(builder: (context) => const LoginPage3()),
+  );
+}
