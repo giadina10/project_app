@@ -231,13 +231,19 @@ Future<void> _saveAvatar(String avatar) async {
                     fontFamily: 'Roboto Serif',
                   ),
                 ),
-                Text(
-                  '$name',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: 'Roboto Serif',
-                    fontWeight: FontWeight.bold,
+                Consumer<FeaturesProvider>( //aggiungo consumer così il nome dell'user si modifica ogni volta che salvo le nuove modifiche nei settings
+                  builder: (context, featuresProvider, child) {
+                    return Text(
+                      featuresProvider.name,
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontFamily: 'Roboto Serif',
+                        fontWeight: FontWeight.bold,
                   ),
+                );
+                  }
+
+                
                 ),
               ],
             ),
