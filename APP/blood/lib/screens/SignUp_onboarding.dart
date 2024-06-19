@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class PersonalInfo extends StatefulWidget {
-  const PersonalInfo({Key? key}) : super(key: key);
+class PersonalInfoOnboarding extends StatefulWidget {
+  const PersonalInfoOnboarding({Key? key}) : super(key: key);
 
   @override
-  State<PersonalInfo> createState() => _PersonalInfoState();
+  State<PersonalInfoOnboarding> createState() => _PersonalInfoState();
 }
 
-class _PersonalInfoState extends State<PersonalInfo> {
+class _PersonalInfoState extends State<PersonalInfoOnboarding> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController fullnameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -27,32 +27,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   @override
   void initState() {
     super.initState();
-    _loadPrefs();
-  }
-
-  void _loadPrefs() async {
-    final sp = await SharedPreferences.getInstance();
-    int? bioS = sp.getInt('bs');
-    String age = sp.getString('age') ?? "";
-    String fullName = sp.getString('fullName')?? '';
-    String email = sp.getString('email') ?? "";
-    String name = sp.getString('name') ?? "";
-    String weight = sp.getString('weight') ?? "";
-    bool? pregnant = sp.getBool('isPregnant');
-    bool? sporty = sp.getBool('isSporty');
-    double? activity =
-        sp.getDouble('activityLevel') ?? 5; // Default to 5 if not found
-    setState(() {
-      bs = bioS;
-      ageController.text = age;
-      fullnameController.text = fullName;
-      nameController.text = name;
-      emailController.text = email;
-      weightController.text = weight;
-      isPregnant = pregnant;
-      isSporty = sporty;
-      activityLevel = activity;
-    });
   }
 
   @override
@@ -109,31 +83,32 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     color: Colors.black45,
                   ),
                 ),
-                 Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 8.0),
-                    child: TextFormField(
-                      validator: (String? value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Full name is required';
-                        }
-                        return null;
-                      },
-                      controller: fullnameController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: const BorderSide(color: Colors.red, width: 2.0),
-                        ),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        prefixIcon: const Icon(
-                          Icons.person,
-                        ),
-                        hintText: 'Full Name',
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, right: 8.0),
+                  child: TextFormField(
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Full name is required';
+                      }
+                      return null;
+                    },
+                    controller: fullnameController,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide:
+                            const BorderSide(color: Colors.red, width: 2.0),
                       ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.person,
+                      ),
+                      hintText: 'Full Name',
                     ),
                   ),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, right: 8.0),
                   child: TextFormField(
@@ -292,7 +267,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10, right: 8.0),
                   child: Column(
-                    
                     children: [
                       Text('Do you regularly engage in physical activity? '),
                       Text(
@@ -332,10 +306,14 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text("Attention",style: TextStyle(fontWeight: FontWeight.bold),),
+                                title: Text(
+                                  "Attention",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 content: Text(
-                                    "Your generosity in considering blood donation is appreciated. However, due to your current condition, we advise waiting until after the birth to donate.", 
-                                    style:TextStyle(fontWeight: FontWeight.w500)),
+                                    "Your generosity in considering blood donation is appreciated. However, due to your current condition, we advise waiting until after the birth to donate.",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w500)),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -367,12 +345,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setInt('bs', bs ?? 0);
                           sp.setBool('isPregnant', isPregnant ?? false);
                           sp.setBool('isSporty', isSporty ?? false);
-                        
-                  
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage()));
-                        }
+
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                            (route) => false,
+                          );
+                        } //_toHomePage
+
+                        ;
                       },
+
                       color: const Color.fromARGB(255, 241, 96, 85),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
