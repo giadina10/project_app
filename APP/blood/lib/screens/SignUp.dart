@@ -155,17 +155,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     color: Colors.black45,
                   ),
                 ),
-                Center(
-                  
-                  child: GestureDetector(
-                    onTap: _showAvatarSelectionDialog,
-                    child: CircleAvatar(
-                      radius: 40, // Size of the avatar
-                      backgroundColor: Colors.grey[200],
-                      backgroundImage: AssetImage(selectedAvatar),
-                    ),
-                  ),
-                ),
+                
                 Padding(
                   padding: const EdgeInsets.only(top: 10, right: 8.0),
                   child: TextFormField(

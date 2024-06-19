@@ -81,6 +81,7 @@ class FeaturesProvider extends ChangeNotifier {
       } else if (value is double) {
         await _prefs?.setDouble(key, value);
       }
+      
     });
 
     // Ricarica le preferenze dopo l'aggiornamento
