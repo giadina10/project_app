@@ -417,7 +417,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setBool('isPregnant', isPregnant ?? false);
                           sp.setBool('isSporty', isSporty ?? false);
                           sp.setDouble('activityLevel', activityLevel);
-                          sp.setString('selectedAvatar', selectedAvatar);
+                          
 
                           // Chiama la funzione updatePreferences del FeaturesProvider
                           Provider.of<FeaturesProvider>(context, listen: false)
@@ -431,7 +431,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'isPregnant': isPregnant ?? false,
                             'isSporty': isSporty ?? false,
                             'activityLevel': activityLevel,
-                            'selectedAvatar': selectedAvatar,
+                            
                           });
 
                           Navigator.pop(context); //controllo se è giusto

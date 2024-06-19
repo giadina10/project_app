@@ -14,7 +14,7 @@ class FeaturesProvider extends ChangeNotifier {
   static const String _isPregnantKey = 'isPregnant';
   static const String _isSportyKey = 'isSporty';
   static const String _activityLevelKey = 'activityLevel';
-  static const String _avatarKey = 'avatar';  // Nuova chiave per l'avatar
+  static const String _avatarKey = 'avatar';  // Chiave per l'avatar
 
   // Variabili per memorizzare i valori
   String _fullName = '';
@@ -44,7 +44,7 @@ class FeaturesProvider extends ChangeNotifier {
   double _activityLevel = 5;
   double get activityLevel => _activityLevel;
 
-  String _avatar = '';  // Nuova variabile per l'avatar
+  String _avatar = '';  // Variabile per l'avatar
   String get avatar => _avatar;
 
   FeaturesProvider() {
@@ -67,7 +67,7 @@ class FeaturesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Funzione per aggiornare le preferenze
+  // Metodo per aggiornare le preferenze
   Future<void> updatePreferences(Map<String, dynamic> values) async {
     if (_prefs == null) return;
 
@@ -81,10 +81,18 @@ class FeaturesProvider extends ChangeNotifier {
       } else if (value is double) {
         await _prefs?.setDouble(key, value);
       }
-      
     });
 
     // Ricarica le preferenze dopo l'aggiornamento
     _loadPrefs();
+  }
+
+  // Metodo per aggiornare l'avatar
+  Future<void> updateAvatar(String avatarPath) async {
+    if (_prefs == null) return;
+
+    await _prefs?.setString(_avatarKey, avatarPath);
+    _avatar = avatarPath;
+    notifyListeners();
   }
 }

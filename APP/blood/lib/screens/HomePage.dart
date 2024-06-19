@@ -12,7 +12,7 @@ import 'package:blood/screens/what_exposure.dart';
 import 'package:blood/screens/StatisticPage.dart';
 
 // Definisco custom app bar
-PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider, Function onAvatarTap, String? selectedAvatar) {
+PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
     backgroundColor: Colors.red,
     centerTitle: true,
@@ -36,42 +36,10 @@ PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider, Function onA
         padding: const EdgeInsets.only(left: 30, bottom: 20),
         child: Row(
           children: [
-            Stack(
-              children: [
-                InkWell(
-                  onTap: () {
-                    onAvatarTap();
-                  },
-                  child: CircleAvatar(
-                    radius: 42,
-                    backgroundColor: Colors.white,
-                    child: selectedAvatar != null
-                        ? Image.asset(
-                            selectedAvatar,
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
-                          )
-                        : Icon(
-                            Icons.person_outline_rounded,
-                            color: Colors.redAccent,
-                          ),
-                  ),
-                ),
-                Container(
-                  height: 30,
-                  width: 30,
-                  decoration: const BoxDecoration(
-                    color: Colors.redAccent,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: const Icon(
-                    Icons.edit,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                )
-              ],
+            Icon(
+              Icons.person_outline_rounded,
+              size: 60,
+              color: Color.fromARGB(255, 250, 247, 247),
             ),
             Container(
               margin: const EdgeInsets.only(left: 20),
@@ -103,14 +71,13 @@ PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider, Function onA
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     ),
   );
 }
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -129,22 +96,15 @@ class _HomePageState extends State<HomePage> {
   DateTime? _selectedDay;
   String? selectedAvatar; // Variabile per memorizzare l'avatar selezionato
   bool isAvatarSelected = false; // Variabile per tracciare la selezione dell'avatar
-
-  // Lista di avatar predefiniti
-  List<String> avatars = [
-    'assets/images/a1.jpg',
-    'assets/images/a2.jpg',
-    'assets/images/a3.jpg',
-    'assets/images/a4.jpg',
-    'assets/images/a5.jpg',
-    'assets/images/a6.jpg'
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selIdx = index;
     });
   }
+
+  
+
+
 
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
@@ -160,70 +120,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadPreferences();
+    
   }
 
-  Future<void> _loadPreferences() async {
-    final sp = await SharedPreferences.getInstance();
-    setState(() {
-      //name = sp.getString('name') ?? 'User';
-      //fullName = sp.getString('fullName') ?? 'User';
-      //email = sp.getString('email') ?? "";
-      selectedAvatar = sp.getString('selectedAvatar') ?? 'assets/images/a1.jpg';
-      isAvatarSelected = sp.getBool('isAvatarSelected') ?? false; // Carica lo stato della selezione avatar
-    });
-  }
 
-  Future<void> _saveAvatar(String avatar) async {
-    final sp = await SharedPreferences.getInstance();
-    setState(() {
-      selectedAvatar = avatar;
-      isAvatarSelected = true; // Imposta lo stato della selezione avatar a true
-    });
-    await sp.setString('avatar', avatar);
-    await sp.setBool('isAvatarSelected', true); // Salva lo stato della selezione avatar
-    //Provider.of<FeaturesProvider>(context, listen: false).updateAvatar(avatar); // Aggiorna l'avatar nel provider
-  }
 
-  void _showAvatarSelectionDialog() {
-    if (isAvatarSelected) {
-      // Mostra un messaggio se l'avatar è già stato selezionato
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Avatar already selected. Go to setting in order to change it!')),
-      );
-      return;
-    }
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Select an Avatar'),
-          content: Container(
-            width: double.maxFinite,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Due colonne
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-                childAspectRatio: 1.0,
-              ),
-              shrinkWrap: true,
-              itemCount: avatars.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    _saveAvatar(avatars[index]);
-                    Navigator.of(context).pop();
-                  },
-                  child: Image.asset(avatars[index]),
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   Widget _homeContent(HomeProvider provider) {
     String advice = getAdvice(provider.risultatoalgoritmo);
@@ -524,12 +425,12 @@ class _HomePageState extends State<HomePage> {
       create: (context) => HomeProvider(),
       builder: (context, _) {
         final provider = Provider.of<HomeProvider>(context);
-        final featuresProvider = Provider.of<FeaturesProvider>(context);
+        
         return Consumer<FeaturesProvider>(
           builder: (context, featuresProvider, child) {
             return Scaffold(
               appBar: _selIdx == 0
-                  ? customAppBar(featuresProvider, _showAvatarSelectionDialog, selectedAvatar)
+                  ? customAppBar(featuresProvider)
                   : AppBar(),
               body: _selIdx == 0 ? _homeContent(provider) : Profile(),
               bottomNavigationBar: BottomNavigationBar(
