@@ -33,13 +33,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Text(item['header'],
                           style: TextStyle(
                               fontSize: 50.0,
-                              fontWeight: FontWeight.w300,
-                              color: Color.fromARGB(241, 245, 139, 112),
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromARGB(240, 246, 20, 12),
                               height: 2.0)),
                       Text(
                         item['description'],
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: const Color.fromARGB(255, 48, 46, 46),
                             letterSpacing: 1.2,
                             fontSize: 16.0,
                             height: 1.3),
@@ -79,12 +79,21 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     });
   }
   
- @override
- Widget build(BuildContext context) {
-  return Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: SafeArea(
         child: Container(
-        
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color.fromARGB(255, 210, 24, 24).withOpacity(0.8),
+                Colors.white.withOpacity(0.8),
+              ],
+            ),
+          ),
           child: Stack(
             children: <Widget>[
               PageView.builder(
@@ -93,17 +102,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return slides[index];
                 },
-              ), 
-              
+              ),
               if (currentPage == slides.length - 1) // Mostra il bottone solo quando si è sull'ultima pagina
                 Positioned(
                   bottom: 80.0,
                   left: 40,
                   right: 40,
-                 
                   child: Center(
-                    
-               
                     child: MaterialButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/login3');
@@ -113,30 +118,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         borderRadius: BorderRadius.circular(50),
                       ),
                       height: 50,
-                      
-                     
                       child: Center(
-                        child: Text("Getting started", style: TextStyle(color: Colors.white, fontSize: 25),),
+                        child: Text(
+                          "Getting started",
+                          style: TextStyle(color: Colors.white, fontSize: 25),
+                        ),
                       ),
                     ),
-                      
                   ),
                 ),
-                //FINO A QUI
-        
               Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: EdgeInsets.only(top: 70.0),
-                    padding: EdgeInsets.symmetric(vertical: 40.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: indicator(),
-                    ),
-                  )
-                  //  ),
-                  )
-              // )
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: EdgeInsets.only(top: 70.0),
+                  padding: EdgeInsets.symmetric(vertical: 40.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: indicator(),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -144,4 +145,3 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     );
   }
 }
-  

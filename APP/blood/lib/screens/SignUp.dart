@@ -155,17 +155,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                     color: Colors.black45,
                   ),
                 ),
-                Center(
-                  
-                  child: GestureDetector(
-                    onTap: _showAvatarSelectionDialog,
-                    child: CircleAvatar(
-                      radius: 40, // Size of the avatar
-                      backgroundColor: Colors.grey[200],
-                      backgroundImage: AssetImage(selectedAvatar),
-                    ),
-                  ),
-                ),
+                
                 Padding(
                   padding: const EdgeInsets.only(top: 10, right: 8.0),
                   child: TextFormField(
@@ -427,7 +417,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           sp.setBool('isPregnant', isPregnant ?? false);
                           sp.setBool('isSporty', isSporty ?? false);
                           sp.setDouble('activityLevel', activityLevel);
-                          sp.setString('selectedAvatar', selectedAvatar);
+                          
 
                           // Chiama la funzione updatePreferences del FeaturesProvider
                           Provider.of<FeaturesProvider>(context, listen: false)
@@ -441,7 +431,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             'isPregnant': isPregnant ?? false,
                             'isSporty': isSporty ?? false,
                             'activityLevel': activityLevel,
-                            'selectedAvatar': selectedAvatar,
+                            
                           });
 
                           Navigator.pop(context); //controllo se è giusto
