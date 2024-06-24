@@ -1,6 +1,8 @@
+import 'package:blood/provider/FeaturesProvider.dart';
 import 'package:blood/screens/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PersonalInfoOnboarding extends StatefulWidget {
@@ -346,6 +348,18 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                           sp.setBool('isPregnant', isPregnant ?? false);
                           sp.setBool('isSporty', isSporty ?? false);
 
+                          Provider.of<FeaturesProvider>(context, listen: false)
+                              .updatePreferences({
+                            'fullName': fullnameController.text,
+                            'name': nameController.text,
+                            'email': emailController.text,
+                            'age': ageController.text,
+                            'weight': weightController.text,
+                            'bs': bs ?? 0,
+                            'isPregnant': isPregnant ?? false,
+                            'isSporty': isSporty ?? false,
+                            'activityLevel': activityLevel, 
+                          });
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
                                 builder: (context) => const HomePage()),
