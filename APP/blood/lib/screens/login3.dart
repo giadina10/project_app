@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage3> {
 
   @override
   Widget build(BuildContext context) {
-    myColor = const Color.fromARGB(255, 241, 96, 85);
+    myColor = Color.fromARGB(255, 121, 8, 0);
     mediaSize = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
@@ -156,14 +156,14 @@ Widget _buildInputField(TextEditingController controller,
           ScaffoldMessenger.of(context)
             ..removeCurrentSnackBar()
             ..showSnackBar(const SnackBar(
-                backgroundColor: Colors.red,
+                backgroundColor: Color.fromARGB(255, 121, 8, 0),
                 behavior: SnackBarBehavior.floating,
                 margin: EdgeInsets.all(8),
                 duration: Duration(seconds: 2),
                 content: Text("username or password incorrect")));
         }
       },
-      color: const Color.fromARGB(255, 241, 96, 85),
+      color: Color.fromARGB(255, 121, 8, 0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
@@ -221,7 +221,7 @@ Widget _buildInputField(TextEditingController controller,
       // If credentials don't match, show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(255, 121, 8, 0),
           content: Text('Incorrect username or password'),
         ),
       );

@@ -25,15 +25,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   bool? isPregnant;
   bool? isSporty;
   double activityLevel = 5; // Default value on the slider
-  String selectedAvatar = 'assets/images/a1.jpg'; // default avatar
-  final List<String> avatars = [
-    'assets/images/a1.jpg',
-    'assets/images/a2.jpg',
-    'assets/images/a3.jpg',
-    'assets/images/a4.jpg',
-    'assets/images/a5.jpg',
-    'assets/images/a6.jpg',
-  ];
+ 
 
   @override
   void initState() {
@@ -66,40 +58,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
     });
   }
 
-  void _showAvatarSelectionDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Select an Avatar'),
-          content: Container(
-            width: double.maxFinite,
-            child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Due colonne
-                mainAxisSpacing: 10.0,
-                crossAxisSpacing: 10.0,
-                childAspectRatio: 1.0,
-              ),
-              shrinkWrap: true,
-              itemCount: avatars.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedAvatar = avatars[index];
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Image.asset(avatars[index]),
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {

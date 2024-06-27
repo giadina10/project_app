@@ -34,7 +34,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           style: TextStyle(
                               fontSize: 50.0,
                               fontWeight: FontWeight.w500,
-                              color: Color.fromARGB(240, 246, 20, 12),
+                              color: Color.fromARGB(255, 121, 8, 0),
                               height: 2.0)),
                       Text(
                         item['description'],
@@ -61,8 +61,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: 10.0,
             decoration: BoxDecoration(
                 color: currentPage.round() == index
-                    ? Color(0XFF256075)
-                    : Color(0XFF256075).withOpacity(0.2),
+                    ? Color.fromARGB(255, 121, 8, 0)
+                    : Color.fromARGB(255, 121, 8, 0).withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10.0)),
           ));
 
@@ -84,16 +84,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                const Color.fromARGB(255, 210, 24, 24).withOpacity(0.8),
-                Colors.white.withOpacity(0.8),
-              ],
-            ),
-          ),
+          color: Color.fromARGB(255, 255, 220, 114),
+        
+        
           child: Stack(
             children: <Widget>[
               PageView.builder(
@@ -113,7 +106,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/login3');
                       },
-                      color: const Color.fromARGB(255, 241, 96, 85),
+                      color: Color.fromARGB(255, 121, 8, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
@@ -141,7 +134,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ],
           ),
         ),
-      ),
+      )
     );
+    
   }
 }

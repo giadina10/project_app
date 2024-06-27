@@ -14,7 +14,7 @@ import 'package:blood/screens/StatisticPage.dart';
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor: Colors.red,
+    backgroundColor: Color.fromARGB(255, 178, 14, 2),
    
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home, color: Colors.redAccent),
+      icon: Icon(Icons.home, color: Color.fromARGB(255, 121, 8, 0)),
       label: 'Home',
     ),
     BottomNavigationBarItem(
@@ -201,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                   'Choose the day you want to donate',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w300,
                     fontFamily: 'Roboto Serif',
                   ),
                 ),
