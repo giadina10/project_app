@@ -1,129 +1,174 @@
+import 'package:blood/screens/BloodDonorCenterPage.dart';
 import 'package:blood/screens/SignUp.dart';
+import 'package:blood/screens/TermsofUsePage.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:flutter/material.dart';
-import 'package:nps_survey/nps_survey.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
-  const Profile({Key? key});
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const  Color.fromARGB(255, 186, 235, 232),
         title: const Text(
           'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        //automaticallyImplyLeading: false, // Rimuovi il pulsante di ritorno alla homepage
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            const Text("Info about you and your preferences",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.black45,
-                )),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              "Account",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10), // Aggiungi spazio sopra alla Tile
-                ListTile(
-                  leading: const Text(
-                    "Edit Profile",
-                    style: TextStyle(fontSize: 14),
-                  ),
-                  trailing: const Icon(Icons.navigate_next),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const PersonalInfo()));
-                  },
-                ),
-                Divider(
-                  color: Color(0xFFFFFFFF),
-                  thickness: 3,
-                ),
-                ListTile(
-                    leading:
-                        Text("Send a Feedback", style: TextStyle(fontSize: 14)),
-                    trailing: Icon(Icons.navigate_next),
-                    onTap: () {
-                      NPSSurvey().showNPSDialog(
-                          context: context,
-                          generalColor: Colors.red,
-                          callback: (feedback, score) {
-                            print(feedback);
-                            print(score);
-                          }
-                      
-                            
-                          );
-                    }
-                    )
-              ],
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
+      backgroundColor: const Color(0xFFE0F7FA), // Sfondo azzurro sfumato chiaro
+      body: SingleChildScrollView(
+        child: Container(
+          color: const  Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Info about you and your preferences",
+                style: TextStyle(fontSize: 12, color: Colors.black45),
+              ),
+              const SizedBox(height: 30),
+              const Text(
+                "Account",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              Column(
                 children: [
-                  const Text(
-                    "About us",
-                    style: TextStyle(fontSize: 16),
+                  const SizedBox(height: 10),
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text("Edit Profile"),
+                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const PersonalInfo(),
+                      ));
+                    },
                   ),
-                  Text(
-                    "Pollutrack aims to improve the consciousness of the user to the air pollutants issue. The user can track the amount of pollutants they has been exposed to during the day and learn useful information about them.",
-                    style: TextStyle(
-                        fontSize: 14, color: Colors.black.withOpacity(0.4)),
+                  ListTile(
+                    leading: const Icon(Icons.location_on),
+                    title: const Text("Our Blood Donor Center"),
+                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => BloodDonorCenterPage(),
+                      ));
+                    },
                   ),
-                  const Align(
-                    alignment: Alignment.center,
-                    child: Text("version 2.0.0"),
-                  )
+                  ListTile(
+                    leading: const Icon(Icons.description),
+                    title: const Text("Terms of Use"),
+                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TermsOfUsePage(),
+                      ));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.feedback),
+                    title: const Text("Send a Feedback"),
+                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    onTap: () {
+                      _showFeedbackDialog(context);
+                    },
+                  ),
                 ],
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                onPressed: () {
-                  _showLogoutDialog(context);
-                },
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        const EdgeInsets.symmetric(
-                            horizontal: 80, vertical: 12)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFF384242))),
-                child: const Text('Log Out'),
+              const SizedBox(height: 20),
+              const Text(
+                "About us",
+                style: TextStyle(fontSize: 16),
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Text(
+                "Pollutrack aims to improve the consciousness of the user to the air pollutants issue. The user can track the amount of pollutants they have been exposed to during the day and learn useful information about them.",
+                style: TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.4)),
+              ),
+              const Align(
+                alignment: Alignment.center,
+                child: Text("version 2.0.0"),
+              ),
+              const SizedBox(height: 20),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showLogoutDialog(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 12),
+                    //primary: const Color(0xFF384242),
+                    //onPrimary: Colors.white,
+                  ),
+                  child: const Text('Log Out'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showFeedbackDialog(BuildContext context) async {
+    int? selectedRating;
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Write a Feedback'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter your feedback here...',
+                  border: OutlineInputBorder(),
+                ),
+                maxLines: 3,
+              ),
+              const SizedBox(height: 10),
+              DropdownButtonFormField<int>(
+                value: selectedRating,
+                hint: const Text('Rate the app'),
+                items: <int>[1, 2, 3, 4, 5].map((int value) {
+                  return DropdownMenuItem<int>(
+                    value: value,
+                    child: Text(value.toString()),
+                  );
+                }).toList(),
+                onChanged: (int? value) {
+                  selectedRating = value;
+                },
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement logic to send feedback and handle rating
+                print('Feedback: ${selectedRating ?? 'No rating selected'}');
+                Navigator.of(context).pop();
+              },
+              child: const Text('Send'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -165,6 +210,7 @@ class Profile extends StatelessWidget {
     final sp = await SharedPreferences.getInstance();
     await sp.clear();
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: ((context) => const LoginPage3())));
+      MaterialPageRoute(builder: ((context) => const LoginPage3())),
+    );
   }
 }

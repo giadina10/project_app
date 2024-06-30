@@ -14,8 +14,7 @@ import 'package:blood/screens/StatisticPage.dart';
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor: Colors.red,
-   
+    backgroundColor: Color.fromARGB(255, 240, 175, 175),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
@@ -69,51 +68,67 @@ PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
     ),
   );
 }
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static const String routeName = 'Homepage'; //inutile forse
+  static const String routeName = 'Homepage';
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  String? name;
-  String? fullName;
-  String? email;
   int _selIdx = 0;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
- 
+
   void _onItemTapped(int index) {
     setState(() {
       _selIdx = index;
     });
   }
 
-  
-
-
-
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home, color: Colors.redAccent),
+      icon: Icon(Icons.home, color:  Color.fromARGB(255, 240, 175, 175)),
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(MdiIcons.account, color: Colors.redAccent),
+      icon: Icon(MdiIcons.account, color:  Color.fromARGB(255, 240, 175, 175)),
       label: 'Profile',
     ),
   ];
 
   @override
-  void initState() {
-    super.initState();
-    
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => HomeProvider(),
+      builder: (context, _) {
+        final provider = Provider.of<HomeProvider>(context);
+
+        return Consumer<FeaturesProvider>(
+          builder: (context, featuresProvider, child) {
+            return Scaffold(
+              appBar: _selIdx == 0 ? customAppBar(featuresProvider) : AppBar(),
+              backgroundColor: Color.fromARGB(255, 186, 235, 232),
+              body: _selIdx == 0 ? _homeContent(provider) : Profile(),
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: const Color(0xFFf5f7f7),
+                items: navBarItems,
+                currentIndex: _selIdx,
+                onTap: _onItemTapped,
+                selectedItemColor: Colors.redAccent,
+                unselectedItemColor: Colors.black,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
- Widget _homeContent(HomeProvider provider) {
+  Widget _homeContent(HomeProvider provider) {
     String advice = getAdvice(provider.risultatoalgoritmo);
     return SingleChildScrollView(
       child: Padding(
@@ -136,16 +151,27 @@ class _HomePageState extends State<HomePage> {
                     return Text(
                       featuresProvider.name,
                       style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'Roboto Serif',
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Roboto Serif',
                       ),
                     );
                   },
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'When do you want to donate?',
+                style: TextStyle(
+                  fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Roboto Serif',
+                ),
+              ),
+            ),
+            const SizedBox(height: 8), // Spazio tra la scritta e il calendario
             TableCalendar(
               firstDay: DateTime.now(),
               lastDay: DateTime.now().add(Duration(days: 2)),
@@ -163,7 +189,7 @@ class _HomePageState extends State<HomePage> {
               calendarFormat: CalendarFormat.week,
               onFormatChanged: (format) {},
               onPageChanged: (focusedDay) {
-                setState(() {
+                setState(() { 
                   _focusedDay = focusedDay;
                 });
               },
@@ -198,7 +224,7 @@ class _HomePageState extends State<HomePage> {
             if (_selectedDay == null)
               Center(
                 child: Text(
-                  'Choose the day you want to donate',
+                  'We will depict our recommandation here',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -288,7 +314,9 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           InkWell(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => WhatExposure())),
+                            onTap: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => WhatExposure())),
                             child: Hero(
                               tag: 'exposure',
                               child: Container(
@@ -303,7 +331,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage('assets/images/hero1.jpg'),
+                                    image: AssetImage(
+                                        'assets/images/hero1.jpg'),
                                   ),
                                 ),
                               ),
@@ -331,7 +360,9 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           InkWell(
-                            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => WhatAirPollution())),
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => WhatAirPollution())),
                             child: Container(
                               width: 300,
                               height: 200,
@@ -344,7 +375,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: AssetImage('assets/images/hero2.jpg'),
+                                  image: AssetImage(
+                                      'assets/images/hero2.jpg'),
                                 ),
                               ),
                             ),
@@ -369,7 +401,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
+  void _handleSelectedDate(
+      HomeProvider provider, DateTime selectedDay) {
     DateTime tomorrow = DateTime.now().add(Duration(days: 1));
     DateTime today = DateTime.now();
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
@@ -404,35 +437,6 @@ class _HomePageState extends State<HomePage> {
       default:
         return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => HomeProvider(),
-      builder: (context, _) {
-        final provider = Provider.of<HomeProvider>(context);
-        
-        return Consumer<FeaturesProvider>(
-          builder: (context, featuresProvider, child) {
-            return Scaffold(
-              appBar: _selIdx == 0
-                  ? customAppBar(featuresProvider)
-                  : AppBar(),
-              body: _selIdx == 0 ? _homeContent(provider) : Profile(),
-              bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: const Color(0xFFf5f7f7),
-                items: navBarItems,
-                currentIndex: _selIdx,
-                onTap: _onItemTapped,
-                selectedItemColor: Colors.redAccent,
-                unselectedItemColor: Colors.black,
-              ),
-            );
-          },
-        );
-      },
-    );
   }
 
   void _toLogin(BuildContext context) async {
