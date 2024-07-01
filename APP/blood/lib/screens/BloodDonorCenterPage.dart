@@ -79,6 +79,8 @@ class BloodDonorCenterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Our Blood Donor Center'),
+        backgroundColor: Color.fromARGB(255, 186, 235, 232),
+        
       ),
       body: Container(
         decoration: BoxDecoration(

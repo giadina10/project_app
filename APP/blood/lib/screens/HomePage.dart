@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         return Consumer<FeaturesProvider>(
           builder: (context, featuresProvider, child) {
             return Scaffold(
-              appBar: _selIdx == 0 ? customAppBar(featuresProvider) : AppBar(),
+              appBar: _selIdx == 0 ? customAppBar(featuresProvider) : AppBar(backgroundColor: Color.fromARGB(255, 186, 235, 232)),
               backgroundColor: Color.fromARGB(255, 186, 235, 232),
               body: _selIdx == 0 ? _homeContent(provider) : Profile(),
               bottomNavigationBar: BottomNavigationBar(

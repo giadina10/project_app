@@ -12,16 +12,16 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const  Color.fromARGB(255, 186, 235, 232),
+        backgroundColor: const Color.fromARGB(255, 186, 235, 232),
         title: const Text(
           'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
-      backgroundColor: const Color(0xFFE0F7FA), // Sfondo azzurro sfumato chiaro
+      backgroundColor: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
       body: SingleChildScrollView(
         child: Container(
-          color: const  Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
+          color: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +39,7 @@ class Profile extends StatelessWidget {
                 children: [
                   const SizedBox(height: 10),
                   ListTile(
-                    leading: const Icon(Icons.person),
+                    leading: const Icon(Icons.person, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Edit Profile"),
                     trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
                     onTap: () {
@@ -49,7 +49,7 @@ class Profile extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.location_on),
+                    leading: const Icon(Icons.location_on, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Our Blood Donor Center"),
                     trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
                     onTap: () {
@@ -59,7 +59,7 @@ class Profile extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.description),
+                    leading: const Icon(Icons.description, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Terms of Use"),
                     trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
                     onTap: () {
@@ -69,7 +69,7 @@ class Profile extends StatelessWidget {
                     },
                   ),
                   ListTile(
-                    leading: const Icon(Icons.feedback),
+                    leading: const Icon(Icons.feedback, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Send a Feedback"),
                     trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
                     onTap: () {
@@ -101,8 +101,8 @@ class Profile extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 12),
-                    //primary: const Color(0xFF384242),
-                    //onPrimary: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 240, 175, 175), // Button background color
+                    foregroundColor: Colors.black, // Black text color
                   ),
                   child: const Text('Log Out'),
                 ),
