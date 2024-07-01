@@ -9,56 +9,7 @@ import 'dart:async';
 
 //import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomWaveDecoration extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Color.fromARGB(255, 253, 189, 169) // Colore dell'ondulazione
-      ..style = PaintingStyle.fill;
-    final Path path = Path()
-      ..moveTo(0, size.height * 0.25) // Inizia in basso a sinistra
-      ..quadraticBezierTo(size.width * 0.25, size.height * 0.75,
-          size.width * 0.5, size.height * 0.5) // Prima curva
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.25, size.width,
-          size.height * 0.75) // Seconda curva
-      ..lineTo(size.width, 0) // Linea verso l'alto a destra
-      ..lineTo(0, 0) // Linea verso sinistra in basso
-      ..close(); // Chiude il percorso
 
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
-}
-
-class CustomBottomWaveDecoration extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Color.fromARGB(255, 253, 189, 169) // Colore dell'ondulazione
-      ..style = PaintingStyle.fill;
-
-    final Path path = Path()
-      ..moveTo(0, size.height) // Inizia in basso a sinistra
-      ..quadraticBezierTo(size.width * 0.25, size.height * 0.25,
-          size.width * 0.5, size.height * 0.5) // Prima curva
-      ..quadraticBezierTo(size.width * 0.75, size.height * 0.75, size.width,
-          size.height * 0.25) // Seconda curva
-      ..lineTo(size.width, size.height) // Linea verso il basso a destra
-      ..lineTo(0, size.height) // Linea verso sinistra in basso
-      ..close(); // Chiude il percorso
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
-  }
-}
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -73,7 +24,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () => _checkLogin(context));
+    Future.delayed(const Duration(seconds: 3), () => _checkLogin(context));
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _startFadeInAnimation()); //t/
     // _navigatetoHome(context);
@@ -116,19 +67,14 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
   //}
 
-  @override
+ @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Color.fromARGB(255, 239, 120, 111),
+          color: Color.fromARGB(255, 240, 175, 175),
           child: Stack(
             children: [
-              CustomPaint(
-                size: Size(MediaQuery.of(context).size.width, 150),
-                painter: CustomWaveDecoration(),
-              ),
               AnimatedOpacity(
                 opacity: _opacity,
                 duration: Duration(seconds: 1),
@@ -137,20 +83,18 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Spacer(flex: 2),
-                       Column(
+                      SizedBox(height: 90),
+                      Column(
                         children: [
                           Text(
                             'Welcome to',
                             style: TextStyle(
-                                 color: Color.fromARGB(255, 121, 8, 0),
+                                color: Color.fromARGB(255, 121, 8, 0),
                                 fontWeight: FontWeight.w100,
-                                
                                 fontSize: 46,
-                
                                 fontFamily: 'PlayfairDisplay'),
                           ),
-                          SizedBox(height: 5), // Aggiungi spazio tra la scritta "Welcome to" e l'icona
+                          SizedBox(height: 5),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
@@ -158,12 +102,12 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                                 'assets/images/splashIcon.png',
                                 scale: 12,
                               ),
-                              SizedBox(width: 5), // Aggiungi spazio tra l'icona e il testo "Donify"
+                              SizedBox(width: 5),
                               Text(
                                 'Donify',
                                 style: TextStyle(
                                   color: Color.fromARGB(255, 121, 8, 0),
-                                  fontSize: 34,
+                                  fontSize: 40,
                                   fontWeight: FontWeight.w800,
                                   fontFamily: 'CustomFont',
                                 ),
@@ -172,16 +116,24 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                           ),
                         ],
                       ),
-
-                      SizedBox(
-                          height: 20), // Spazio tra la riga e l'immagine sotto
+                      SizedBox(height: 20),
                       Image.asset(
                         'assets/images/splash.png',
                         scale: 1,
                       ),
-                      CustomPaint(
-                        size: Size(MediaQuery.of(context).size.width, 150),
-                        painter: CustomBottomWaveDecoration(),
+                    Spacer(), // Aggiunge spazio flessibile tra l'immagine e il testo in basso
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 10), // Aggiunge un padding inferiore
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            'Donify Version 1.0',
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 121, 8, 0),
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
