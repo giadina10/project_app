@@ -246,6 +246,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           color: Colors.redAccent,
                           shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
                           child: Column(
