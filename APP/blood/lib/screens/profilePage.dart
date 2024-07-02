@@ -15,7 +15,7 @@ class Profile extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 186, 235, 232),
         title: const Text(
           'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
@@ -78,21 +78,8 @@ class Profile extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
-              const Text(
-                "About us",
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Pollutrack aims to improve the consciousness of the user to the air pollutants issue. The user can track the amount of pollutants they have been exposed to during the day and learn useful information about them.",
-                style: TextStyle(fontSize: 14, color: Colors.black.withOpacity(0.4)),
-              ),
-              const Align(
-                alignment: Alignment.center,
-                child: Text("version 2.0.0"),
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 20), // Spazio aggiunto tra Send a Feedback e Log Out
+              SizedBox(height: 20), // Spazio aggiunto per separare Send a Feedback e Log Out
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
@@ -121,35 +108,46 @@ class Profile extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Write a Feedback'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter your feedback here...',
-                  border: OutlineInputBorder(),
+          backgroundColor: const Color(0xFFFFE4E1), // Colore rosetta
+          title: const Text(
+            'Write a Feedback',
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter your feedback here...',
+                    border: OutlineInputBorder(),
+                  ),
+                  maxLines: 3,
                 ),
-                maxLines: 3,
-              ),
-              const SizedBox(height: 10),
-              DropdownButtonFormField<int>(
-                value: selectedRating,
-                hint: const Text('Rate the app'),
-                items: <int>[1, 2, 3, 4, 5].map((int value) {
-                  return DropdownMenuItem<int>(
-                    value: value,
-                    child: Text(value.toString()),
-                  );
-                }).toList(),
-                onChanged: (int? value) {
-                  selectedRating = value;
-                },
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 10),
+                const Text(
+                  'How likely you recommend this app to a family member or friends?',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+                DropdownButtonFormField<int>(
+                  value: selectedRating,
+                  hint: const Text('Rate the app'),
+                  items: List.generate(10, (index) => index + 1).map((int value) {
+                    return DropdownMenuItem<int>(
+                      value: value,
+                      child: Text(value.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (int? value) {
+                    selectedRating = value;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(
