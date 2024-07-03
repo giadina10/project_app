@@ -411,20 +411,19 @@ class _HomePageState extends State<HomePage> {
     DateTime today = DateTime.now();
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
-    if (selectedDay.isAfter(tomorrow)) {
+    if (selectedDay.day==dayAfterTomorrow.day) {
       provider.getData(
-          selectedDay.subtract(Duration(days: 9)),
-          selectedDay.subtract(Duration(days: 3)),
+          today.subtract(Duration(days: 7)),
+          today.subtract(Duration(days: 1)),
           7); //prende 7 giorni se clicco dopodomani
-    } else if (selectedDay.isAfter(today) &&
-        selectedDay.isBefore(dayAfterTomorrow)) {
+    } else if (selectedDay.day == tomorrow.day) {
       provider.getData(
-          selectedDay.subtract(Duration(days: 6)),
-          selectedDay.subtract(Duration(days: 2)),
+          today.subtract(Duration(days: 5)),
+          today.subtract(Duration(days: 1)),
           5); //prende 5 giorni indietro rispetto al giorno cliccato
     } else {
-      provider.getData(selectedDay.subtract(Duration(days: 3)),
-          selectedDay.subtract(Duration(days: 1)), 3); //prende 3 giorni
+      provider.getData(today.subtract(Duration(days: 3)),
+          today.subtract(Duration(days: 1)), 3); //prende 3 giorni
     }
   }
 

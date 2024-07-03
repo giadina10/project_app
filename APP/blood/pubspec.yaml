@@ -44,7 +44,9 @@ dependencies:
   table_calendar: ^3.1.1
   nps_survey: ^1.1.0
   fl_chart: ^0.68.0
-  charts_flutter: ^0.11.0
+  
+  
+  
   
   
    

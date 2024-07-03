@@ -47,7 +47,10 @@ class CaloriesPlot extends StatelessWidget {
         ),
       ],
       axes: [
-        Defaults.horizontalAxis,
+        AxisGuide(
+          variable: 'date',
+          label: LabelStyle(textStyle: TextStyle(color: Colors.white)),
+        ),
         Defaults.verticalAxis,
       ],
       selections: {'tap': PointSelection(dim: Dim.x)},
@@ -64,10 +67,7 @@ class CaloriesPlot extends StatelessWidget {
       } else {
         aggregatedData[hour] = calorie.value;
       }
-      
     }
-    print('OK');
-    print(aggregatedData);
 
     return aggregatedData.entries.map((entry) => {
       'date': entry.key,
