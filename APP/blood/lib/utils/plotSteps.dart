@@ -31,7 +31,7 @@ class StepDataPlot extends StatelessWidget {
           position: Varset('date') * Varset('steps'),
           shape: ShapeEncode(value: BasicLineShape(smooth: true)),
           size: SizeEncode(value: 2),
-          color: ColorEncode(value: Color.fromARGB(255, 222, 37, 77)),
+          color: ColorEncode(value: Color.fromARGB(255, 0, 122, 255)),
         ),
         AreaMark(
           gradient: GradientEncode(
@@ -39,7 +39,7 @@ class StepDataPlot extends StatelessWidget {
               begin: const Alignment(0, 0),
               end: const Alignment(0, 1),
               colors: [
-                Color.fromARGB(255, 222, 37, 77).withOpacity(0.6),
+                Color.fromARGB(255, 0, 122, 255).withOpacity(0.6),
                 const Color(0xFFFFFFFF).withOpacity(0.0),
               ],
             ),
