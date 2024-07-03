@@ -39,7 +39,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     //  });
   }
 
-  //3 funzioni inserite ora (17.05)
+  
   void _toHomePage(BuildContext context) {
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const HomePage())); //quando i refresh tokens non sono scaduti, vado diretta alla homepage
@@ -61,11 +61,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       _toLoginPage(context);
     }
   } //_checkLogin
-//questa funzione è nostra
-  //void _navigatetoHome(context)async{
-  // await Future.delayed(Duration(seconds: 3),(){});
-  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context,) => WelcomeScreen()));
-  //}
+
 
  @override
   Widget build(BuildContext context) {

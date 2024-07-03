@@ -7,14 +7,14 @@ import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/provider/FeaturesProvider.dart';
 import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
-import 'package:blood/screens/what_air_pollution.dart';
-import 'package:blood/screens/what_exposure.dart';
+import 'package:blood/screens/hero_afterDonation.dart';
+import 'package:blood/screens/hero_questions.dart';
 import 'package:blood/screens/StatisticPage.dart';
 
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor: Color.fromARGB(255, 240, 175, 175),
+    backgroundColor:Color.fromARGB(255, 240, 175, 175) ,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
@@ -317,9 +317,9 @@ class _HomePageState extends State<HomePage> {
                           InkWell(
                             onTap: () =>
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => WhatExposure())),
+                                    builder: (_) => DoubtsDonation())),
                             child: Hero(
-                              tag: 'exposure',
+                              tag: 'donation',
                               child: Container(
                                 width: 300,
                                 height: 200,
@@ -342,8 +342,8 @@ class _HomePageState extends State<HomePage> {
                           const Padding(
                             padding: EdgeInsets.only(top: 8.0),
                             child: Text(
-                              "What's Exposure?",
-                              style: TextStyle(fontSize: 14),
+                              "Frequently asked questions",
+                              style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -363,21 +363,24 @@ class _HomePageState extends State<HomePage> {
                           InkWell(
                             onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (_) => WhatAirPollution())),
-                            child: Container(
-                              width: 300,
-                              height: 200,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15.0),
-                                  bottomLeft: Radius.circular(15.0),
-                                  bottomRight: Radius.circular(15.0),
-                                  topRight: Radius.circular(15.0),
-                                ),
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                      'assets/images/hero2.jpg'),
+                                    builder: (_) => Postdonation())),
+                                    
+                           child: Hero(
+                              tag: 'information',
+                              child: Container(
+                                width: 300,
+                                height: 200,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15.0),
+                                    bottomLeft: Radius.circular(15.0),
+                                    bottomRight: Radius.circular(15.0),
+                                    topRight: Radius.circular(15.0),
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: AssetImage('assets/images/hero2.jpg'),
+                                  ),
                                 ),
                               ),
                             ),
@@ -385,8 +388,8 @@ class _HomePageState extends State<HomePage> {
                           const Padding(
                             padding: EdgeInsets.only(top: 8.0),
                             child: Text(
-                              "What's Air Pollution?",
-                              style: TextStyle(fontSize: 14),
+                              "Your post-donation information",
+                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
