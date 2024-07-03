@@ -32,9 +32,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     children: <Widget>[
                       Text(item['header'],
                           style: TextStyle(
-                              fontSize: 50.0,
+                              fontSize: 28.0,
                               fontWeight: FontWeight.w500,
-                              color: Color.fromARGB(240, 246, 20, 12),
+                              color: Color.fromARGB(238, 247, 155, 155),
                               height: 2.0)),
                       Text(
                         item['description'],
@@ -89,7 +89,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                const Color.fromARGB(255, 210, 24, 24).withOpacity(0.8),
+                const  Color.fromARGB(255, 186, 235, 232),
                 Colors.white.withOpacity(0.8),
               ],
             ),
@@ -113,7 +113,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/login3');
                       },
-                      color: const Color.fromARGB(255, 241, 96, 85),
+                      color: Color.fromARGB(255, 240, 175, 175),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),

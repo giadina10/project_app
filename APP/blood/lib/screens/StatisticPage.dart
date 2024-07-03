@@ -44,7 +44,7 @@ class Stats extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.redAccent, width: 3),
+                border: Border.all(color: Color.fromARGB(255, 186, 235, 232), width: 3),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: SizedBox(
@@ -57,7 +57,7 @@ class Stats extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.blueAccent, width: 3),
+                border: Border.all(color:Color.fromARGB(255, 186, 235, 232), width: 3),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: SizedBox(
@@ -70,7 +70,7 @@ class Stats extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               margin: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.orangeAccent, width: 3),
+                border: Border.all(color: Color.fromARGB(255, 186, 235, 232), width: 3),
                 borderRadius: BorderRadius.circular(15),
               ),
               child: Column(
@@ -87,9 +87,8 @@ class Stats extends StatelessWidget {
                 ],
               ),
             ),
-            // Container per il plot dei battiti cardiaci
-            
-            // Aggiungere altri widget o contenuti se necessario
+           
+          
           ],
         ),
       ),
