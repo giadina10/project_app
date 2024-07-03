@@ -98,7 +98,6 @@ class _LoginPageState extends State<LoginPage3> {
         const SizedBox(height: 40),
         _buildGreyText("Password"),
         _buildInputField(passwordController, isPassword: true),
-       
         const SizedBox(height: 20),
         _buildLoginButton(),
         const SizedBox(height: 20),
@@ -114,7 +113,7 @@ class _LoginPageState extends State<LoginPage3> {
     );
   }
 
-Widget _buildInputField(TextEditingController controller,
+  Widget _buildInputField(TextEditingController controller,
       {isPassword = false}) {
     return TextFormField(
       controller: controller,
@@ -140,9 +139,7 @@ Widget _buildInputField(TextEditingController controller,
       ),
       obscureText: isPassword && !_passwordVisible,
     );
-}
-
-  
+  }
 
   Widget _buildLoginButton() {
     return MaterialButton(
@@ -150,7 +147,11 @@ Widget _buildInputField(TextEditingController controller,
         if (_validateFields()) {
           final result = await _authorize();
           if (result == 200) {
-            Navigator.pushNamed(context, '/signup_onboarding');
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => PersonalInfoOnboarding()),
+              (Route<dynamic> route) => false,
+            );
           }
         } else {
           ScaffoldMessenger.of(context)
