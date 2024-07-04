@@ -31,7 +31,8 @@ class HomeProvider extends ChangeNotifier {
 
   HomeProvider() {
     init(); //l'inizializzazione è asincrona e getdata non prende le prefernze
-    getData(showDate1, showDate2,num);
+   // getData(showDate1, showDate2,num); L'ABBIAMO COMMENTATA PERCHE' COSI I DATI VENGONO CHIAMATI SOLO QUANDO CLICCO E NON PRIMA!!!!
+   //SE CLICCAVO VELOCEMENTE MI RESTITUIVA DI DEFAULT I DATI DI TRE GIORNI ANCHE SE CLICCAVO DOMANI O DOPODOMANI.
   }
 
 void init() async {
@@ -60,7 +61,7 @@ void init() async {
       // Extract time and values from heartRates
       
 
-      risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps,num); //DA CONTROLLARE (inserita il 10.06.24)
+      risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps,num); 
      
       print('QUESTE SONO LE DATEEEEEE');
       print(showDate1);

@@ -14,7 +14,7 @@ import 'package:blood/screens/StatisticPage.dart';
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor:Color.fromARGB(255, 240, 175, 175) ,
+    backgroundColor: Color.fromARGB(255, 240, 175, 175),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
@@ -91,11 +91,11 @@ class _HomePageState extends State<HomePage> {
 
   List<BottomNavigationBarItem> navBarItems = [
     const BottomNavigationBarItem(
-      icon: Icon(Icons.home, color:  Color.fromARGB(255, 240, 175, 175)),
+      icon: Icon(Icons.home, color: Color.fromARGB(255, 240, 175, 175)),
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(MdiIcons.account, color:  Color.fromARGB(255, 240, 175, 175)),
+      icon: Icon(MdiIcons.account, color: Color.fromARGB(255, 240, 175, 175)),
       label: 'Profile',
     ),
   ];
@@ -110,7 +110,9 @@ class _HomePageState extends State<HomePage> {
         return Consumer<FeaturesProvider>(
           builder: (context, featuresProvider, child) {
             return Scaffold(
-              appBar: _selIdx == 0 ? customAppBar(featuresProvider) : AppBar(backgroundColor: Color.fromARGB(255, 186, 235, 232)),
+              appBar: _selIdx == 0
+                  ? customAppBar(featuresProvider)
+                  : AppBar(backgroundColor: Color.fromARGB(255, 186, 235, 232)),
               backgroundColor: Color.fromARGB(255, 186, 235, 232),
               body: _selIdx == 0 ? _homeContent(provider) : Profile(),
               bottomNavigationBar: BottomNavigationBar(
@@ -152,8 +154,8 @@ class _HomePageState extends State<HomePage> {
                       featuresProvider.name,
                       style: TextStyle(
                         fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto Serif',
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Roboto Serif',
                       ),
                     );
                   },
@@ -166,8 +168,8 @@ class _HomePageState extends State<HomePage> {
                 'When do you want to donate?',
                 style: TextStyle(
                   fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: 'Roboto Serif',
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Roboto Serif',
                 ),
               ),
             ),
@@ -189,7 +191,7 @@ class _HomePageState extends State<HomePage> {
               calendarFormat: CalendarFormat.week,
               onFormatChanged: (format) {},
               onPageChanged: (focusedDay) {
-                setState(() { 
+                setState(() {
                   _focusedDay = focusedDay;
                 });
               },
@@ -198,11 +200,11 @@ class _HomePageState extends State<HomePage> {
                   shape: BoxShape.circle,
                 ),
                 selectedDecoration: BoxDecoration(
-                  color: Colors.redAccent,
+                  color: Color.fromARGB(255, 255, 255, 255),
                   shape: BoxShape.circle,
                 ),
                 selectedTextStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
                 todayTextStyle: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -214,7 +216,8 @@ class _HomePageState extends State<HomePage> {
                 titleCentered: true,
               ),
               daysOfWeekStyle: DaysOfWeekStyle(
-                weekendStyle: TextStyle(color: Colors.redAccent),
+                weekendStyle:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
               ),
               availableCalendarFormats: const {
                 CalendarFormat.week: 'Week',
@@ -233,7 +236,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             else if (provider.isLoading)
-              Center(child: CircularProgressIndicator())
+              Center(
+                  child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 240, 175, 175),
+              ))
             else
               Column(
                 children: [
@@ -244,7 +250,7 @@ class _HomePageState extends State<HomePage> {
                         width: 300,
                         height: 250,
                         decoration: BoxDecoration(
-                          color: Colors.redAccent,
+                          color: Colors.white,
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -265,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                                 advice,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -279,6 +285,16 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   );
                                 },
+                                style: ElevatedButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 50, vertical: 12),
+                                    backgroundColor: const Color.fromARGB(
+                                        255,
+                                        240,
+                                        175,
+                                        175), // Button background color
+                                    foregroundColor:
+                                        Colors.black), // Black text color
                                 child: const Text('Go to statistics'),
                               ),
                             ],
@@ -315,8 +331,8 @@ class _HomePageState extends State<HomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
+                            onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
                                     builder: (_) => DoubtsDonation())),
                             child: Hero(
                               tag: 'donation',
@@ -332,8 +348,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        'assets/images/hero1.jpg'),
+                                    image:
+                                        AssetImage('assets/images/hero1.jpg'),
                                   ),
                                 ),
                               ),
@@ -343,7 +359,8 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Frequently asked questions",
-                              style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -364,8 +381,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () => Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (_) => Postdonation())),
-                                    
-                           child: Hero(
+                            child: Hero(
                               tag: 'information',
                               child: Container(
                                 width: 300,
@@ -379,7 +395,8 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage('assets/images/hero2.jpg'),
+                                    image:
+                                        AssetImage('assets/images/hero2.jpg'),
                                   ),
                                 ),
                               ),
@@ -389,7 +406,8 @@ class _HomePageState extends State<HomePage> {
                             padding: EdgeInsets.only(top: 8.0),
                             child: Text(
                               "Your post-donation information",
-                              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 17, fontWeight: FontWeight.bold),
                             ),
                           ),
                         ],
@@ -405,26 +423,26 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _handleSelectedDate(
-      HomeProvider provider, DateTime selectedDay) {
+  void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
     DateTime tomorrow = DateTime.now().add(Duration(days: 1));
     DateTime today = DateTime.now();
     DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
-    if (selectedDay.isAfter(tomorrow)) {
+    if (selectedDay.day == dayAfterTomorrow.day) {
+      
       provider.getData(
-          selectedDay.subtract(Duration(days: 9)),
-          selectedDay.subtract(Duration(days: 3)),
+        
+          today.subtract(Duration(days: 7)),
+          today.subtract(Duration(days: 1)),
           7); //prende 7 giorni se clicco dopodomani
-    } else if (selectedDay.isAfter(today) &&
-        selectedDay.isBefore(dayAfterTomorrow)) {
+    } else if (selectedDay.day == tomorrow.day) {
       provider.getData(
-          selectedDay.subtract(Duration(days: 6)),
-          selectedDay.subtract(Duration(days: 2)),
+          today.subtract(Duration(days: 5)),
+          today.subtract(Duration(days: 1)),
           5); //prende 5 giorni indietro rispetto al giorno cliccato
     } else {
-      provider.getData(selectedDay.subtract(Duration(days: 3)),
-          selectedDay.subtract(Duration(days: 1)), 3); //prende 3 giorni
+      provider.getData(today.subtract(Duration(days: 3)),
+          today.subtract(Duration(days: 1)), 3); //prende 3 giorni
     }
   }
 
@@ -442,6 +460,8 @@ class _HomePageState extends State<HomePage> {
         return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
     }
   }
+
+  //da rimuovere la seguente funzione
 
   void _toLogin(BuildContext context) async {
     final sp = await SharedPreferences.getInstance();

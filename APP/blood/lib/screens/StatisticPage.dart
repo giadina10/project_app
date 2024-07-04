@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // Importa intl per utilizzare DateFormat
 import 'package:provider/provider.dart';
 import 'package:blood/provider/HomeProvider.dart';
-import 'package:blood/models/heartrate.dart';
-import 'package:blood/models/calories.dart';
 import 'package:blood/models/steps.dart';
-import 'package:blood/utils/plotSteps.dart';
-import 'package:blood/utils/plotCalories.dart';
-import 'package:blood/utils/plotHeartRate.dart'; // Import del nuovo widget PlotHeartRate
+import 'package:blood/models/calories.dart';
+import 'package:blood/models/heartrate.dart'; // Importa il modello HeartRate
 
 class Stats extends StatelessWidget {
   const Stats(this.provider, {Key? key}) : super(key: key);
@@ -18,78 +16,100 @@ class Stats extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Steps> steps = provider.steps;
     List<Calories> calories = provider.calories;
-    List<HeartRate> heartRates = provider.heartrates; // Recupero dei dati del battito cardiaco
+    List<HeartRate> heartRates = provider.heartrates; // Ottieni la lista di HeartRate dal provider
 
-    // Calcolo della media dei valori di Heart Rate
-    double averageHeartRate(List<HeartRate> heartRates) {
-      if (heartRates.isEmpty) return 0;
-
-      int sum = heartRates.map((heartRate) => heartRate.value).reduce((a, b) => a + b);
-      return sum / heartRates.length;
+    // Raggruppa i passi per giorno
+    Map<String, int> totalStepsByDay = {};
+    for (Steps step in steps) {
+      String dayKey = DateFormat('yyyy-MM-dd').format(step.time);
+      totalStepsByDay[dayKey] = (totalStepsByDay[dayKey] ?? 0) + step.value;
     }
+
+    // Raggruppa le calorie per giorno
+    Map<String, double> totalCaloriesByDay = {};
+    for (Calories calorie in calories) {
+      String dayKey = DateFormat('yyyy-MM-dd').format(calorie.time);
+      totalCaloriesByDay[dayKey] = (totalCaloriesByDay[dayKey] ?? 0) + calorie.value;
+    }
+
+    // Raggruppa i battiti cardiaci per giorno
+    Map<String, List<HeartRate>> heartRatesByDay = {};
+    for (HeartRate heartRate in heartRates) {
+      String dayKey = DateFormat('yyyy-MM-dd').format(heartRate.time);
+      if (!heartRatesByDay.containsKey(dayKey)) {
+        heartRatesByDay[dayKey] = [];
+      }
+      heartRatesByDay[dayKey]!.add(heartRate);
+    }
+
+    // Unisci le chiavi di giorni da tutti i raggruppamenti
+    Set<String> allDays = {
+      ...totalStepsByDay.keys,
+      ...totalCaloriesByDay.keys,
+      ...heartRatesByDay.keys,
+    };
+    List<String> sortedDays = allDays.toList()
+      ..sort((a, b) => DateFormat('yyyy-MM-dd').parse(a).compareTo(DateFormat('yyyy-MM-dd').parse(b)));
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 240, 175, 175),
         title: const Text(
-          'Daily Personal Statistics',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+          'Your statistics',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Container per il plot degli steps
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              margin: const EdgeInsets.all(16.0),
+      body: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 240, 175, 175), 
+        ),
+        child: ListView.builder(
+          itemCount: sortedDays.length,
+          itemBuilder: (context, index) {
+            String day = sortedDays[index];
+            int stepsCount = totalStepsByDay[day] ?? 0;
+            double caloriesCount = totalCaloriesByDay[day] ?? 0;
+            List<HeartRate>? heartRatesForDay = heartRatesByDay[day];
+
+            // Calcola la media dei battiti cardiaci per il giorno corrente
+            double averageHeartRate = 0;
+            if (heartRatesForDay != null && heartRatesForDay.isNotEmpty) {
+              int sum = heartRatesForDay.map((hr) => hr.value).reduce((a, b) => a + b);
+              averageHeartRate = sum / heartRatesForDay.length;
+            }
+
+            return Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding: EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Color.fromARGB(255, 186, 235, 232), width: 3),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: SizedBox(
-                height: 200,
-                child: StepDataPlot(stepData: steps),
-              ),
-            ),
-            // Container per il plot delle calorie
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                border: Border.all(color:Color.fromARGB(255, 186, 235, 232), width: 3),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: SizedBox(
-                height: 200,
-                child: CaloriesPlot(caloriesData: calories),
-              ),
-            ),
-            // Container per la media dei battiti cardiaci
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              margin: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color.fromARGB(255, 186, 235, 232), width: 3),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Average Heart Rate',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    averageHeartRate(heartRates).toStringAsFixed(1), // Mostra la media con una cifra decimale
-                    style: TextStyle(fontSize: 24),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 5.0,
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
-            ),
-           
-          
-          ],
+              child: ListTile(
+                leading: Icon(Icons.timeline),
+                title: Text('Date: $day'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Total Steps: $stepsCount'),
+                    Text('Total Calories: ${caloriesCount.toStringAsFixed(2)}'), // Tronca a due cifre decimali
+                    if (heartRatesForDay != null)
+                      Text('Average Heart Rate: ${averageHeartRate.toStringAsFixed(1)} bpm'), // Tronca a una cifra decimale
+                  ],
+                ),
+                onTap: () {
+                  // Azioni quando viene selezionato un elemento della lista
+                },
+              ),
+            );
+          },
         ),
       ),
     );
