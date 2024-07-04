@@ -56,6 +56,7 @@ class Algorithm {
     stepsValues.clear();
     caloriesValues.clear();
     heartRateValues.clear();
+    
 
     for (var heartRate in heartrates) {
       heartRateTimes.add(heartRate.time);
