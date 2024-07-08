@@ -15,12 +15,4 @@ class Steps{
     return 'Steps(time: $time, value: $value)';
   }//toString
 
-  static List<DateTime> getTimeList(List<Steps> stepsList) {
-    return stepsList.map((steps) => steps.time).toList();
-   }
-
-  // Metodo per dividere i valori delle Steps in una lista di int
-  static List<int> getValueList(List<Steps> stepsList) {
-    return stepsList.map((steps) => steps.value).toList();
-  }
 }//Steps

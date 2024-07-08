@@ -21,11 +21,5 @@ class HeartRate {
   String toString() {
     return 'HeartRate(time: $time, value: $value, confidence: $confidence)';
   }
-   static List<DateTime> extractTimes(List<HeartRate> heartRates) {
-    return heartRates.map((heartRate) => heartRate.time).toList();
-  }
-
-  static List<int> extractValues(List<HeartRate> heartRates) {
-    return heartRates.map((heartRate) => heartRate.value).toList();
-}
+   
 }

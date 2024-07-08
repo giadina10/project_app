@@ -19,24 +19,20 @@ class TermsOfUsePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Terms of Use for Blood Prediction App',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 10),
               const Text(
                 '1. About these Terms of Use',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
-                'These Terms of Use (the "Terms") set out the terms and conditions that apply to your use of the Blood Prediction App (the "App"), developed for predicting the optimal day for blood donation using data related to calories, heart rate, and physical activity.',
+                'These Terms of Use (the "Terms") set out the terms and conditions that apply to your use of the Donify (the "App"), developed for predicting the optimal day for blood donation using data related to calories, heart rate, and physical activity.',
                 textAlign: TextAlign.justify,
               ),
               const SizedBox(height: 16),
               const Text(
                 '2. Licence',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -46,7 +42,7 @@ class TermsOfUsePage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 '3. Intellectual Property Rights',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -56,7 +52,7 @@ class TermsOfUsePage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 '4. Use of Data',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -66,7 +62,7 @@ class TermsOfUsePage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 '5. Disclaimer',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -76,7 +72,7 @@ class TermsOfUsePage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 '6. Modifications and Termination',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -86,23 +82,14 @@ class TermsOfUsePage extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 '7. Governing Law and Jurisdiction',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 8),
               const Text(
-                'These Terms are governed by the laws of [insert your country or state]. Any disputes arising out of or in connection with these Terms will be exclusively resolved by the competent courts of [insert your jurisdiction].',
+                'These Terms are governed by the laws of Italy. Any disputes arising out of or in connection with these Terms will be exclusively resolved by the competent courts of Italy.',
                 textAlign: TextAlign.justify,
               ),
-              const SizedBox(height: 16),
-              const Text(
-                '8. Contact Us',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'If you have any questions or concerns regarding these Terms or the use of the App, please contact us at [insert email address] or write to us at [insert postal address].',
-                textAlign: TextAlign.justify,
-              ),
+              const SizedBox(height: 16),       
             ],
           ),
         ),

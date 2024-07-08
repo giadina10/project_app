@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Importa intl per utilizzare DateFormat
-import 'package:provider/provider.dart';
 import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/models/steps.dart';
 import 'package:blood/models/calories.dart';

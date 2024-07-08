@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/provider/FeaturesProvider.dart';
-import 'package:blood/screens/login3.dart';
 import 'package:blood/screens/profilePage.dart';
 import 'package:blood/screens/hero_afterDonation.dart';
 import 'package:blood/screens/hero_questions.dart';
@@ -120,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                 items: navBarItems,
                 currentIndex: _selIdx,
                 onTap: _onItemTapped,
-                selectedItemColor: Colors.redAccent,
+                selectedItemColor: Color.fromARGB(255, 240, 175, 175),
                 unselectedItemColor: Colors.black,
               ),
             );
@@ -143,8 +141,8 @@ class _HomePageState extends State<HomePage> {
                 Text(
                   'Hello, ',
                   style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.normal,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                     fontFamily: 'Roboto Serif',
                   ),
                 ),
@@ -459,15 +457,5 @@ class _HomePageState extends State<HomePage> {
       default:
         return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
     }
-  }
-
-  //da rimuovere la seguente funzione
-
-  void _toLogin(BuildContext context) async {
-    final sp = await SharedPreferences.getInstance();
-    await sp.clear();
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => const LoginPage3()),
-    );
   }
 }

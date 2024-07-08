@@ -1,5 +1,3 @@
-
-
 import 'package:blood/provider/FeaturesProvider.dart';
 import 'package:blood/screens/BloodDonorCenterPage.dart';
 import 'package:blood/screens/HomePage.dart';
@@ -7,7 +5,8 @@ import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/SignUp_onboarding.dart';
 import 'package:blood/screens/Splash.dart';
 import 'package:blood/screens/TermsofUsePage.dart';
-import 'package:blood/screens/login3.dart';
+import 'package:blood/screens/activity_levelpage.dart';
+import 'package:blood/screens/login.dart';
 import 'package:blood/screens/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,10 +33,11 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomePage(),
         '/signup_onboarding': (context) => PersonalInfoOnboarding(),
         '/signup': (context) => PersonalInfo(),
-        '/login3': (context) => LoginPage3(),
+        '/login3': (context) => LoginPage(),
         '/profile': (context) => Profile(),
         '/bloodDonorCenter':(context)=>BloodDonorCenterPage(),
         '/TermsOfUse':(context)=>TermsOfUsePage(),
+        '/activitylevelpage':(context)=>ActivityLevelPage(),
       },
     );
   }

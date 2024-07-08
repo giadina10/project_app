@@ -1,7 +1,8 @@
 import 'package:blood/screens/BloodDonorCenterPage.dart';
 import 'package:blood/screens/SignUp.dart';
 import 'package:blood/screens/TermsofUsePage.dart';
-import 'package:blood/screens/login3.dart';
+import 'package:blood/screens/activity_levelpage.dart';
+import 'package:blood/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,6 +46,16 @@ class Profile extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const PersonalInfo(),
+                      ));
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.fitness_center, color: Color.fromARGB(255, 240, 175, 175)),
+                    title: const Text("Activity Level"),
+                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>  ActivityLevelPage(), // Navigate to the Activity Level Page
                       ));
                     },
                   ),
@@ -208,7 +219,7 @@ class Profile extends StatelessWidget {
     final sp = await SharedPreferences.getInstance();
     await sp.clear();
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: ((context) => const LoginPage3())),
+      MaterialPageRoute(builder: ((context) => const LoginPage())),
     );
   }
 }
