@@ -12,7 +12,7 @@ import 'package:blood/screens/StatisticPage.dart';
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor: Color.fromARGB(255, 240, 175, 175),
+    backgroundColor: Color.fromARGB(255, 240, 197, 197),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                   'Hello, ',
                   style: TextStyle(
                     fontSize: 20,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'Roboto Serif',
                   ),
                 ),
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
                 'When do you want to donate?',
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontFamily: 'Roboto Serif',
                 ),
               ),

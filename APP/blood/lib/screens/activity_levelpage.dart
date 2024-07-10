@@ -6,11 +6,21 @@ class ActivityLevelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Activity Level'),
-        backgroundColor: Color.fromARGB(255, 186, 235, 232), // Updated AppBar color
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0), // Set the height here
+        child: AppBar(
+          backgroundColor: Color.fromARGB(255, 186, 235, 232),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          centerTitle: true, //titolo centrale
+        title: Text('Activity Level',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
+      
       ),
-      backgroundColor: Color.fromARGB(255, 186, 235, 232), // Updated background color
+      ),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255), // Updated background color
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Consumer<FeaturesProvider>(
