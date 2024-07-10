@@ -43,22 +43,29 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     mediaSize = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromARGB(238, 247, 155, 155),
-            Color.fromARGB(255, 186, 235, 232),
-          ],
-        ),
-      ),
+      color: Color.fromARGB(255, 186, 235, 232),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Stack(children: [
-            Positioned(bottom: 0, child: _buildBottom()),
-          ]),
+          child: Stack(
+            children: [
+              
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Image.asset(
+                  'assets/images/login_image.png',
+                  fit: BoxFit.cover,
+                  height: 350,  //altezza immagine
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                child: _buildBottom(),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -68,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       width: mediaSize.width,
       child: Card(
-        color: Color.fromARGB(255, 199, 243, 239),
+        color: Color.fromARGB(255, 255, 255, 255),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(30),
@@ -122,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.grey.shade300,
+          color: Color.fromARGB(255, 145, 144, 144),
           width: 1.0,
         ),
       ),
@@ -135,8 +142,7 @@ class _LoginPageState extends State<LoginPage> {
           return null;
         },
         decoration: InputDecoration(
-          filled: true,
-          fillColor: Color.fromARGB(255, 255, 228, 225), // Cambia il colore di sfondo a rosetta chiarissimo
+        
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(

@@ -49,10 +49,16 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        toolbarHeight: 80,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(70.0), // Set the height here
+        child: AppBar(
+          backgroundColor: Color.fromARGB(255, 186, 235, 232),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+      
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -72,20 +78,10 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
             ),
           ],
         ),
-      ),
+      ),),
       extendBodyBehindAppBar: true,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color.fromARGB(255, 240, 175, 175), // Inizio gradiente dallo stesso colore
-              Color.fromARGB(255, 247, 221, 221), // Fino al bianco (o un altro colore se preferisci)
-            ],
-            stops: [0.5, 1.0], // Punto di inizio e fine del gradiente
-          ),
-        ),
+        
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -100,11 +96,11 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 25,
-                        color: Color.fromARGB(255, 186, 235, 232),
+                        color: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 5,
                     ),
                     const Text(
                       "Tell us something more about you",
@@ -113,6 +109,7 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                         color: Colors.black45,
                       ),
                     ),
+                    const SizedBox(height: 8), //spazio tra scritta e Textformfield
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
