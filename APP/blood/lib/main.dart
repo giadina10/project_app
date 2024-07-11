@@ -7,7 +7,7 @@ import 'package:blood/screens/Splash.dart';
 import 'package:blood/screens/TermsofUsePage.dart';
 import 'package:blood/screens/activity_levelpage.dart';
 import 'package:blood/screens/login.dart';
-import 'package:blood/screens/profilePage.dart';
+import 'package:blood/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/signup_onboarding': (context) => PersonalInfoOnboarding(),
         '/signup': (context) => PersonalInfo(),
         '/login3': (context) => LoginPage(),
-        '/profile': (context) => Profile(),
+        '/settings': (context) => Settings(),
         '/bloodDonorCenter':(context)=>BloodDonorCenterPage(),
         '/TermsOfUse':(context)=>TermsOfUsePage(),
         '/activitylevelpage':(context)=>ActivityLevelPage(),

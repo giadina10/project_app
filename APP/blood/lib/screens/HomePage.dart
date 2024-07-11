@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/provider/FeaturesProvider.dart';
-import 'package:blood/screens/profilePage.dart';
+import 'package:blood/screens/settings.dart';
 import 'package:blood/screens/hero_afterDonation.dart';
 import 'package:blood/screens/hero_questions.dart';
 import 'package:blood/screens/StatisticPage.dart';
@@ -12,7 +11,7 @@ import 'package:blood/screens/StatisticPage.dart';
 // Definisco custom app bar
 PreferredSizeWidget customAppBar(FeaturesProvider featuresProvider) {
   return AppBar(
-    backgroundColor: Color.fromARGB(255, 240, 197, 197),
+    backgroundColor: Color.fromARGB(255, 240, 175, 175),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
         bottom: Radius.circular(30),
@@ -93,8 +92,8 @@ class _HomePageState extends State<HomePage> {
       label: 'Home',
     ),
     BottomNavigationBarItem(
-      icon: Icon(MdiIcons.account, color: Color.fromARGB(255, 240, 175, 175)),
-      label: 'Profile',
+      icon: Icon(Icons.settings, color: Color.fromARGB(255, 240, 175, 175)),
+      label: 'Settings',
     ),
   ];
 
@@ -110,9 +109,11 @@ class _HomePageState extends State<HomePage> {
             return Scaffold(
               appBar: _selIdx == 0
                   ? customAppBar(featuresProvider)
-                  : AppBar(backgroundColor: Color.fromARGB(255, 186, 235, 232)),
+                  : AppBar(
+                      backgroundColor: const Color.fromARGB(255, 186, 235, 232),
+                    ),
               backgroundColor: Color.fromARGB(255, 186, 235, 232),
-              body: _selIdx == 0 ? _homeContent(provider) : Profile(),
+              body: _selIdx == 0 ? _homeContent(provider) : Settings(),
               bottomNavigationBar: BottomNavigationBar(
                 backgroundColor: const Color(0xFFf5f7f7),
                 items: navBarItems,
@@ -129,7 +130,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _homeContent(HomeProvider provider) {
-    String advice = getAdvice(provider.risultatoalgoritmo);
+    RichText advice = getAdvice(provider.risultatoalgoritmo);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -225,7 +226,7 @@ class _HomePageState extends State<HomePage> {
             if (_selectedDay == null)
               Center(
                 child: Text(
-                  'We will depict our recommandation here',
+                  'We will depict our recommendation here',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -240,70 +241,58 @@ class _HomePageState extends State<HomePage> {
               ))
             else
               Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 300,
-                        height: 250,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (_selectedDay != null)
-                                Text(
-                                  provider.risultatoalgoritmo,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              const SizedBox(height: 10),
+                  Center(
+                    child: Container(
+                      width: 350,
+                      height: 400,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (_selectedDay != null)
                               Text(
-                                advice,
+                                provider.risultatoalgoritmo,
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 10),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Stats(provider),
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50, vertical: 12),
-                                    backgroundColor: const Color.fromARGB(
-                                        255,
-                                        240,
-                                        175,
-                                        175), // Button background color
-                                    foregroundColor:
-                                        Colors.black), // Black text color
-                                child: const Text('Go to statistics'),
+                            const SizedBox(height: 10),
+                            advice,
+                            const SizedBox(height: 10),
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Stats(provider),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 12),
+                                backgroundColor:
+                                    const Color.fromARGB(255, 240, 175, 175),
+                                foregroundColor: Colors.black,
                               ),
-                            ],
-                          ),
+                              child: const Text('Go to statistics'),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 30),
             const Text(
               "Learn Something More",
               style: TextStyle(
@@ -422,40 +411,71 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
-    DateTime tomorrow = DateTime.now().add(Duration(days: 1));
-    DateTime today = DateTime.now();
-    DateTime dayAfterTomorrow = today.add(Duration(days: 2));
+  //DateTime targetDate = DateTime(2023,7,19); // Data desiderata: 19 luglio 2023
+  DateTime today = DateTime.now();
+  DateTime tomorrow = today.add(Duration(days: 1));
+  DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
-    if (selectedDay.day == dayAfterTomorrow.day) {
-      
-      provider.getData(
-        
-          today.subtract(Duration(days: 7)),
-          today.subtract(Duration(days: 1)),
-          7); //prende 7 giorni se clicco dopodomani
-    } else if (selectedDay.day == tomorrow.day) {
-      provider.getData(
-          today.subtract(Duration(days: 5)),
-          today.subtract(Duration(days: 1)),
-          5); //prende 5 giorni indietro rispetto al giorno cliccato
-    } else {
-      provider.getData(today.subtract(Duration(days: 3)),
-          today.subtract(Duration(days: 1)), 3); //prende 3 giorni
-    }
+  if (selectedDay.day == dayAfterTomorrow.day) {
+    provider.getData(
+      today.subtract(Duration(days: 7)),
+      today.subtract(Duration(days: 1)),
+      7,
+    ); // Prende i dati per i 7 giorni precedenti al 19 luglio 2023
+  } else if (selectedDay.day == tomorrow.day) {
+    provider.getData(
+      today.subtract(Duration(days: 5)),
+      today.subtract(Duration(days: 1)),
+      5,
+    ); // Prende i dati per i 5 giorni precedenti al 19 luglio 2023
+  } else {
+    provider.getData(
+      today.subtract(Duration(days: 3)),
+      today.subtract(Duration(days: 1)),
+      3,
+    ); // Prende i dati per i 3 giorni precedenti al 19 luglio 2023
   }
+}
 
-  String getAdvice(String risultatoAlgoritmo) {
+  RichText getAdvice(String risultatoAlgoritmo) {
+    String adviceText;
     switch (risultatoAlgoritmo) {
       case '1':
-        return 'Consiglio: Mantieni uno stile di vita sano e continua così!';
+        adviceText =
+            'Alert! Your heart rate is too high. It is advisable to maintain a healthy lifestyle and continue monitoring your heart rate. It may be best to avoid donating blood until your heart rate stabilizes.'; //battito cardiaco troppo alto
+        break;
       case '2':
-        return 'Consiglio: Cerca di fare più esercizio fisico ogni giorno.';
+        adviceText =
+            'Great job! Your step count, calorie burn, and heart rate are all in optimal ranges. You are an excellent candidate for blood donation. Keep it up!'; //battiti+passi+calorie nel range corretto.
+        break;
       case '3':
-        return 'Consiglio: PERFETTOOOOOOO.';
+        adviceText =
+            "Well done! You've achieved a great number of steps and maintained a healthy heart rate. However, considering the significant calorie burn during blood donation (approximately 650 kcal per liter of blood donated), it's advisable to eat something nutritious before donating. This ensures you have enough energy and nutrients to support your body through the process. Remember, donating blood is a noble act, and taking care of yourself before and after is crucial for a smooth and positive experience.";
+        //tante calorie bruciate
+        break;
       case '4':
-        return 'Consiglio: Prova a ridurre lo stress con tecniche di rilassamento.';
+        adviceText =
+            " Consider incorporating more physical activity into your daily routine. Aim for at least 30 minutes of moderate-intensity exercise most days of the week, such as brisk walking, cycling, or swimming. This can help maintain a healthy heart rate and prepare you for blood donation. Remember, donating blood burns calories, so ensuring a balanced diet and hydration before donation is important.";
+        //non abbastanza attività fisica.
+        break;
       default:
-        return 'Consiglio: Continua a monitorare i tuoi parametri di salute.';
+        adviceText =
+            ''; //non dovrebbe mai uscire, serve perchè nell'algoritmo dobbiamo valutare tutti i range di età, ma alcuni non verranno mai fuori
+      //range età (18-65). 
     }
+
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(
+          fontSize: 17,
+          color: Colors.black,
+        ),
+        children: [
+          TextSpan(
+            text: adviceText,
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -10,7 +10,11 @@ class BloodDonorCenterPage extends StatelessWidget {
       "location": "Milano",
       "email": "info@trasfusionalemilano.it"
     },
-    {"name": "AVIS Firenze", "location": "Firenze", "email": "info@avisfirenze.it"},
+    {
+      "name": "AVIS Firenze",
+      "location": "Firenze",
+      "email": "info@avisfirenze.it"
+    },
     {
       "name": "Ospedale Papa Giovanni XXIII",
       "location": "Bergamo",
@@ -51,7 +55,11 @@ class BloodDonorCenterPage extends StatelessWidget {
       "location": "Genova",
       "email": "info@ospedalesanmartino.it"
     },
-    {"name": "Ospedale Careggi", "location": "Firenze", "email": "info@careggifirenze.it"},
+    {
+      "name": "Ospedale Careggi",
+      "location": "Firenze",
+      "email": "info@careggifirenze.it"
+    },
     {
       "name": "Ospedale Universitario Padova",
       "location": "Padova",
@@ -78,13 +86,15 @@ class BloodDonorCenterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Our Blood Donor Center'),
+        title: const Text(
+          'Our Blood Donor Centers',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Color.fromARGB(255, 186, 235, 232),
-        
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: const  Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro
+          color: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -92,27 +102,27 @@ class BloodDonorCenterPage extends StatelessWidget {
             children: [
               for (var center in bloodDonationCenters)
                 Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // Bordo arrotondato
-                    side: BorderSide(color: Colors.white, width: 1), // Contorno bianco
-                  ),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Container(
                     padding: const EdgeInsets.all(16),
-                    color: Colors.white, // Sfondo bianco
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+
+                      borderRadius:
+                          BorderRadius.circular(15.0), //container arrotondati
+                    ),
                     child: ListTile(
-                      title: Text(center["name"]!),
+                      title: Text(center["name"]!,style: TextStyle(fontWeight: FontWeight.bold),),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(center["location"]!),
                           const SizedBox(height: 4),
-                          Text(center["email"]!, style: TextStyle(fontSize: 12)),
+                          Text(center["email"]!,
+                              style: TextStyle(fontSize: 12)),
                         ],
                       ),
-                      onTap: () {
-                        // Azioni da eseguire al cliccare su un centro (opzionale)
-                      },
                     ),
                   ),
                 ),

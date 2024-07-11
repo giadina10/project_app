@@ -8,6 +8,7 @@ class DoubtsDonation extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 240, 175, 175), // Sfondo azzurro
       appBar: AppBar(
+        centerTitle: true, //centro titolo nell'appbar
         title: Text('Q&A', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Color.fromARGB(255, 240, 175, 175),
       ),

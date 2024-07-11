@@ -6,8 +6,8 @@ import 'package:blood/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Profile extends StatelessWidget {
-  const Profile({Key? key}) : super(key: key);
+class Settings extends StatelessWidget {
+  const Settings({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +15,8 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 186, 235, 232),
         title: const Text(
-          'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          'Settings',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 34),
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro

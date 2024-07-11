@@ -24,6 +24,7 @@ class Algorithm {
     return values.reduce((a, b) => a + b) / values.length;
   }
 
+
   double sum(List<double> numbers) {
     double total = 0;
     for (var number in numbers) {
@@ -39,6 +40,7 @@ class Algorithm {
     }
     return total;
   }
+ 
 
   Future<void> saveResult(String result) async {
     await sp.setString('decision_result', result);
@@ -90,9 +92,7 @@ class Algorithm {
 
     print('QUESTI SONO I PASSI');
     print(stepsSum);
-
-    print('ETA UTENTEEEEEE');
-    print(age);
+    
 
     String result = '';
 
@@ -112,7 +112,7 @@ class Algorithm {
             }
           } else { //se i passi sono inferiori al minimo (15000)
             if (caloriesSum < num*1900) {
-              result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
+              result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da "fermo"), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
             } else { //se però ha fatto comunque attività fisica (non in termini di passi)
               result = "2"; // come il primo caso di 2: significa che ha fatto pochi passi però ha compensato con altra attività fisica + ha i battiti cardiaci giusti. forniamo lo 

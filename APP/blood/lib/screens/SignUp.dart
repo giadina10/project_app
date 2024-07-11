@@ -63,7 +63,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0), // Set the height here
+        preferredSize: Size.fromHeight(70.0), 
         child: AppBar(
           backgroundColor: Color.fromARGB(255, 186, 235, 232),
           shape: const RoundedRectangleBorder(
@@ -72,15 +72,17 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ),
           ),
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          
             children: [
               Image.asset(
                 'assets/images/splashIcon.png',
-                scale: 8,
+                scale: 10,
               ),
               const SizedBox(width: 10),
+              
               const Text(
                 'Donify',
+                
                 style: TextStyle(
                   fontSize: 34,
                   fontWeight: FontWeight.bold,
