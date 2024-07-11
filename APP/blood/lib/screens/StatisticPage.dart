@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Importa intl per utilizzare DateFormat
+import 'package:intl/intl.dart';
 import 'package:blood/provider/HomeProvider.dart';
 import 'package:blood/models/steps.dart';
 import 'package:blood/models/calories.dart';
-import 'package:blood/models/heartrate.dart'; // Importa il modello HeartRate
+import 'package:blood/models/heartrate.dart';
 
 class Stats extends StatelessWidget {
   const Stats(this.provider, {Key? key}) : super(key: key);
@@ -15,13 +15,26 @@ class Stats extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Steps> steps = provider.steps;
     List<Calories> calories = provider.calories;
-    List<HeartRate> heartRates = provider.heartrates; // Ottieni la lista di HeartRate dal provider
+    List<HeartRate> heartRates = provider.heartrates;
 
     // Raggruppa i passi per giorno
     Map<String, int> totalStepsByDay = {};
     for (Steps step in steps) {
       String dayKey = DateFormat('yyyy-MM-dd').format(step.time);
       totalStepsByDay[dayKey] = (totalStepsByDay[dayKey] ?? 0) + step.value;
+    }
+
+    // Calcola la media dei passi per i giorni diversi da zero
+    double averageSteps = 0;
+    int totalDaysWithSteps = 0;
+    totalStepsByDay.forEach((day, stepsCount) {
+      if (stepsCount > 0) {
+        averageSteps += stepsCount;
+        totalDaysWithSteps++;
+      }
+    });
+    if (totalDaysWithSteps > 0) {
+      averageSteps /= totalDaysWithSteps;
     }
 
     // Raggruppa le calorie per giorno
@@ -53,6 +66,7 @@ class Stats extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 240, 175, 175),
+        centerTitle: true,
         title: const Text(
           'Your statistics',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
@@ -60,7 +74,7 @@ class Stats extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 240, 175, 175), 
+          color: Color.fromARGB(255, 240, 175, 175),
         ),
         child: ListView.builder(
           itemCount: sortedDays.length,
@@ -75,6 +89,11 @@ class Stats extends StatelessWidget {
             if (heartRatesForDay != null && heartRatesForDay.isNotEmpty) {
               int sum = heartRatesForDay.map((hr) => hr.value).reduce((a, b) => a + b);
               averageHeartRate = sum / heartRatesForDay.length;
+            }
+
+            // Sostituisci i passi 0 con la media totale dei passi
+            if (stepsCount == 0 && totalDaysWithSteps > 0) {
+              stepsCount = averageSteps.toInt();
             }
 
             return Container(
@@ -93,19 +112,16 @@ class Stats extends StatelessWidget {
               ),
               child: ListTile(
                 leading: Icon(Icons.timeline),
-                title: Text('Date: $day'),
+                title: Text('Date: $day', style: TextStyle(fontWeight: FontWeight.bold)),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Total Steps: $stepsCount'),
-                    Text('Total Calories: ${caloriesCount.toStringAsFixed(2)}'), // Tronca a due cifre decimali
+                    Text('Total Calories: ${caloriesCount.toStringAsFixed(2)} kcal'),
                     if (heartRatesForDay != null)
-                      Text('Average Heart Rate: ${averageHeartRate.toStringAsFixed(1)} bpm'), // Tronca a una cifra decimale
+                      Text('Average Heart Rate: ${averageHeartRate.toStringAsFixed(1)} bpm'),
                   ],
                 ),
-                onTap: () {
-                  // Azioni quando viene selezionato un elemento della lista
-                },
               ),
             );
           },

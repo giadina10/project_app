@@ -354,55 +354,60 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                         ),
                       ),
                     Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 32),
-                        child: SizedBox(
-                          width: 200,
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                final sp = await SharedPreferences.getInstance();
-                                sp.setString('fullName', fullnameController.text);
-                                sp.setString('name', nameController.text);
-                                sp.setString('email', emailController.text);
-                                sp.setString('age', ageController.text);
-                                sp.setString('weight', weightController.text);
-                                sp.setInt('bs', bs ?? 0);
-                                sp.setBool('isPregnant', isPregnant ?? false);
-                                sp.setBool('isSporty', isSporty ?? false);
+  child: Padding(
+    padding: const EdgeInsets.only(top: 32),
+    child: SizedBox(
+      width: 200,
+      child: ElevatedButton(
+        onPressed: () async {
+          if (_formKey.currentState!.validate()) {
+            final sp = await SharedPreferences.getInstance();
+            sp.setString('fullName', fullnameController.text);
+            sp.setString('name', nameController.text);
+            sp.setString('email', emailController.text);
+            sp.setString('age', ageController.text);
+            sp.setString('weight', weightController.text);
+            sp.setInt('bs', bs ?? 0);
+            sp.setBool('isPregnant', isPregnant ?? false);
+            sp.setBool('isSporty', isSporty ?? false);
 
-                                Provider.of<FeaturesProvider>(context, listen: false)
-                                    .updatePreferences({
-                                  'fullName': fullnameController.text,
-                                  'name': nameController.text,
-                                  'email': emailController.text,
-                                  'age': ageController.text,
-                                  'weight': weightController.text,
-                                  'bs': bs ?? 0,
-                                  'isPregnant': isPregnant ?? false,
-                                  'isSporty': isSporty ?? false,
-                                  'activityLevel': activityLevel,
-                                });
-                                Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(builder: (context) => const HomePage()),
-                                  (route) => false,
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 186, 235, 232),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            child: Text(
-                              'Save',
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+            Provider.of<FeaturesProvider>(context, listen: false)
+                .updatePreferences({
+              'fullName': fullnameController.text,
+              'name': nameController.text,
+              'email': emailController.text,
+              'age': ageController.text,
+              'weight': weightController.text,
+              'bs': bs ?? 0,
+              'isPregnant': isPregnant ?? false,
+              'isSporty': isSporty ?? false,
+              'activityLevel': activityLevel,
+            });
+
+            // Chiama completeOnboarding per segnare il completamento
+            await completeOnboarding();
+
+            // Naviga alla HomePage dopo aver completato l'onboarding
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const HomePage()),
+              (route) => false,
+            );
+          }
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color.fromARGB(255, 186, 235, 232),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        child: Text(
+          'Save',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+    ),
+  ),
+),
                   ],
                 ),
               ),
@@ -412,4 +417,8 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
       ),
     );
   }
+}
+Future<void> completeOnboarding() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setBool('onboardingCompleted', true);
 }

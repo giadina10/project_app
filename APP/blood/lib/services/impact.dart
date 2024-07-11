@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:blood/models/calories.dart';
 import 'package:blood/models/heartrate.dart';
 import 'package:blood/models/steps.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -24,7 +22,7 @@ class Impact {
   static String patientUsername = 'Jpefaq6m58';
 
 
-  //PARTE DA CONTROLLARE, INSERITA ORA (17.05.24)
+  
 
   //This method allows to check if the IMPACT backend is up
   Future<bool> isImpactUp() async {
@@ -142,11 +140,11 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   //Get the stored access token
   final sp = await SharedPreferences.getInstance();
   var access = sp.getString('access');
-  print('$access');
+
 
   // Check and refresh access token if expired
   if (JwtDecoder.isExpired(access!)) {
-   print('scaduto');
+   print('Expired');
    await refreshTokens();
    access = sp.getString('access');
  }
@@ -183,7 +181,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   };
 }
 
-
+//funzione per richiedere steps
  Future<List<Steps>?> _requestDataSteps(access,stepsUrl) async {
     //Initialize the result
     List<Steps>? result;
@@ -219,6 +217,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
 
   }//_requestDataSteps
 
+//funzione per richiedere calories
   Future<List<Calories>?> _requestDataCalories(access, caloriesUrl) async {
   // Initialize the result
   List<Calories>? result;
@@ -256,7 +255,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
   }
   return result;
   }
-
+//funzione per richiedere heartrate
   Future<List<HeartRate>?> _requestDataHeartRate(access, heartRateUrl) async {
   // Initialize the result
   List<HeartRate>? result;

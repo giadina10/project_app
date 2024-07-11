@@ -1,6 +1,6 @@
 
 
-import 'package:blood/services/impact2.dart';
+import 'package:blood/services/impact.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/models/heartrate.dart';
 import 'package:blood/models/calories.dart';
@@ -41,7 +41,7 @@ void init() async {
 }
    Future<void> getPreferences() async {
     sp = await SharedPreferences.getInstance();
-     risultatoalgoritmo = sp.getString('algoritmo_result') ?? "";  // Carica il risultato salvato //da CONTROLLARE (inserita il 10-06-24)
+     risultatoalgoritmo = sp.getString('algoritmo_result') ?? "";  // Carica il risultato salvato 
      notifyListeners();
   }
 
@@ -57,8 +57,7 @@ void init() async {
       heartrates = dati['heartRates'];
       steps = dati['steps'];
       calories = dati['calories'];
-      //visto che non dovrebbero esserci valori null, procediamo con la divisione dei dati in liste (tempo) e lista (valore)
-      // Extract time and values from heartRates
+      
       
 
       risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps,num); 

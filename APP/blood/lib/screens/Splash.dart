@@ -1,13 +1,11 @@
-//import 'package:animated_splash_screen/animated_splash_screen.dart';
+
 import 'package:blood/screens/HomePage.dart';
-import 'package:blood/services/impact2.dart';
+import 'package:blood/screens/SignUp_onboarding.dart';
+import 'package:blood/services/impact.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
 import 'dart:async';
-
-//import 'package:shared_preferences/shared_preferences.dart';
-
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -17,51 +15,65 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
-  double _opacity = 0.0; //t
+  double _opacity = 0.0;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () => _checkLogin(context));
+    Future.delayed(const Duration(seconds: 1), () => _checkLogin(context));
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _startFadeInAnimation()); //t/
-    // _navigatetoHome(context);
+        .addPostFrameCallback((_) => _startFadeInAnimation());
   }
 
-//t funzione
   void _startFadeInAnimation() {
-    // Future.delayed(Duration(milliseconds: 500), () {
     setState(() {
       _opacity = 1.0;
     });
-    //  });
   }
 
-  
   void _toHomePage(BuildContext context) {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const HomePage())); //quando i refresh tokens non sono scaduti, vado diretta alla homepage
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) =>
+            const HomePage())); //quando i refresh tokens non sono scaduti, vado diretta alla homepage
   } //_toHomePage
 
   // Method for navigation SplashPage -> LoginPage
   void _toLoginPage(BuildContext context) {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: ((context) =>
-            WelcomeScreen()))); //TODO: cambiare a loginpage3!!!!
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: ((context) => WelcomeScreen())));
   } //_toLoginPage
 
   void _checkLogin(BuildContext context) async {
     final result = await Impact().refreshTokens();
-    //final result = 400; // DA RIMUOVERE: utile SOLO in fase di check codice per vedere anche login e welcome. SCOMMMENTA RIGA SOPRA PER RISOLVERE +
+
+    final bool isOnboardingCompleted = await checkOnboardingCompletion();
     if (result == 200) {
-      _toHomePage(context);
+      if (isOnboardingCompleted) {
+        _toHomePage(context);
+      } else {
+        _toOnboardingPage(context);
+      }
     } else {
       _toLoginPage(context);
     }
-  } //_checkLogin
+  }
+//funzione per controllare se, prima di aver runnato il codice mentre si era sull'onboarding, il questionario era stato completato
+//non vogliamo che, se il questionario non viene completato e runniamo l'app, ci rimandi nella homepage! 
+  Future<bool> checkOnboardingCompletion() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool onboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;
+    return onboardingCompleted;
+  }
 
+  void _toOnboardingPage(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+          builder: (context) =>
+              const PersonalInfoOnboarding()), 
+    );
+  }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -115,9 +127,10 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                         'assets/images/splash.png',
                         scale: 1,
                       ),
-                    Spacer(), // Aggiunge spazio flessibile tra l'immagine e il testo in basso
+                      Spacer(), // Aggiunge spazio flessibile tra l'immagine e il testo in basso
                       Padding(
-                        padding: const EdgeInsets.only(bottom: 10), // Aggiunge un padding inferiore
+                        padding: const EdgeInsets.only(
+                            bottom: 10), // Aggiunge un padding inferiore
                         child: Align(
                           alignment: Alignment.bottomCenter,
                           child: Text(
