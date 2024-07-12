@@ -164,7 +164,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
             Center(
               child: Text(
-                'When do you want to donate?',
+                'When would you like to donate?',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -226,7 +226,7 @@ class _HomePageState extends State<HomePage> {
             if (_selectedDay == null)
               Center(
                 child: Text(
-                  'We will depict our recommendation here',
+                  "You'll find our recommendation for the upcoming three days when you click on the calendar",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -293,11 +293,14 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             const SizedBox(height: 30),
-            const Text(
-              "Learn Something More",
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'Roboto Serif',
+            Center(
+              child: const Text(
+                "Learn Something More",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: 'Roboto Serif',
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
             const SizedBox(height: 15),

@@ -42,11 +42,6 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
   double activityLevel = 5; // Default value on the slider
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -58,30 +53,29 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
               bottom: Radius.circular(30),
             ),
           ),
-      
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/images/splashIcon.png',
-              scale: 8,
-            ),
-            const SizedBox(width: 10),
-            const Text(
-              'Donify',
-              style: TextStyle(
-                fontSize: 34,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'CustomFont',
-                color: Colors.black,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/splashIcon.png',
+                scale: 8,
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+              const Text(
+                'Donify',
+                style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'CustomFont',
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),),
+      ),
       extendBodyBehindAppBar: true,
       body: Container(
-        
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -109,7 +103,8 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                         color: Colors.black45,
                       ),
                     ),
-                    const SizedBox(height: 8), //spazio tra scritta e Textformfield
+                    const SizedBox(
+                        height: 8), //spazio tra scritta e Textformfield
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -326,11 +321,13 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                                   return AlertDialog(
                                     title: Text(
                                       "Attention",
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                     content: Text(
                                       "Your generosity in considering blood donation is appreciated. However, due to your current condition, we advise waiting until after the birth to donate.",
-                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500),
                                     ),
                                     actions: [
                                       TextButton(
@@ -340,7 +337,8 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                                         child: Text(
                                           "OK",
                                           style: TextStyle(
-                                            color: Color.fromARGB(255, 247, 143, 139),
+                                            color: Color.fromARGB(
+                                                255, 247, 143, 139),
                                           ),
                                         ),
                                       ),
@@ -354,60 +352,65 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                         ),
                       ),
                     Center(
-  child: Padding(
-    padding: const EdgeInsets.only(top: 32),
-    child: SizedBox(
-      width: 200,
-      child: ElevatedButton(
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            final sp = await SharedPreferences.getInstance();
-            sp.setString('fullName', fullnameController.text);
-            sp.setString('name', nameController.text);
-            sp.setString('email', emailController.text);
-            sp.setString('age', ageController.text);
-            sp.setString('weight', weightController.text);
-            sp.setInt('bs', bs ?? 0);
-            sp.setBool('isPregnant', isPregnant ?? false);
-            sp.setBool('isSporty', isSporty ?? false);
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 32),
+                        child: SizedBox(
+                          width: 200,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                final sp =
+                                    await SharedPreferences.getInstance();
+                                sp.setString(
+                                    'fullName', fullnameController.text);
+                                sp.setString('name', nameController.text);
+                                sp.setString('email', emailController.text);
+                                sp.setString('age', ageController.text);
+                                sp.setString('weight', weightController.text);
+                                sp.setInt('bs', bs ?? 0);
+                                sp.setBool('isPregnant', isPregnant ?? false);
+                                sp.setBool('isSporty', isSporty ?? false);
 
-            Provider.of<FeaturesProvider>(context, listen: false)
-                .updatePreferences({
-              'fullName': fullnameController.text,
-              'name': nameController.text,
-              'email': emailController.text,
-              'age': ageController.text,
-              'weight': weightController.text,
-              'bs': bs ?? 0,
-              'isPregnant': isPregnant ?? false,
-              'isSporty': isSporty ?? false,
-              'activityLevel': activityLevel,
-            });
+                                Provider.of<FeaturesProvider>(context,
+                                        listen: false)
+                                    .updatePreferences({
+                                  'fullName': fullnameController.text,
+                                  'name': nameController.text,
+                                  'email': emailController.text,
+                                  'age': ageController.text,
+                                  'weight': weightController.text,
+                                  'bs': bs ?? 0,
+                                  'isPregnant': isPregnant ?? false,
+                                  'isSporty': isSporty ?? false,
+                                  'activityLevel': activityLevel,
+                                });
 
-            // Chiama completeOnboarding per segnare il completamento
-            await completeOnboarding();
+                                // Chiama completeOnboarding per segnare il completamento del questionario
+                                await completeOnboarding();
 
-            // Naviga alla HomePage dopo aver completato l'onboarding
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => const HomePage()),
-              (route) => false,
-            );
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color.fromARGB(255, 186, 235, 232),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        child: Text(
-          'Save',
-          style: TextStyle(color: Colors.black),
-        ),
-      ),
-    ),
-  ),
-),
+                                // Naviga alla HomePage  solo dopo aver completato l'onboarding
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()),
+                                  (route) => false,
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Color.fromARGB(255, 186, 235, 232),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            child: Text(
+                              'Save',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -418,6 +421,7 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
     );
   }
 }
+
 Future<void> completeOnboarding() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setBool('onboardingCompleted', true);

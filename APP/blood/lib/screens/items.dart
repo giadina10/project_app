@@ -6,7 +6,7 @@ List items = [
     "header": "Did you know?",
     "description":
         "Donating blood can save up to three lives! Your contribution helps patients in critical need of transfusions due to accidents, surgeries, or medical treatments. Be a hero today and make a life-saving difference!.",
-    "image": "assets/images/welcome1.jpg"
+    "image": "assets/images/welcome1.png"
   },
   {
     "header": "Decide",

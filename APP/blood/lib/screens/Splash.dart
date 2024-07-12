@@ -20,7 +20,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () => _checkLogin(context));
+    Future.delayed(const Duration(seconds: 2), () => _checkLogin(context));
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _startFadeInAnimation());
   }

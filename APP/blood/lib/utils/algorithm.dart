@@ -78,23 +78,21 @@ class Algorithm {
 
     // Calcola la media dei battiti cardiaci
     double heartRateMean = calculateMean(heartRateValues);
-    print('QUESTO è IL BATTITO MEDIO');
-    print(heartRateMean);
+   
 
     // Calcola la somma delle calorie totali di 3 giorni
     double caloriesSum = sum(caloriesValues);
-    print('QUESTE SONO LE CALORIE');
-    print(caloriesSum);
+ 
 
     // Calcola la somma dei passi totali di 3 giorni
     int stepsSum = sumt(stepsValues); //se questa somma è maggiore di 1900x3 = 5700 kcal, vuol dire che ha consumato troppe calorie
     //e dovrebbe prestare attenzione perchè donare fa bruciare 650 kcal quindi è consigliabile una buona colazione prima di donare (no latticini etc)
 
-    print('QUESTI SONO I PASSI');
-    print(stepsSum);
-    
+    String result = ''; //inizializzo stringa risultato
 
-    String result = '';
+    //NB: "num" è una variabile che può prendere i valori 3,5,7 a seconda del giorno selezionato nel calendario
+
+    
 
     // Esegui le condizioni del decision tree
     if (bs == 1) { //se è femmina
@@ -110,7 +108,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo
             if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da "fermo"), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -134,7 +132,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo 
             if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -156,7 +154,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo 
             if (caloriesSum < num*1900) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -178,7 +176,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo
             if (caloriesSum < num*1800) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -200,7 +198,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo
             if (caloriesSum < num*1600) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -224,7 +222,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo 
             if (caloriesSum < num*2500) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -248,7 +246,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo 
             if (caloriesSum < num*2400) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -270,7 +268,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo 
             if (caloriesSum < num*2400) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.
@@ -292,7 +290,7 @@ class Algorithm {
               result = "3"; //3 significa che ha battiti cardiaci giusti+passi giusti+ MA ha bruciato troppe calorie.
               //fornire un consiglio su mangiare qualcosa a colazione perchè donazione implica perdita di 650 kcal
             }
-          } else { //se i passi sono inferiori al minimo (15000)
+          } else { //se i passi sono inferiori al minimo
             if (caloriesSum < num*2200) {
               result = "4"; //4 significa che non ha fatto tanta attività fisica (neanche da fermo), però ha i battiti cardiaci giusti
               //quindi forniamo un consiglio su fare più attività fisica.

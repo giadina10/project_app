@@ -28,15 +28,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Column(
                     children: <Widget>[
                       Text(item['header'],
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 28.0,
                               fontWeight: FontWeight.w500,
                               color: Color.fromARGB(238, 247, 155, 155),
                               height: 2.0)),
                       Text(
                         item['description'],
-                        style: TextStyle(
-                            color: const Color.fromARGB(255, 48, 46, 46),
+                        style: const TextStyle(
+                          fontFamily: 'Roboto Serif',
+                          fontWeight: FontWeight.w400,
+                            color: Color.fromARGB(255, 0, 0, 0),
                             letterSpacing: 1.2,
                             fontSize: 16.0,
                             height: 1.3),
@@ -58,8 +60,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             width: 10.0,
             decoration: BoxDecoration(
                 color: currentPage.round() == index
-                    ? Color(0XFF256075)
-                    : Color(0XFF256075).withOpacity(0.2),
+                    ? const Color(0XFF256075)
+                    : const Color(0XFF256075).withOpacity(0.2),
                 borderRadius: BorderRadius.circular(10.0)),
           ));
 
@@ -81,16 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                const  Color.fromARGB(255, 186, 235, 232),
-                Colors.white.withOpacity(0.8),
-              ],
-            ),
-          ),
+          color: const Color.fromARGB(255, 186, 235, 232),
           child: Stack(
             children: <Widget>[
               PageView.builder(

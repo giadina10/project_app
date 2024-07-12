@@ -71,20 +71,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
               bottom: Radius.circular(30),
             ),
           ),
-          title: Row(
-          
-            children: [
-              Image.asset(
-                'assets/images/splashIcon.png',
-                scale: 10,
-              ),
-              const SizedBox(width: 10),
-              
-              const Text(
-                'Donify',
-                
-                style: TextStyle(
-                  fontSize: 34,
+           title: Padding(
+            padding: const EdgeInsets.only(left: 55.0), // per far si che icona+scritta siano in posizione centrale 
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/images/splashIcon.png',
+                  scale: 10,
+                ),
+                const SizedBox(width: 10),
+                const Text(
+                  'Donify',
+                  style: TextStyle(
+                    fontSize: 32,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'CustomFont',
                   color: Colors.black,
@@ -93,6 +92,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
             ],
           ),
         ),
+      ),
       ),
       body: SafeArea(
         child: isLoading
@@ -112,14 +112,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           color: Color.fromARGB(255, 0, 0, 0),
                         ),
                       ),
-                      const SizedBox(height: 5),
-                      const Text(
-                        "Tell us something more about you",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black45,
-                        ),
-                      ),
+                      
                       Padding(
                         padding: const EdgeInsets.only(top: 10, right: 8.0),
                         child: TextFormField(
