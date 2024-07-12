@@ -49,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
         body: SafeArea(
           child: Stack(
             children: [
-              
               Positioned(
                 top: 0,
                 left: 0,
@@ -57,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Image.asset(
                   'assets/images/login_image.png',
                   fit: BoxFit.cover,
-                  height: 350,  //altezza immagine
+                  height: 350, //altezza immagine
                 ),
               ),
               Positioned(
@@ -123,7 +122,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _buildInputField(TextEditingController controller, {bool isPassword = false}) {
+  Widget _buildInputField(TextEditingController controller,
+      {bool isPassword = false}) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -142,7 +142,6 @@ class _LoginPageState extends State<LoginPage> {
           return null;
         },
         decoration: InputDecoration(
-        
           suffixIcon: isPassword
               ? IconButton(
                   icon: Icon(
@@ -185,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
             ));
         }
       },
-      color: const Color.fromARGB(238, 247, 155, 155),
+      color: Color.fromARGB(255, 240, 175, 175),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(50),
       ),
@@ -193,25 +192,24 @@ class _LoginPageState extends State<LoginPage> {
       child: Center(
         child: Text(
           "Login",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white, fontSize: 23),
         ),
       ),
     );
   }
 
   Future<int?> _authorize() async {
-    // Check if the input credentials match the specified username and password
+    // Controllo delle credenziali
     if (userController.text == 'x9Cr5EWXIY' &&
         passwordController.text == '12345678!') {
-      // Create the request
+      // creo richiesta
       final url = Impact.baseUrl + Impact.tokenEndpoint;
       final body = {'username': Impact.username, 'password': Impact.password};
 
-      // Get the response
+      // Risposta
       print('Calling: $url');
       final response = await http.post(Uri.parse(url), body: body);
 
-      // If 200, set the token
       if (response.statusCode == 200) {
         final decodedResponse = jsonDecode(response.body);
         final sp = await SharedPreferences.getInstance();
@@ -219,10 +217,9 @@ class _LoginPageState extends State<LoginPage> {
         sp.setString('refresh', decodedResponse['refresh']);
       }
 
-      // Just return the status code
       return response.statusCode;
     } else {
-      // If credentials don't match, show error message
+      //messaggio di errore se credenziali non sono corrette
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: const Color.fromARGB(238, 247, 155, 155),
