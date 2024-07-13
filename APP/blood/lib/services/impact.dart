@@ -185,7 +185,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
  Future<List<Steps>?> _requestDataSteps(access,stepsUrl) async {
     //Initialize the result
     List<Steps>? result;
-    //Create the (representative) request
+
     
     final headers = {HttpHeaders.authorizationHeader: 'Bearer $access'};
     
@@ -236,8 +236,7 @@ Future<Map<String, List<dynamic>>?> getDataFrom3Days(DateTime startTime, DateTim
 
     for (var dayData in daysData) {
       String date = dayData['date'];
-      List<dynamic> caloriesData = dayData['data']; // Replace 'stepsData' with 'caloriesData' if the key is different
-
+      List<dynamic> caloriesData = dayData['data']; 
       for (var calorieData in caloriesData) {
           // Parse time in hh:mm:ss format
         final timeString = '$date ${calorieData["time"]}';

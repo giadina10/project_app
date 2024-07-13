@@ -12,14 +12,14 @@ import 'package:blood/utils/algorithm.dart';
 
 
 class HomeProvider extends ChangeNotifier {
-  // Data to be used by the UI
-  Map<String, dynamic> dati = {}; // Variable Map returned by the getDataFrom3Days function
+ 
+  Map<String, dynamic> dati = {}; 
   List<HeartRate> heartrates = [];
   List<Steps> steps = [];
   List<Calories> calories = [];
   DateTime showDate1 = DateTime.now().subtract(const Duration(days: 3));
   DateTime showDate2 = DateTime.now().subtract(const Duration(days: 1));
-  bool isLoading = true; // New variable to track loading state
+  bool isLoading = true; 
   int num = 3; //per algoritmo
   
   String risultatoalgoritmo = "" ;
@@ -30,9 +30,8 @@ class HomeProvider extends ChangeNotifier {
   
 
   HomeProvider() {
-    init(); //l'inizializzazione è asincrona e getdata non prende le prefernze
-   // getData(showDate1, showDate2,num); L'ABBIAMO COMMENTATA PERCHE' COSI I DATI VENGONO CHIAMATI SOLO QUANDO CLICCO E NON PRIMA!!!!
-   //SE CLICCAVO VELOCEMENTE MI RESTITUIVA DI DEFAULT I DATI DI TRE GIORNI ANCHE SE CLICCAVO DOMANI O DOPODOMANI.
+    init(); 
+  
   }
 
 void init() async {
@@ -47,12 +46,12 @@ void init() async {
 
   void getData(DateTime showDate1, DateTime showDate2,num) async {
     isLoading = true;
-    notifyListeners(); // Notify listeners that loading is starting
+    notifyListeners(); 
 
     final fetchedData = await impact.getDataFrom3Days(showDate1, showDate2);
     if (fetchedData != null) {
       dati = fetchedData;
-       // Directly assign data
+     
       
       heartrates = dati['heartRates'];
       steps = dati['steps'];
@@ -62,15 +61,13 @@ void init() async {
 
       risultatoalgoritmo= await algoritmo.decisionTree(heartrates,calories,steps,num); 
      
-      print('QUESTE SONO LE DATEEEEEE');
-      print(showDate1);
-      print(showDate2);
+     
      
     } else {
       print('Error fetching data.');
     }
 
     isLoading = false;
-    notifyListeners(); // Notify listeners that loading is finished
+    notifyListeners(); 
   }
 }

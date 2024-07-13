@@ -8,6 +8,7 @@ class Postdonation extends StatelessWidget {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 240, 175, 175),
       appBar: AppBar(
+        centerTitle: true,
         title: Text('After the donation',
             style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Color.fromARGB(255, 240, 175, 175),

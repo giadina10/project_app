@@ -297,10 +297,9 @@ class _HomePageState extends State<HomePage> {
               child: const Text(
                 "Learn Something More",
                 style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Roboto Serif',
-                  fontWeight: FontWeight.bold
-                ),
+                    fontSize: 16,
+                    fontFamily: 'Roboto Serif',
+                    fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 15),
@@ -414,31 +413,31 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _handleSelectedDate(HomeProvider provider, DateTime selectedDay) {
-  //DateTime targetDate = DateTime(2023,7,19); // Data desiderata: 19 luglio 2023
-  DateTime today = DateTime.now();
-  DateTime tomorrow = today.add(Duration(days: 1));
-  DateTime dayAfterTomorrow = today.add(Duration(days: 2));
+   // DateTime targetDate = DateTime(2023,7,19); // Data desiderata: 19 luglio 2023
+    DateTime today = DateTime.now();
+    DateTime tomorrow = today.add(Duration(days: 1));
+    DateTime dayAfterTomorrow = today.add(Duration(days: 2));
 
-  if (selectedDay.day == dayAfterTomorrow.day) {
-    provider.getData(
-      today.subtract(Duration(days: 7)),
-      today.subtract(Duration(days: 1)),
-      7,
-    ); // Prende i dati per i 7 giorni precedenti al 19 luglio 2023
-  } else if (selectedDay.day == tomorrow.day) {
-    provider.getData(
-      today.subtract(Duration(days: 5)),
-      today.subtract(Duration(days: 1)),
-      5,
-    ); // Prende i dati per i 5 giorni precedenti al 19 luglio 2023
-  } else {
-    provider.getData(
-      today.subtract(Duration(days: 3)),
-      today.subtract(Duration(days: 1)),
-      3,
-    ); // Prende i dati per i 3 giorni precedenti al 19 luglio 2023
+    if (selectedDay.day == dayAfterTomorrow.day) {
+      provider.getData(
+        today.subtract(Duration(days: 7)),
+        today.subtract(Duration(days: 1)),
+        7,
+      ); 
+    } else if (selectedDay.day == tomorrow.day) {
+      provider.getData(
+        today.subtract(Duration(days: 5)),
+        today.subtract(Duration(days: 1)),
+        5,
+      ); 
+    } else {
+      provider.getData(
+        today.subtract(Duration(days: 3)),
+        today.subtract(Duration(days: 1)),
+        3,
+      ); 
+    }
   }
-}
 
   RichText getAdvice(String risultatoAlgoritmo) {
     String adviceText;
@@ -463,8 +462,7 @@ class _HomePageState extends State<HomePage> {
         break;
       default:
         adviceText =
-            ''; //non dovrebbe mai uscire, serve perchè nell'algoritmo dobbiamo valutare tutti i range di età, ma alcuni non verranno mai fuori
-      //range età (18-65). 
+            ''; //non dovrebbe mai uscire
     }
 
     return RichText(

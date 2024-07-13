@@ -73,7 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.initState();
     _pageViewController.addListener(() {
       setState(() {
-        currentPage = _pageViewController.page!; //null check
+        currentPage = _pageViewController.page!; 
       });
     });
   }
@@ -93,7 +93,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   return slides[index];
                 },
               ),
-              if (currentPage == slides.length - 1) // Mostra il bottone solo quando si è sull'ultima pagina
+              if (currentPage == slides.length - 1) 
                 Positioned(
                   bottom: 80.0,
                   left: 40,
