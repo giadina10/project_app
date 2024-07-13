@@ -6,9 +6,9 @@ class DoubtsDonation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 240, 175, 175), // Sfondo azzurro
+      backgroundColor: Color.fromARGB(255, 240, 175, 175), 
       appBar: AppBar(
-        centerTitle: true, //centro titolo nell'appbar
+        centerTitle: true, 
         title: Text('Q&A', style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Color.fromARGB(255, 240, 175, 175),
       ),
@@ -99,13 +99,7 @@ class DoubtsDonation extends StatelessWidget {
                         TextSpan(
                           text: 'If you are a recreational athlete, you should be able to continue your activities the next day, but we discourage you from doing any rigorous exercise following your donation. If you are a competitive athlete, we recommend not donating in the few weeks leading up to an event or race.\n\n',
                         ),
-                        TextSpan(
-                          text: 'Are there any other suggestions to improve the donation experience?\n',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextSpan(
-                          text: 'Bring a book or music to listen to keep yourself entertained. We have free WiFi at our donor centres for you to use during your appointment.\n\n',
-                        ),
+                        
                         TextSpan(
                           text: 'What about after the donor leaves the Donor Centre or blood drive, what should they do?\n',
                           style: TextStyle(fontWeight: FontWeight.bold),

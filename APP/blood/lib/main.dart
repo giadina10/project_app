@@ -2,7 +2,7 @@ import 'package:blood/provider/FeaturesProvider.dart';
 import 'package:blood/screens/BloodDonorCenterPage.dart';
 import 'package:blood/screens/HomePage.dart';
 import 'package:blood/screens/SignUp.dart';
-import 'package:blood/screens/SignUp_onboarding.dart';
+import 'package:blood/screens/signUp_onboarding.dart';
 import 'package:blood/screens/Splash.dart';
 import 'package:blood/screens/TermsofUsePage.dart';
 import 'package:blood/screens/activity_levelpage.dart';
@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider( //se sono più provider, meglio usare MultiProvider. nel nostro caso è solo uno.
-      create: (_) => FeaturesProvider(), //inizializzo nuovo provider per gestire le shared preferences
+    ChangeNotifierProvider( 
+      create: (_) => FeaturesProvider(), 
       child: const MyApp(),
     ),
   );

@@ -1,6 +1,6 @@
 
 import 'package:blood/screens/HomePage.dart';
-import 'package:blood/screens/SignUp_onboarding.dart';
+import 'package:blood/screens/signUp_onboarding.dart';
 import 'package:blood/services/impact.dart';
 import 'package:flutter/material.dart';
 import 'package:blood/screens/WelcomePage.dart';
@@ -57,8 +57,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       _toLoginPage(context);
     }
   }
-//funzione per controllare se, prima di aver runnato il codice mentre si era sull'onboarding, il questionario era stato completato
-//non vogliamo che, se il questionario non viene completato e runniamo l'app, ci rimandi nella homepage! 
+
   Future<bool> checkOnboardingCompletion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool onboardingCompleted = prefs.getBool('onboardingCompleted') ?? false;

@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 import 'package:blood/provider/FeaturesProvider.dart';
 
 class PersonalInfo extends StatefulWidget {
@@ -20,12 +21,11 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
-  DateTime selectedDate = DateTime.now();
   int? bs;
   bool? isPregnant;
   bool? isSporty;
-  double activityLevel = 5; // Default value on the slider
-  bool isLoading = true; // State variable to track loading state
+  double activityLevel = 5; 
+  bool isLoading = true; 
 
   @override
   void initState() {
@@ -34,28 +34,19 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   void _loadPrefs() async {
-    final sp = await SharedPreferences.getInstance();
-    int? bioS = sp.getInt('bs');
-    String age = sp.getString('age') ?? "";
-    String fullName = sp.getString('fullName') ?? '';
-    String email = sp.getString('email') ?? "";
-    String name = sp.getString('name') ?? "";
-    String weight = sp.getString('weight') ?? "";
-    bool? pregnant = sp.getBool('isPregnant');
-    bool? sporty = sp.getBool('isSporty');
-    double? activity =
-        sp.getDouble('activityLevel') ?? 5; // Default to 5 if not found
+    final featuresProvider = Provider.of<FeaturesProvider>(context, listen: false);
+    await featuresProvider.loadPrefs(); // Carica le preferenze
     setState(() {
-      bs = bioS;
-      ageController.text = age;
-      fullnameController.text = fullName;
-      nameController.text = name;
-      emailController.text = email;
-      weightController.text = weight;
-      isPregnant = pregnant;
-      isSporty = sporty;
-      activityLevel = activity;
-      isLoading = false; // Set isLoading to false when data is loaded
+      fullnameController.text = featuresProvider.fullName;
+      nameController.text = featuresProvider.name;
+      emailController.text = featuresProvider.email;
+      ageController.text = featuresProvider.age;
+      weightController.text = featuresProvider.weight;
+      bs = featuresProvider.bs;
+      isPregnant = featuresProvider.isPregnant;
+      isSporty = featuresProvider.isSporty;
+      activityLevel = featuresProvider.activityLevel;
+      isLoading = false; 
     });
   }
 
@@ -96,7 +87,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
       ),
       body: SafeArea(
         child: isLoading
-            ? Center(child: CircularProgressIndicator()) // Show loading indicator while data is loading
+            ? Center(child: CircularProgressIndicator()) 
             : SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Form(
@@ -330,7 +321,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                           activeColor: Color.fromARGB(255, 186, 235, 232),
                         ),
                       ),
-                      if (bs == 1) // Show only if "Female" is selected
+                      if (bs == 1)
                         Padding(
                           padding: const EdgeInsets.only(top: 10, right: 8.0),
                           child: CheckboxListTile(
@@ -422,7 +413,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                             child: Text(
                               'Save',
                               style: TextStyle(color: Colors.black),
-                              // Cambia il colore del testo
+                             
                             ),
                           ),
                         ),
@@ -434,4 +425,4 @@ class _PersonalInfoState extends State<PersonalInfo> {
       ),
     );
   }
-}
+} 

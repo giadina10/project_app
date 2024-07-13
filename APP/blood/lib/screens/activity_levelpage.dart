@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:blood/provider/FeaturesProvider.dart'; // Adjust the import path as necessary
+import 'package:blood/provider/FeaturesProvider.dart'; 
 
 class ActivityLevelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0), // Set the height here
+        preferredSize: Size.fromHeight(70.0), 
         child: AppBar(
           backgroundColor: Color.fromARGB(255, 186, 235, 232),
           shape: const RoundedRectangleBorder(
@@ -15,12 +15,12 @@ class ActivityLevelPage extends StatelessWidget {
               bottom: Radius.circular(30),
             ),
           ),
-          centerTitle: true, //titolo centrale
+          centerTitle: true,
         title: Text('Activity Level',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 28),),
       
       ),
       ),
-      backgroundColor: Color.fromARGB(255, 255, 255, 255), // Updated background color
+      backgroundColor: Color.fromARGB(255, 255, 255, 255), 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Consumer<FeaturesProvider>(

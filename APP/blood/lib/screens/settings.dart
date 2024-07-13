@@ -19,10 +19,10 @@ class Settings extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black,fontSize: 34),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
+      backgroundColor: const Color.fromARGB(255, 186, 235, 232), 
       body: SingleChildScrollView(
         child: Container(
-          color: const Color.fromARGB(255, 186, 235, 232), // Sfondo azzurro sfumato chiaro
+          color: const Color.fromARGB(255, 186, 235, 232),
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,14 +55,14 @@ class Settings extends StatelessWidget {
                     trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>  ActivityLevelPage(), // Navigate to the Activity Level Page
+                        builder: (context) =>  ActivityLevelPage(), 
                       ));
                     },
                   ),
                   ListTile(
                     leading: const Icon(Icons.location_on, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Our Blood Donor Center"),
-                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    trailing: const Icon(Icons.navigate_next),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => BloodDonorCenterPage(),
@@ -72,7 +72,7 @@ class Settings extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.description, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Terms of Use"),
-                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    trailing: const Icon(Icons.navigate_next), 
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const TermsOfUsePage(),
@@ -82,7 +82,7 @@ class Settings extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.feedback, color: Color.fromARGB(255, 240, 175, 175)),
                     title: const Text("Send a Feedback"),
-                    trailing: const Icon(Icons.navigate_next), // Freccetta di navigazione
+                    trailing: const Icon(Icons.navigate_next), 
                     onTap: () {
                       _showFeedbackDialog(context);
                     },
@@ -99,8 +99,8 @@ class Settings extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 12),
-                    backgroundColor: const Color.fromARGB(255, 240, 175, 175), // Button background color
-                    foregroundColor: Colors.black, // Black text color
+                    backgroundColor: const Color.fromARGB(255, 240, 175, 175), 
+                    foregroundColor: Colors.black, 
                   ),
                   child: const Text('Log Out'),
                 ),
@@ -119,7 +119,7 @@ class Settings extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFFFE4E1), // Colore rosetta
+          backgroundColor: const Color(0xFFFFE4E1), 
           title: const Text(
             'Write a Feedback',
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -137,7 +137,7 @@ class Settings extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  'How likely you recommend this app to a family member or friends?',
+                  'How likely is it that you will recommend Donify to a family member or friend on a scale from 1 to 10?',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
@@ -169,7 +169,7 @@ class Settings extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // Implement logic to send feedback and handle rating
+                
                 print('Feedback: ${selectedRating ?? 'No rating selected'}');
                 Navigator.of(context).pop();
               },
@@ -198,14 +198,14 @@ class Settings extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               onPressed: () async {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
                 await _logout(context);
               },
               child: const Text('Yes'),
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
               },
               child: const Text('No'),
             ),
