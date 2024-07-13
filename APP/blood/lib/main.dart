@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider( //se sono più provider, meglio usare MultiProvider. nel nostro caso è solo uno.
-      create: (_) => FeaturesProvider(), //inizializzo nuovo provider per gestire le shared preferences
+    ChangeNotifierProvider( 
+      create: (_) => FeaturesProvider(), 
       child: const MyApp(),
     ),
   );

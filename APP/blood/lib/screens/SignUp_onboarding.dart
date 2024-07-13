@@ -5,21 +5,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CustomIcon extends StatelessWidget {
-  final IconData iconData;
-  final Color color;
-
-  const CustomIcon({required this.iconData, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Icon(
-      iconData,
-      color: color,
-    );
-  }
-}
-
 class PersonalInfoOnboarding extends StatefulWidget {
   const PersonalInfoOnboarding({Key? key}) : super(key: key);
 
@@ -254,8 +239,8 @@ class _PersonalInfoState extends State<PersonalInfoOnboarding> {
                       ),
                       hint: Row(
                         children: [
-                          CustomIcon(
-                            iconData: MdiIcons.genderMaleFemale,
+                          Icon(
+                            MdiIcons.genderMaleFemale,
                             color: Color.fromARGB(255, 46, 54, 54),
                           ),
                           const SizedBox(width: 10),

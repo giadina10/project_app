@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 import 'package:blood/provider/FeaturesProvider.dart';
 
 class PersonalInfo extends StatefulWidget {
@@ -20,7 +21,6 @@ class _PersonalInfoState extends State<PersonalInfo> {
   final TextEditingController weightController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
-  DateTime selectedDate = DateTime.now();
   int? bs;
   bool? isPregnant;
   bool? isSporty;
@@ -34,27 +34,18 @@ class _PersonalInfoState extends State<PersonalInfo> {
   }
 
   void _loadPrefs() async {
-    final sp = await SharedPreferences.getInstance();
-    int? bioS = sp.getInt('bs');
-    String age = sp.getString('age') ?? "";
-    String fullName = sp.getString('fullName') ?? '';
-    String email = sp.getString('email') ?? "";
-    String name = sp.getString('name') ?? "";
-    String weight = sp.getString('weight') ?? "";
-    bool? pregnant = sp.getBool('isPregnant');
-    bool? sporty = sp.getBool('isSporty');
-    double? activity =
-        sp.getDouble('activityLevel') ?? 5; // Default to 5 if not found
+    final featuresProvider = Provider.of<FeaturesProvider>(context, listen: false);
+    await featuresProvider.loadPrefs(); // Carica le preferenze
     setState(() {
-      bs = bioS;
-      ageController.text = age;
-      fullnameController.text = fullName;
-      nameController.text = name;
-      emailController.text = email;
-      weightController.text = weight;
-      isPregnant = pregnant;
-      isSporty = sporty;
-      activityLevel = activity;
+      fullnameController.text = featuresProvider.fullName;
+      nameController.text = featuresProvider.name;
+      emailController.text = featuresProvider.email;
+      ageController.text = featuresProvider.age;
+      weightController.text = featuresProvider.weight;
+      bs = featuresProvider.bs;
+      isPregnant = featuresProvider.isPregnant;
+      isSporty = featuresProvider.isSporty;
+      activityLevel = featuresProvider.activityLevel;
       isLoading = false; // Set isLoading to false when data is loaded
     });
   }
@@ -434,4 +425,4 @@ class _PersonalInfoState extends State<PersonalInfo> {
       ),
     );
   }
-}
+} 

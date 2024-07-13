@@ -47,11 +47,11 @@ class FeaturesProvider extends ChangeNotifier {
  
 
   FeaturesProvider() {
-    _loadPrefs();
+    loadPrefs();
   }
 
   // Metodo per caricare le preferenze
-  Future<void> _loadPrefs() async {
+  Future<void> loadPrefs() async {
     _prefs = await SharedPreferences.getInstance();
     _fullName = _prefs?.getString(_fullNameKey) ?? '';
     _name = _prefs?.getString(_nameKey) ?? '';
@@ -83,7 +83,7 @@ class FeaturesProvider extends ChangeNotifier {
     });
 
     // Ricarica le preferenze dopo l'aggiornamento
-    _loadPrefs();
+    loadPrefs();
   }
 
 
